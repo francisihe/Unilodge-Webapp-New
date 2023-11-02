@@ -21,3 +21,10 @@ Single property page:
 1. View details of house including pictures
 2. Have a button with link to view view of property on youtube or instagram
 3. Booking section appears below each property to allow for easy booking
+
+
+
+// Active Process
+1. 
+
+// To-do
