@@ -28,3 +28,5 @@ Single property page:
 1. 
 
 // To-do
+1. Implement email verification via code. Refer: https://dev.to/cyberwolves/how-to-verify-user-email-in-node-express-eaj
+2. Implement password forgot process

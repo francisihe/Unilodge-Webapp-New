@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import authRouter from './routes/auth.js'
 
 const app = express(); // Express App
 dotenv.config(); // Environment Variables
@@ -9,10 +10,14 @@ dotenv.config(); // Environment Variables
 app.use((express.json())); // Body Parser
 app.use(cookieParser());   // Cookie Parser
 
-// Routes
+
+// Test Route
 app.get('/test', (req, res) => {
     res.send('Hello World');
 })
+
+// Routes
+app.use('/api/v1/auth', authRouter)
 
 // Port and DB Connection
 const port = process.env.PORT || 3000;
