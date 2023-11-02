@@ -8,7 +8,7 @@ Basics:
 4. App allows users bookmark houses for viewing later
 
 Admins and Managers:
-1. Three categories of users - Admins, Managers, Regular
+1. Three categories of users - Admins, Managers, User
 2. Admins can perform all actions - including creating and deleting property, users, bookings and payments and adjusting access levels
 3.  Managers can do same except delete users or change access level
 4.  Regular can only view, book inspection and update own profile
