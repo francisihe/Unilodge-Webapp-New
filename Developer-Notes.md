@@ -29,4 +29,5 @@ Single property page:
 
 // To-do
 1. Implement email verification via code. Refer: https://dev.to/cyberwolves/how-to-verify-user-email-in-node-express-eaj
+Second ref: https://firebase.google.com/docs/auth/web/password-auth
 2. Implement password forgot process

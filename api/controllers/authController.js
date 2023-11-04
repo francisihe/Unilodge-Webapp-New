@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import errorHandler from '../middlewares/errorHandler.js';
 
+// Register New User Controller
 export const createUser = async (req, res, next) => {
     const { username, email, password } = req.body;
 
@@ -24,6 +25,7 @@ export const createUser = async (req, res, next) => {
     }
 };
 
+// Sign In Controller
 export const signInUser = async (req, res, next) => {
     const { email, password } = req.body;
     try {
@@ -39,6 +41,57 @@ export const signInUser = async (req, res, next) => {
             .cookie('token', token, { httpOnly: true })
             .json(userDoc);
 
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Implement SignUp and SignIn via Google
+export const google = async (req, res, next) => {
+    try {
+        // Check if user exists 
+        const validUser = await User.findOne({ email: req.body.email });
+
+        // If User exists, issue token and sign in
+        if (validUser) {
+            const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+            const { password: pass, ...userDoc } = validUser._doc;
+            res.status(200)
+                .cookie('token', token, { httpOnly: true })
+                .json(userDoc);
+        } else {
+            // Generate random password and hash it
+            const password = Math.random().toString(36).substring(2, 12);
+            const hashedPassword = bcryptjs.hashSync(password, 10);
+
+            // If User does not exist, create new user and issue token  
+            const newUser = new User({
+                username: req.body.name.split(' ').join('').toLowerCase() +
+                    Math.random().toString(36).substring(2, 5),
+                email: req.body.email,
+                password: hashedPassword,
+                avatar: req.body.photo,
+                role: 'user',
+            });
+
+            await newUser.save();
+            const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+            const { password: pass, ...userDoc } = newUser._doc;
+
+            res.status(200)
+            .cookie('token', token, { httpOnly: true })
+            .json(userDoc);
+        }
+    } catch (error) {
+        next(error)
+    }
+};
+
+// Sign Out User Controller
+export const signOutUser = async (req, res, next) => {
+    try {
+        res.clearCookie('token')
+            .json('User has been logged out successfully');
     } catch (error) {
         next(error);
     }

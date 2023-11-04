@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a password"],
     },
+    avatar: {
+        type: String,
+        default: "https://png.pngtree.com/png-clipart/20200701/original/pngtree-character-default-avatar-png-image_5407167.jpg",
+    },
     role: {
         type: String,
         default: "user",
