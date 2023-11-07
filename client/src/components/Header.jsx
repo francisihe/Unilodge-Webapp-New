@@ -15,7 +15,7 @@ export default function Header() {
   user.name = 'John';
 
   return (
-    <header className="flex justify-between items-center whitespace-nowrap mb-6">
+    <header className="flex justify-between items-center  mb-6">
       <Link to={'/'} className="flex items-center gap-1">
         <img src={logo} alt="UnilodgeNG-logo" className="h-10 w-10" />
         <span className="font-bold text-xl">Unilodge</span>
@@ -27,7 +27,7 @@ export default function Header() {
 
       <button type='button' onClick={toggleMenuDropdown}>
         <div className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4">
-          <div className="flex gap-2">
+          <div className="flex gap-2 whitespace-nowrap">
             {/* // Profile Icon with Profile name */}
             {user ? <div className="">Hi, {user.name}</div> : ''}
 

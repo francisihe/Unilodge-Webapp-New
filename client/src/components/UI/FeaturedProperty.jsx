@@ -13,7 +13,7 @@ const FeaturedProperty = () => {
                 <Link to='/properties'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 md:mb-2 shadow-lg hover:scale-110 transition-transform whitespace-nowrap'>View All Properties</button></Link>
             </div>
 
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 <Link to={'/property/' + PropertyCard._id}>
                     <PropertyCard />
                 </Link>
