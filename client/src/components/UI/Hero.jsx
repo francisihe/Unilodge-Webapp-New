@@ -25,8 +25,8 @@ const Hero = () => {
                 <div>
                     Get started by creating an account
                     <div className='py-4'>
-                        <Link to='/sign-up'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 md:mb-2 shadow-lg'>Create Account</button></Link>
-                        <Link to='/#featured-properties'><button className='bg-orange-300 py-2 px-3 rounded-md font-medium mr-4 shadow-md'>View Featured Properties</button></Link>
+                        <Link to='/sign-up'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 md:mb-2 shadow-lg hover:scale-110 transition-transform'>Create Account</button></Link>
+                        <Link to='/#featured-properties'><button className='bg-orange-300 py-2 px-3 rounded-md font-medium mr-4 shadow-md hover:scale-110 transition-transform'>View Featured Properties</button></Link>
                     </div>
                 </div>
             </div>
