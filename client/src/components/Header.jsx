@@ -15,7 +15,7 @@ export default function Header() {
   user.name = 'John';
 
   return (
-    <header className="flex justify-between items-center  mb-6">
+    <header className="flex justify-between items-center md:mb-6">
       <Link to={'/'} className="flex items-center gap-1">
         <img src={logo} alt="UnilodgeNG-logo" className="h-10 w-10" />
         <span className="font-bold text-xl">Unilodge</span>

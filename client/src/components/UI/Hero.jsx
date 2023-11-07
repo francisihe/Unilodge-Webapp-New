@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import heroImage from '../../assets/images/unilodge-hero-image.png'
+import { Link as ScrollLink } from 'react-scroll'
 
 const Hero = () => {
     return (
-        <div className="flex flex-col my-3 items-center md:grid md:grid-cols-2 lg:max-w-screen-xl lg:mx-auto lg:max-h-screen overflow-clip">
+        <div className="flex flex-col md:my-3 items-center md:grid md:grid-cols-2 lg:max-w-screen-xl lg:mx-auto lg:max-h-screen overflow-clip">
             <div className='space-y-10 mb-10 md:mb-0 md:pr-4 lg:-mt-10 lg:max-w-xl'>
                 <div>
                     <h1 className="text-5xl w-[90%] my-5 leading-tight">Find Houses, Hostels and Lands for Rent or Sale Easily </h1>
@@ -26,7 +27,9 @@ const Hero = () => {
                     Get started by creating an account
                     <div className='py-4 flex flex-wrap -mr-4'>
                         <Link to='/sign-up'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 md:mb-2 shadow-lg hover:scale-110 transition-transform'>Create Account</button></Link>
-                        <Link to='/#featured-properties'><button className='bg-orange-300 py-2 px-3 rounded-md font-medium mr-4 shadow-md hover:scale-110 transition-transform'>Featured Properties</button></Link>
+                        <ScrollLink to='featured-properties' smooth={true}>
+                            <button className='bg-orange-300 py-2 px-3 rounded-md font-medium mr-4 shadow-md hover:scale-110 transition-transform'>Featured Properties</button>
+                        </ScrollLink>
                     </div>
                 </div>
             </div>
