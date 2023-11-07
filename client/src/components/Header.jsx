@@ -54,7 +54,7 @@ export default function Header() {
           <div>
             {/* Menu Dropdown */}
             {menuDropdownOpen &&
-              (<div className="absolute border border-orange-400 right-10 z-10 mt-8 w-40 md:w-48 origin-top-right rounded-md bg-gray-100 shadow-lg">
+              (<div className="absolute border border-orange-400 right-8 md:right-10 lg:right-16 z-10 mt-8 w-40 md:w-48 origin-top-right rounded-md bg-gray-100 shadow-lg">
                 <div className=" flex flex-col text-left flex-wrap whitespace-nowrap p-4">
                   <Link to='/profile' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Profile Page</Link>
                   <Link to='' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign Out</Link>
