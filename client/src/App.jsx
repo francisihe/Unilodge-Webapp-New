@@ -5,6 +5,7 @@ import Layout from './pages/Layout'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import SignUp from './pages/SignUp'
+import Footer from './components/UI/Footer'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/sign-up' element={<SignUp />} />
         </Route>
       </Routes>
+      <Footer />
     </div>
   )
 }
