@@ -5,7 +5,10 @@ import errorHandler from '../middlewares/errorHandler.js';
 
 // Register New User Controller
 export const createUser = async (req, res, next) => {
-    const { username, email, password } = req.body;
+    const { firstname, lastname, email, password } = req.body;
+
+    //Automatically generate Username from first and last names, add strings and numbers in lowercase
+    const username = (firstname + lastname + Math.random().toString(36).substring(2, 5) + Math.floor(Math.random() * 100)).toLowerCase();
 
     //Check username availability
     const alreadyExistingUsername = await User.findOne({ username });
@@ -16,7 +19,7 @@ export const createUser = async (req, res, next) => {
     if (alreadyExistingUser) { return res.status(400).json('User with email already exists. Please login') };
 
     const hashedPassword = bcryptjs.hashSync(password, 10);
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({ firstname, lastname, username, email, password: hashedPassword });
     try {
         await newUser.save();
         res.status(201).json('User created successfully');
@@ -67,7 +70,9 @@ export const google = async (req, res, next) => {
             // If User does not exist, create new user and issue token  
             const newUser = new User({
                 username: req.body.name.split(' ').join('').toLowerCase() +
-                    Math.random().toString(36).substring(2, 5),
+                    Math.random().toString(36).substring(2, 5) + Math.floor(Math.random() * 100),
+                firstname: req.body.name.split(' ')[0],
+                lastname: req.body.name.split(' ')[1],
                 email: req.body.email,
                 password: hashedPassword,
                 avatar: req.body.photo,

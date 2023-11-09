@@ -18,7 +18,7 @@ const GoogleAuthButton = () => {
 
             const result = await signInWithPopup(auth, provider);
 
-            console.log('Pop Up attempted' ,result)
+            console.log(result)
             const res = await fetch('/api/v1/auth/google', {
                 method: 'POST',
                 headers: {
@@ -31,10 +31,7 @@ const GoogleAuthButton = () => {
                 }),
             });
 
-            console.log('api data call made')
             const data = await res.json();
-
-            console.log('api data received', data)
             dispatch(signInSuccess(data));
             navigate('/');
 

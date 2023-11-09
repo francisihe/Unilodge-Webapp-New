@@ -1,18 +1,15 @@
 import { Link } from "react-router-dom";
-// import { useContext } from "react";
-// import { UserContext } from "../contexts/UserContext";
 import logo from "../assets/unilodge-logo.jpg"
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { currentUser } = useSelector(state => state.user)
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
 
   const toggleMenuDropdown = () => {
     setMenuDropdownOpen(!menuDropdownOpen);
   };
-
-  const user = {};
-  user.name = 'John';
 
   return (
     <header className="flex justify-between items-center md:mb-6">
@@ -29,9 +26,10 @@ export default function Header() {
         <div className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4">
           <div className="flex gap-2 whitespace-nowrap">
             {/* // Profile Icon with Profile name */}
-            {user ? <div className="">Hi, {user.name}</div> : ''}
+            {console.log(currentUser)}
+            {currentUser ? <div className="">Hi, {currentUser.firstname}</div> : ''}
 
-            {user
+            {currentUser
               ? (<div className="bg-orange-600 text-white rounded-full border border-gray-500 overflow-hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 relative top-1">
                   <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />

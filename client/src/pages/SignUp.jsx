@@ -4,6 +4,7 @@ import GoogleAuthButton from "../components/GoogleAuthButton";
 
 const SignUp = () => {
 
+
   const handleChange = (event) => {
     console.log(event)
   };
@@ -20,20 +21,33 @@ const SignUp = () => {
         <GoogleAuthButton />
 
         <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
+          
+          <div className="flex gap-2">
           <input
             type="text"
-            placeholder="John Doe"
+            id="firstname"
+            placeholder="Firstname"
             onChange={handleChange}
           />
 
           <input
+            type="text"
+            id="lastname"
+            placeholder="Lastname"
+            onChange={handleChange}
+          />
+          </div>
+
+          <input
             type="email"
+            id="email"
             placeholder="your@email.com"
             onChange={handleChange}
           />
 
           <input
             type="password"
+            id="password"
             placeholder="password"
             onChange={handleChange}
           />
