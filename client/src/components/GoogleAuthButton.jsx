@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect } from 'firebase/auth'
 import { app } from '../utils/firebase.js'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,8 +16,13 @@ const GoogleAuthButton = () => {
             provider.setCustomParameters({ prompt: 'select_account' });
             const auth = getAuth(app);
 
-            const result = await signInWithPopup(auth, provider);
+            // If Mobile or Tablet, Use signInWithRedirect else use SignInWithPopup
+            // const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            // const isTablet = /Tablet|iPad/i.test(navigator.userAgent);
+            // const isMobileOrTablet = isMobile || isTablet
+            //const result = await signInWithRedirect(auth, provider);
 
+            const result = await signInWithPopup(auth, provider);
             const res = await fetch('/api/v1/auth/google', {
                 method: 'POST',
                 headers: {
