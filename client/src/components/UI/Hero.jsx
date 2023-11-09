@@ -8,7 +8,7 @@ const Hero = () => {
             <div className='space-y-10 mb-10 md:mb-0 md:pr-4 lg:-mt-10 lg:max-w-xl'>
                 <div>
                     <h1 className="text-5xl w-[90%] my-5 leading-tight">Find Houses, Hostels and Lands for Rent or Sale Easily </h1>
-                    <p className="text-md w-[90%]">Unilodge Realty and Property Developers Limited helps you find your preferred hostels, houses and landed property with ease, on one platform!</p>
+                    <p className="text-md w-[90%]">Unilodge Realty and Property Developers Limited helps you find your preferred houses, hostels and landed property with ease, on one platform!</p>
                 </div>
 
                 <div className='flex w-full justify-between pr-6 lg:max-w-lg'>
@@ -26,7 +26,7 @@ const Hero = () => {
                 <div>
                     Get started by creating an account
                     <div className='py-4 flex flex-wrap -mr-4'>
-                        <Link to='/sign-up'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 md:mb-2 shadow-lg hover:scale-110 transition-transform'>Create Account</button></Link>
+                        <Link to='/signup'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 md:mb-2 shadow-lg hover:scale-110 transition-transform'>Create Account</button></Link>
                         <ScrollLink to='featured-properties' smooth={true}>
                             <button className='bg-orange-300 py-2 px-3 rounded-md font-medium mr-4 shadow-md hover:scale-110 transition-transform'>Featured Properties</button>
                         </ScrollLink>
