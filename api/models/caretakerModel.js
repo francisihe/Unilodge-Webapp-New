@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
 
 const CaretakerSchema = new mongoose.Schema({
-    name: {
+    firstname: {
         type: String,
         required: [true, "Please provide a name"],
+    },
+    lastname: {
+        type: String
     },
     email: {
         type: String,

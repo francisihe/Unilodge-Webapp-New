@@ -26,7 +26,7 @@ export default function Header() {
         <div className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4">
           <div className="flex gap-2 whitespace-nowrap">
             {/* // Profile Icon with Profile name */}
-            {console.log(currentUser)}
+            
             {currentUser ? <div className="">Hi, {currentUser.firstname}</div> : ''}
 
             {currentUser
