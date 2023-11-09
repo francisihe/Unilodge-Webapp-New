@@ -32,3 +32,4 @@ Single property page:
 Second ref: https://firebase.google.com/docs/auth/web/password-auth
 2. Implement password forgot process
 3. Check cookie timeout and set timeout on leaving page
+4. Update the sign in and sign up pages to use Redux reducers defined in the userSlice, and useDispatch

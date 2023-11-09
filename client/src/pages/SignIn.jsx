@@ -6,6 +6,8 @@ import { FiMail } from "react-icons/fi";
 
 const SignIn = () => {
 
+  window.scrollTo(0, 0); //Scroll to top of page on page load
+ 
   const [formData, setFormData] = useState({});
   const [showSignInForm, setShowSignInForm] = useState(false);
   const [loading, setLoading] = useState(false);

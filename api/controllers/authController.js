@@ -8,7 +8,7 @@ export const createUser = async (req, res, next) => {
     const { firstname, lastname, email, password } = req.body;
 
     //Automatically generate Username from first and last names, add strings and numbers in lowercase
-    const username = (firstname + lastname + Math.random().toString(36).substring(2, 5) + Math.floor(Math.random() * 100)).toLowerCase();
+    const username = (firstname+lastname+Math.random().toString(36).substring(2, 5)+Math.floor(Math.random() * 100)).toLowerCase().replace(/\s/g, '');
 
     //Check username availability
     const alreadyExistingUsername = await User.findOne({ username });

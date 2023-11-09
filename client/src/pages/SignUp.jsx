@@ -5,6 +5,9 @@ import SignUpForm from "../components/forms/SignUpForm";
 import { FiMail } from "react-icons/fi";
 
 const SignUp = () => {
+ 
+  window.scrollTo(0, 0); //Scroll to top of page on page load
+  
   const [formData, setFormData] = useState({});
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,7 +21,8 @@ const SignUp = () => {
   const handleChange = (event) => {
     setFormData({
       ...formData,
-      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value.replace(/\s/g, ''),
+      //Used regex to prevent spaces in the fields input
     });
   };
 
@@ -27,7 +31,7 @@ const SignUp = () => {
 
     try {
       setLoading(true);
-      const res = await fetch('/api/auth/signup', {
+      const res = await fetch('/api/v1/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
