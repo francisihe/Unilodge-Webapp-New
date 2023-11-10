@@ -21,7 +21,8 @@ const GoogleAuthButton = () => {
             // const isTablet = /Tablet|iPad/i.test(navigator.userAgent);
             // const isMobileOrTablet = isMobile || isTablet
             //const result = await signInWithRedirect(auth, provider);
-
+            //console.log(result)
+            
             const result = await signInWithPopup(auth, provider);
             const res = await fetch('/api/v1/auth/google', {
                 method: 'POST',

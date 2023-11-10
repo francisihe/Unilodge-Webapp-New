@@ -13,7 +13,11 @@ const firebaseConfig = {
   appId: "1:1059611901133:web:1ce4756e28ab2caf943d84"
 };
 
-
+//authDomain: "unilodge-webapp.firebaseapp.com",
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+
+
+// Test frontend url
+//"https://superb-custard-5c0981.netlify.app"
