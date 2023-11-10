@@ -12,10 +12,16 @@ const PropertySchema = new mongoose.Schema({
         type: String
     },
     propertyType: {
-        type: String
+        type: String,
+        enum: ['house', 'land']
+    },
+    propertyModel: {
+        type: String,
+        enum: ['house', 'hostel', 'land']
     },
     propertyStatus: {
-        type: String
+        type: String,
+        enum: ['available', 'taken']
     },
     propertyCategory: {
         type: String,
@@ -29,7 +35,7 @@ const PropertySchema = new mongoose.Schema({
     discountedPrice: {
         type: Number
     },
-    image: {
+    images: {
         type: String,
         // required: [true, 'Please provide an image'],
     },

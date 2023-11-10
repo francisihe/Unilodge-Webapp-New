@@ -2,8 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import authRouter from './routes/auth.js'
 import cors from 'cors'
+
+import authRouter from './routes/auth.js'
+import propertyRouter from './routes/property.js'
 
 const app = express(); // Express App
 dotenv.config(); // Environment Variables
@@ -22,6 +24,7 @@ app.get('/test', (req, res) => {
 
 // Routes
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/properties', propertyRouter)
 
 // Port and DB Connection
 const port = process.env.PORT || 3000;
