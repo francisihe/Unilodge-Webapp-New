@@ -48,6 +48,10 @@ const PropertySchema = new mongoose.Schema({
     size: {
         type: String,
     },
+    isFeatured: {
+        type: Boolean,
+        default: false,
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Caretaker',

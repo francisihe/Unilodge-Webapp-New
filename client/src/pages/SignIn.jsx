@@ -23,7 +23,6 @@ const SignIn = () => {
       ...formData,
       [event.target.id]: event.target.value,
     });
-    console.log(formData);
   };
 
   const handleSubmit = async (event) => {
@@ -54,7 +53,6 @@ const SignIn = () => {
       setError(error.message);
     }
 
-    console.log(formData);
   };
 
   return (

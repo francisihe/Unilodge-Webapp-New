@@ -8,7 +8,7 @@ export const createUser = async (req, res, next) => {
     const { firstname, lastname, email, password } = req.body;
 
     //Automatically generate Username from first and last names, add strings and numbers in lowercase
-    const username = (firstname+lastname+Math.random().toString(36).substring(2, 5)+Math.floor(Math.random() * 100)).toLowerCase().replace(/\s/g, '');
+    const username = (firstname + lastname + Math.random().toString(36).substring(2, 5) + Math.floor(Math.random() * 100)).toLowerCase().replace(/\s/g, '');
 
     //Check username availability
     const alreadyExistingUsername = await User.findOne({ username });
@@ -37,9 +37,10 @@ export const signInUser = async (req, res, next) => {
         const validPassword = bcryptjs.compareSync(password, validUser.password);
         if (!validPassword) { return res.status(401).json('Invalid credentials. Please check your email and password') }
 
-        const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET);
         const { password: pass, ...userDoc } = validUser._doc;
 
+        console.log(token)
         res.status(200)
             .cookie('token', token, { httpOnly: true })
             .json(userDoc);
@@ -57,7 +58,7 @@ export const google = async (req, res, next) => {
 
         // If User exists, issue token and sign in
         if (validUser) {
-            const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+            const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET);
             const { password: pass, ...userDoc } = validUser._doc;
             res.status(200)
                 .cookie('token', token, { httpOnly: true })
@@ -80,12 +81,12 @@ export const google = async (req, res, next) => {
             });
 
             await newUser.save();
-            const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+            const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT_SECRET);
             const { password: pass, ...userDoc } = newUser._doc;
 
             res.status(200)
-            .cookie('token', token, { httpOnly: true })
-            .json(userDoc);
+                .cookie('token', token, { httpOnly: true })
+                .json(userDoc);
         }
     } catch (error) {
         next(error)
