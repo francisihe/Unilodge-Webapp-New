@@ -9,15 +9,15 @@ const router = express.Router()
 
 // Routes and Controllers
 router.route('/all')
-    .get( getAllProperties)
-
-router.route('/create')
-    .post(createProperty)
+    .get(getAllProperties)
 
 router.route('/:id')
     .get(getProperty)
 
+router.route('/create')
+    .post(verifyManagerOrAdmin, createProperty)
+
 router.route('/:id')
-    .delete(deleteProperty)
+    .delete(verifyManagerOrAdmin, deleteProperty)
 
 export default router;
