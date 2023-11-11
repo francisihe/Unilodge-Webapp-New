@@ -93,9 +93,10 @@ export const google = async (req, res, next) => {
 };
 
 // Sign Out User Controller
-export const signOutUser = async (req, res, next) => {
+export const signout = async (req, res, next) => {
     try {
         res.clearCookie('token')
+            .status(200)
             .json('User has been logged out successfully');
     } catch (error) {
         next(error);
