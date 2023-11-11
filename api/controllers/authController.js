@@ -40,7 +40,6 @@ export const signInUser = async (req, res, next) => {
         const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET);
         const { password: pass, ...userDoc } = validUser._doc;
 
-        console.log(token)
         res.status(200)
             .cookie('token', token, { httpOnly: true })
             .json(userDoc);

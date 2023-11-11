@@ -36,10 +36,12 @@ export const createProperty = async (req, res, next) => {
         const { title, description, address, propertyType, propertyModel, propertyStatus, propertyCategory,
             regularPrice, discountedPrice, images, bedrooms, bathrooms, size } = req.body
 
-        const newProperty = await Property.create({
-            title, description, address, propertyType, propertyModel, propertyStatus, propertyCategory,
-            regularPrice, discountedPrice, images, bedrooms, bathrooms, size
-        });
+        const newProperty = await Property.create( req.body
+            // {
+            //     title, description, address, propertyType, propertyModel, propertyStatus, propertyCategory,
+            //     regularPrice, discountedPrice, images, bedrooms, bathrooms, size
+            // }
+        );
         return res.status(201).json(newProperty);
     } catch (error) {
         next(error);
