@@ -2,13 +2,18 @@ import { Link } from "react-router-dom";
 import logo from "../assets/unilodge-logo.jpg"
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { signOutUser } from "../utils/signOutUser";
 
 export default function Header() {
   const { currentUser } = useSelector(state => state.user)
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
-
+  
   const toggleMenuDropdown = () => {
     setMenuDropdownOpen(!menuDropdownOpen);
+  };
+
+  const handleSignOut = async () => {
+    await signOutUser();
   };
 
   return (
@@ -55,7 +60,7 @@ export default function Header() {
               (<div className="absolute border border-orange-400 right-8 md:right-10 lg:right-16 z-10 mt-8 w-40 md:w-48 origin-top-right rounded-md bg-gray-100 shadow-lg">
                 <div className=" flex flex-col text-left flex-wrap whitespace-nowrap p-4">
                   <Link to='/profile' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Profile Page</Link>
-                  <Link to='' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign Out</Link>
+                  <a href="" onClick={handleSignOut} className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign Out</a>
                 </div>
               </div>)}
           </div>

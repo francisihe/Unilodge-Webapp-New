@@ -3,16 +3,19 @@ import GoogleAuthButton from "../components/GoogleAuthButton";
 import { useState } from "react";
 import SignInForm from "../components/forms/SignInForm";
 import { FiMail } from "react-icons/fi";
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 const SignIn = () => {
 
   window.scrollTo(0, 0); //Scroll to top of page on page load
- 
+
   const [formData, setFormData] = useState({});
   const [showSignInForm, setShowSignInForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const revealSignInForm = () => {
     setShowSignInForm(!showSignInForm);
@@ -30,6 +33,7 @@ const SignIn = () => {
 
     try {
       setLoading(true);
+      dispatch(signInStart());
       const res = await fetch('/api/v1/auth/signin', {
         method: 'POST',
         headers: {
@@ -42,10 +46,12 @@ const SignIn = () => {
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
+        dispatch(signInFailure(data.message));
         return;
       }
       setLoading(false);
       setError(null);
+      dispatch(signInSuccess(data));
       navigate('/profile');
 
     } catch (error) {
