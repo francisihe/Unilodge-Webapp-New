@@ -16,7 +16,7 @@ router.route('/create')
     .post(verifyManagerOrAdmin, createProperty)
 
 router.route('/:id')
-    .put(updateProperty)
+    .patch(verifyManagerOrAdmin, updateProperty)
 
 router.route('/:id')
     .delete(verifyManagerOrAdmin, deleteProperty)

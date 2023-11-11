@@ -39,6 +39,9 @@ const PropertySchema = new mongoose.Schema({
         type: String,
         // required: [true, 'Please provide an image'],
     },
+    video: {
+        type: String,
+    },
     bedrooms: {
         type: Number,
     },
