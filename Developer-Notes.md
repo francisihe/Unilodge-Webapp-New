@@ -33,3 +33,10 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 2. Implement password forgot process
 3. Check cookie timeout and set timeout on leaving page
 4. Update the sign in and sign up pages to use Redux reducers defined in the userSlice, and useDispatch
+5. Implement logout on leaving webapp and add timeout to token
+6. Implement use signin with redirect for mobile users
+7. Confirm Booking route to return user's own bookings on profile page (different from admin/manager return all booking routes)
+8. 
+
+// Fixed persistence and signout issue
+1. To see the logic, check SignOutFunction in utils folder
