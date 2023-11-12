@@ -1,21 +1,5 @@
 import { useState } from "react";
 
-{/* title,
-description,
-address,
-propertyType,
-propertyModel,
-propertyStatus,
-propertyCategory,
-regularPrice,
-discountedPrice,
-images,
-video,
-bedrooms,
-size,
-isFeatured,
-*/}
-
 
 const AddPropertyForm = () => {
   const [files, setFiles] = useState([]);
@@ -34,16 +18,33 @@ const AddPropertyForm = () => {
     bedrooms: 1,
     bathrooms: 1,
     size: '',
-    isFeatured: false,
+    isFeatured: false
   });
 
   const handleChange = (event) => {
-    event.preventDefault();
-    setFormData({
-      ...formData,
-      [event.target.id]: event.target.value
-    });
-    console.log(formData);
+
+    if (
+      event.target.type === 'number' ||
+      event.target.type === 'text' ||
+      event.target.type === 'textarea' ||
+      event.target.type === 'select-one'
+    ) {
+      setFormData({
+        ...formData,
+        [event.target.id]: event.target.value,
+      });
+    }
+
+    if (event.target.type === 'checkbox') {
+      setFormData({
+        ...formData,
+        [event.target.id]: event.target.checked,
+      });
+    }
+  };
+
+  const handleImageUpload = () => {
+    console.log(files);
   };
 
   const handleSubmit = (event) => {
@@ -51,16 +52,21 @@ const AddPropertyForm = () => {
     console.log(formData);
   };
 
-  // const formatPrice = (event) => {
-  //   const input = event.target;
-  //   let value = input.value.replace(/\D/g, ''); // Remove non-numeric characters
-  //   value = parseInt(value, 10).toLocaleString(); // Format with commas
-  //   input.value = value;
-  //   handleChange(event); 
-  // };
 
   return (
     <form className="space-y-1">
+
+      <div className="space-x-2">
+        <label className="text-xs text-orange-500 font-medium">Is this a featured Property?</label>
+        <input
+          type='checkbox'
+          id='isFeatured'
+          name='isFeatured'
+          onChange={handleChange}
+          checked={formData.isFeatured}
+        />
+
+      </div>
 
       <label className="text-xs text-orange-500 font-medium">Property Title</label>
       <input
@@ -73,8 +79,7 @@ const AddPropertyForm = () => {
       />
 
       <label className="text-xs text-orange-500 font-medium">Property Description</label>
-      <input
-        type='textarea'
+      <textarea
         id='description'
         placeholder='Fully furnished self contained hostel with 24/7 power supply and security.'
         value={formData.description}
@@ -104,10 +109,6 @@ const AddPropertyForm = () => {
           <option value="land">Land</option>
         </select>
       </div>
-
-      {/* {formData.propertyType === 'house' ? (
-
-      ): 'not'} */}
 
       <div>
         <label className="text-xs text-orange-500 font-medium">Property Model</label>
@@ -160,7 +161,6 @@ const AddPropertyForm = () => {
             id='regularPrice'
             value={formData.regularPrice}
             onChange={handleChange}
-            //onInput={formatPrice}
             required
           />
         </div>
@@ -172,7 +172,6 @@ const AddPropertyForm = () => {
             id='discountedPrice'
             value={formData.discountedPrice}
             onChange={handleChange}
-          //onInput={formatPrice}
           />
         </div>
       </div>
@@ -218,14 +217,23 @@ const AddPropertyForm = () => {
       />
 
       <label className="text-xs text-orange-500 font-medium">Property Images</label>
-      <input
-        type='file'
-        id='images'
-        accept='image/*'
-        multiple
-        onChange={(event) => setFiles((event.target.files))}
-        className="border border-gray-300 rounded-lg py-2 px-4 w-full"
-      />
+      <p>Choose the featured image first</p>
+      <div className="flex gap-1">
+        <input
+          type='file'
+          id='images'
+          accept='image/*'
+          multiple
+          onChange={(event) => setFiles(event.target.files)}
+          className="border border-gray-300 rounded-lg py-1 px-4 w-full"
+        />
+        <button
+          type='button'
+          className="bg-green-500 rounded-lg py-1 px-3"
+          onClick={handleImageUpload}>
+          Upload
+        </button>
+      </div>
 
       <button
         type="button"
