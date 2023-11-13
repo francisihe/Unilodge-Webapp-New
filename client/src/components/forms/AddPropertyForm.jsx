@@ -132,6 +132,12 @@ const AddPropertyForm = () => {
     event.preventDefault();
 
     try {
+      //Check regular and discount prices
+      if (formData.regularPrice < formData.discountedPrice) {
+        window.alert('Discounted price cannot be greater than regular price');
+        return setError('Discounted price cannot be greater than regular price');
+      }
+
       setLoading(true);
       // Make API call to create property
       const res = await fetch('/api/v1/properties/create', {
@@ -153,7 +159,6 @@ const AddPropertyForm = () => {
       setError(error.message);
       setLoading(false);
     }
-    console.log(formData);
   };
 
 
@@ -199,6 +204,7 @@ const AddPropertyForm = () => {
           placeholder='Ekosodin, Benin City'
           value={formData.address}
           onChange={handleChange}
+          required
         />
 
         <div>
@@ -208,6 +214,7 @@ const AddPropertyForm = () => {
             value={formData.propertyType}
             onChange={handleChange}
             className="text-sm w-full border my-1 py-2 px-3 rounded-2xl bg-inherit"
+            required
           >
             <option value=''>Select House or Land</option>
             <option value="house">House</option>
@@ -222,6 +229,7 @@ const AddPropertyForm = () => {
             value={formData.propertyModel}
             onChange={handleChange}
             className="text-sm w-full border my-1 py-2 px-3 rounded-2xl bg-inherit"
+            required
           >
             <option value=''>Select House, Hostel or Land</option>
             <option value="house">House</option>
@@ -237,6 +245,7 @@ const AddPropertyForm = () => {
             value={formData.propertyStatus}
             onChange={handleChange}
             className="text-sm w-full border my-1 py-2 px-3 rounded-2xl bg-inherit"
+            required
           >
             <option value=''>Select current status</option>
             <option value="available">Available</option>
@@ -251,6 +260,7 @@ const AddPropertyForm = () => {
             value={formData.propertyCategory}
             onChange={handleChange}
             className="text-sm w-full border my-1 py-2 px-3 rounded-2xl bg-inherit"
+            required
           >
             <option value=''>Select rent or sale</option>
             <option value="rent">Rent</option>
@@ -337,6 +347,7 @@ const AddPropertyForm = () => {
             multiple
             onChange={(event) => setFiles(event.target.files)}
             className="border border-gray-300 rounded-lg py-1 px-4 w-full"
+            //required
           />
           <button
             type='button'
@@ -369,8 +380,8 @@ const AddPropertyForm = () => {
 
 
         <button
-          type="button"
-          onClick={handleSubmit}
+          type='submit'
+          onClick={() => handleSubmit}
           className="bg-orange-500 text-white rounded-lg py-2 px-4 w-full"
         >
           {loading ? 'Creating...' : 'Create Property'}

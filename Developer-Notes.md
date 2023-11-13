@@ -36,7 +36,9 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 5. Implement logout on leaving webapp and add timeout to token
 6. Implement use signin with redirect for mobile users
 7. Confirm Booking route to return user's own bookings on profile page (different from admin/manager return all booking routes)
-8. 
+8. Form checker for add property prices not showing before refreshing page
+9. Work on navigation menu to close automatically on click out, and to dynamically render sign in or out
+10. Create verify admin or manager component to protect pages, create admin/manager menu items
 
 // Fixed persistence and signout issue
 1. To see the logic, check SignOutFunction in utils folder
