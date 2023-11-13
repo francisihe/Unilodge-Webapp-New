@@ -347,7 +347,7 @@ const AddPropertyForm = () => {
             multiple
             onChange={(event) => setFiles(event.target.files)}
             className="border border-gray-300 rounded-lg py-1 px-4 w-full"
-            //required
+          //required
           />
           <button
             type='button'
@@ -358,39 +358,42 @@ const AddPropertyForm = () => {
         </div>
 
         {/* Image Display Area */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5">
         {formData.images.length > 0 &&
           formData.images.map((url, index) => (
+            
             <div key={index}
-              className="flex justify-between p-1 items-center h-42 w-full">
+              className="flex justify-between p-1 items-center h-42 w-full md:h-48 md:w-full ">
               <img
                 src={url}
                 alt="property image"
-                className="h-40 w-full object-cover"
+                className="h-40 w-full object-cover rounded-md"
               />
               <button
                 type='button'
+                title='Remove Image'
                 onClick={() => handleRemoveImage(index)}
               >
                 <AiFillCloseCircle className="text-red-500 text-3xl" />
               </button>
             </div>
-          )
-          )
+            
+          ))
         }
-
-
-        <button
-          type='submit'
-          onClick={() => handleSubmit}
-          className="bg-orange-500 text-white rounded-lg py-2 px-4 w-full"
-        >
-          {loading ? 'Creating...' : 'Create Property'}
-        </button>
-
-        {/* Error Message On Submission */}
-        {error && <p className="text-red-500 text-sm">{error}</p>}
       </div>
-    </form>
+
+      <button
+        type='submit'
+        onClick={() => handleSubmit}
+        className="bg-orange-500 text-white rounded-lg py-2 px-4 w-full"
+      >
+        {loading ? 'Creating...' : 'Create Property'}
+      </button>
+
+      {/* Error Message On Submission */}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+    </div>
+    </form >
   )
 }
 
