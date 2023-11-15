@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import PropertyGallery from "../UIelements/PropertyGallery";
 import PropertyHeader from "../UIelements/PropertyHeader";
+import PropertyFeatures from "../UIelements/PropertyFeatures";
+import PropertyPrice from "../UIelements/PropertyPrice";
+import BookingForm from "../forms/BookingForm";
 
 
 const PropertyListing = () => {
@@ -46,10 +49,21 @@ const PropertyListing = () => {
       <div className="block md:hidden">
         <PropertyHeader property={property} error={error} />
       </div>
-      
-      {/* Property Details */}
-      <div>
 
+      {/* Property Details */}
+      <div className="space-y-2 md:space-y-0 md:grid grid-cols-2 md:gap-3 md:pt-4">
+        <PropertyFeatures property={property} />
+        <PropertyPrice property={property} />
+      </div>
+
+      <p className="text-lg font-semibold py-3 tracking-wider">Property Description</p>
+      {property.description}
+
+      {/* Add Caretaker Details for Admins and Managers to view */}
+
+      <div id='booking-form'>
+        Booking Form
+        <BookingForm />
       </div>
     </div>
   )

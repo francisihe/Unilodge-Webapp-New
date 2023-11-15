@@ -2,6 +2,8 @@
 import { FaLocationDot } from 'react-icons/fa6';
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { FiShare } from "react-icons/fi";
+import { FcInspection } from "react-icons/fc";
+
 import { Link as ScrollLink } from 'react-scroll'
 
 // Share Function
@@ -48,8 +50,8 @@ const PropertyHeader = ({ property, error }) => {
                 <div className='flex gap-2'>
                     <ScrollLink to='booking-form' smooth={true}>
                         <button
-                            className="bg-red-600 text-white font-bold px-2 py-1 rounded-lg flex items-center gap-2 text-bold">
-                            <FiShare />
+                            className="bg-white text-orange-500 border-2 border-orange-400 px-2 py-1 rounded-lg flex items-center gap-2 text-bold">
+                            <FcInspection />                 
                             Book Inspection
                         </button>
                     </ScrollLink>
