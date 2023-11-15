@@ -39,7 +39,7 @@ const PropertyListing = () => {
 
     const getProperty = async () => {
       try {
-        const res = await fetch(`/api/v1/properties/${params.id}`)
+        const res = await fetch(`/api/v1/properties/${params.propertyId}`)
         const data = await res.json()
         setProperty(data);
         console.log(data)
@@ -49,7 +49,7 @@ const PropertyListing = () => {
 
     }
     getProperty();
-  }, [params.id])
+  }, [params.propertyId])
 
   return (
     <div>

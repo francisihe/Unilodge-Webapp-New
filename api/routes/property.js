@@ -8,16 +8,16 @@ const router = express.Router()
 router.route('/all')
     .get(getAllProperties)
 
-router.route('/:id')
+router.route('/:propertyId')
     .get(getProperty)
 
 router.route('/create')
     .post(verifyManagerOrAdmin, createProperty)
 
-router.route('/:id')
+router.route('/:propertyId')
     .patch(verifyManagerOrAdmin, updateProperty)
 
-router.route('/:id')
+router.route('/:propertyId')
     .delete(verifyManagerOrAdmin, deleteProperty)
 
 export default router;

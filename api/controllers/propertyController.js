@@ -11,14 +11,14 @@ export const getAllProperties = async (req, res, next) => {
 };
 
 export const getProperty = async (req, res, next) => {
-    const { id } = req.params;
+    const { propertyId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(propertyId)) {
         return res.status(400).json('Invalid ID format');
     }
 
     try {
-        const property = await Property.findById(id);
+        const property = await Property.findById(propertyId);
         if (!property) { return res.status(404).json('Property does not exist') };
         res.status(200).json(property);
     } catch (error) {
@@ -36,18 +36,18 @@ export const createProperty = async (req, res, next) => {
 };
 
 export const updateProperty = async (req, res, next) => {
-    const { id } = req.params;
+    const { propertyId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(propertyId)) {
         return res.status(400).json('Invalid ID format');
     }
 
-    const property = await Property.findById(id);   //Check if property exists
+    const property = await Property.findById(propertyId);   //Check if property exists
     if (!property) { return res.json('Property does not exist') };
 
     try {
         const updateProperty = await Property.findByIdAndUpdate(
-            id,
+            propertyId,
             req.body,
             { new: true } // Returns the updated property
         );
@@ -58,13 +58,13 @@ export const updateProperty = async (req, res, next) => {
 };
 
 export const deleteProperty = async (req, res, next) => {
-    const { id } = req.params;
+    const { propertyId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(propertyId)) {
         return res.status(400).json('Invalid ID format');
     }
     try {
-        const property = await Property.findByIdAndDelete(id);
+        const property = await Property.findByIdAndDelete(propertyId);
         if (!property) { return res.json('Property does not exist') }
         res.status(200).json('Property deleted successfully');
     } catch (error) {

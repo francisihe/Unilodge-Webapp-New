@@ -1,16 +1,21 @@
-import { verifyManagerOrAdmin } from "../middlewares/verifyManagerOrAdmin"
-import router from "./property"
+import express from 'express';
+import {
+    createBooking, getUserBookings, getUserBookingsById,
+    getAllBookings, getBooking, updateBooking, deleteBooking
+} from '../controllers/bookingController.js';
+import { verifyManagerOrAdmin } from "../middlewares/verifyManagerOrAdmin.js"
+const router = express.Router();
 
 //Create a booking
 router.route('/create')
     .post(createBooking)
 
 //Get all bookings of a specific user
-router.route('user/all')
+router.route('all/users/:userId')
     .get(getUserBookings)
 
-//Get a booking by id
-router.route('user/:id')
+//Get a user booking by booking id
+router.route('/:bookingId/users/:userId')
     .get(getUserBookingsById)
 
 
@@ -20,14 +25,16 @@ router.route('user/:id')
 router.route('/all')
     .get(verifyManagerOrAdmin, getAllBookings)
 
-//Get a booking by id as admin or manager
-router.route('/:id')
+//Get a booking by booking id as admin or manager
+router.route('/:bookingId')
     .get(verifyManagerOrAdmin, getBooking)
 
-//Update a booking by id as admin or manager
-router.route('/:id')
+//Update a booking by booking id as admin or manager
+router.route('/:bookingId')
     .patch(verifyManagerOrAdmin, updateBooking)
 
-//Delete a booking by id as admin or manager
-router.route('/:id')
+//Delete a booking by booking id as admin or manager
+router.route('/:bookingId')
     .delete(verifyManagerOrAdmin, deleteBooking)
+
+export default router;
