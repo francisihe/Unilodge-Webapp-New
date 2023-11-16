@@ -42,6 +42,7 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 11. Add related properties below property listing, using ML
 12. Add Catetaker details below property for managers and admin to view
 13. Update all controllers to use the custom error handler
+14. Enable limit and pagination for all the get routes
 
 // Fixed persistence and signout issue
 1. To see the logic, check SignOutFunction in utils folder

@@ -58,9 +58,31 @@ export const getBooking = async (req, res, next) => {
 };
 
 export const updateBooking = async (req, res, next) => {
+    const { bookingId } = req.params;
 
+    const booking = await Booking.findById(bookingId);
+    if (!booking) return res.status(404).json('Booking not found');
+
+    try {
+        const updateBooking = await Booking.findByIdAndUpdate(
+            booking,
+            req.body,
+            { new: true }
+        );
+        res.status(200).json(updateBooking);
+    } catch (error) {
+        next(error)
+    }
 };
 
 export const deleteBooking = async (req, res, next) => {
+    const { bookingId } = req.params;
 
+    try {
+        const booking = await Booking.findByIdAndDelete(bookingId);
+        if (!booking) return res.status(404).json('Booking not found');
+        res.status(200).json("Booking has been deleted");
+    } catch (error) {
+        next(error)
+    }
 };
