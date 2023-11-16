@@ -163,7 +163,7 @@ const AddPropertyForm = () => {
 
 
   return (
-    <form className="space-y-1 lg:grid lg:grid-cols-2 lg:gap-8">
+    <form onSubmit={handleSubmit} className="space-y-1 lg:grid lg:grid-cols-2 lg:gap-8">
 
       <div>
         <div className="space-x-2">
@@ -384,7 +384,7 @@ const AddPropertyForm = () => {
 
       <button
         type='submit'
-        onClick={() => handleSubmit}
+        //onClick={() => handleSubmit}
         className="bg-orange-500 text-white rounded-lg py-2 px-4 w-full"
       >
         {loading ? 'Creating...' : 'Create Property'}

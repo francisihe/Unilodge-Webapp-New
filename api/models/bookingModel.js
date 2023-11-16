@@ -1,6 +1,26 @@
 import mongoose from "mongoose";
 
 const BookingSchema = new mongoose.Schema({
+    firstname:{
+        type: String,
+        required: [true, 'Please provide a firstname'],
+    },
+    lastname:{
+        type: String,
+        required: [true, 'Please provide a lastname'],
+    },
+    phone: {
+        type: String,
+        required: [true, 'Please provide a phone number'],
+    },
+    email: {
+        type: String,
+        required: [true, 'Please provide an email'],
+    },
+    inspectionDate: {
+        type: Date,
+        required: [true, 'Please provide a date'],
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -8,17 +28,6 @@ const BookingSchema = new mongoose.Schema({
     property: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Property',
-    },
-    phone: {
-        type: String,
-        required: [true, 'Please provide a phone number'],
-    },
-    email: {
-        type: String
-    },
-    inspectionDate: {
-        type: Date,
-        required: [true, 'Please provide a date'],
     },
 }, { timestamps: true });
 

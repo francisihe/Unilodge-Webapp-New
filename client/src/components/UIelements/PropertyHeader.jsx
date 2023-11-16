@@ -25,7 +25,7 @@ const handleShare = async () => {
         textArea.value = window.location.href;
         document.body.appendChild(textArea);
         textArea.select();
-        //document.execCommand('copy');
+        document.execCommand('copy');
         document.body.removeChild(textArea);
         alert('Link copied to clipboard!');
     }

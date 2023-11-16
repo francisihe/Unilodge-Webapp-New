@@ -36,7 +36,7 @@ const PropertyFeatures = ({ property }) => {
                 <div>Size</div>
                 <div className="flex gap-2 items-center">
                     <SlSizeActual className="text-orange-600" />
-                    <div>{property.size} 400 x 400</div>
+                    <div>{property.size}</div>
                 </div>
             </div>
         </div>
