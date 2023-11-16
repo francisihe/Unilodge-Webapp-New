@@ -41,7 +41,8 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 10. Create verify admin or manager component to protect pages, create admin/manager menu items
 11. Add related properties below property listing, using ML
 12. Add Catetaker details below property for managers and admin to view
-13. 
+13. Update all controllers to use the custom error handler
 
 // Fixed persistence and signout issue
 1. To see the logic, check SignOutFunction in utils folder
+

@@ -11,14 +11,12 @@ const BookingForm = () => {
     const [formData, setFormData] = useState({
         firstname: '' || currentUser.firstname,
         lastname: '' || currentUser.lastname,
-        user: '' || currentUser._id,
-        property: params.propertyId,
+        userRef: '' || currentUser._id,
+        propertyRef: params.propertyId,
         phone: '',
         email: '' || currentUser.email,
         inspectionDate: '',
     });
-
-    //console.log(currentUser);
 
     // Get the current date in the format YYYY-MM-DD
     // This is to prevent selection of a date before current date in the date input field

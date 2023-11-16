@@ -21,11 +21,11 @@ const BookingSchema = new mongoose.Schema({
         type: Date,
         required: [true, 'Please provide a date'],
     },
-    user: {
+    userRef: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    property: {
+    propertyRef: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Property',
     },

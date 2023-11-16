@@ -4,6 +4,7 @@ import {
     getAllBookings, getBooking, updateBooking, deleteBooking
 } from '../controllers/bookingController.js';
 import { verifyManagerOrAdmin } from "../middlewares/verifyManagerOrAdmin.js"
+import { verifyUser } from '../middlewares/verifyUser.js';
 const router = express.Router();
 
 //Create a booking
@@ -11,12 +12,12 @@ router.route('/create')
     .post(createBooking)
 
 //Get all bookings of a specific user
-router.route('all/users/:userId')
-    .get(getUserBookings)
+router.route('/all/users/:userId')
+    .get(verifyUser, getUserBookings)
 
 //Get a user booking by booking id
 router.route('/:bookingId/users/:userId')
-    .get(getUserBookingsById)
+    .get(verifyUser, getUserBookingsById)
 
 
 // Manager or Admins Below
