@@ -15,17 +15,13 @@ const CaretakerSchema = new mongoose.Schema({
     phone: {
         type: String,
     },
-    password: {
-        type: String,
-        required: [true, "Please provide a password"],
-    },
     role: {
         type: String,
         default: "caretaker",
     },
-    avatar: {
-        type: String,
-        default: "https://png.pngtree.com/png-clipart/20200701/original/pngtree-character-default-avatar-png-image_5407167.jpg",
+    userRef: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
     properties: [{ type: mongoose.Schema.Types.ObjectId, ref: "Property" }],
 }, { timestamps: true });

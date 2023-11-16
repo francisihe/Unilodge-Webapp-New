@@ -55,7 +55,7 @@ const PropertySchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    owner: {
+    caretakerRef: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Caretaker',
     },
