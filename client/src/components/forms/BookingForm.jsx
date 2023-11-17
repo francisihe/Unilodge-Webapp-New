@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const BookingForm = () => {
     const { currentUser } = useSelector(state => state.user)
     const params = useParams();
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
@@ -36,15 +37,35 @@ const BookingForm = () => {
         console.log(formData)
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        setLoading(true);
-        console.log(formData)
-        setLoading(false);
+        
+        try {
+            setLoading(true);
+
+            const res = await fetch('/api/v1/bookings/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            const data = await res.json();
+            setLoading(false);
+
+            if (data.success === false) {
+                setError(data.message);
+            }
+            (console.log('Booking successful', data))
+            navigate(`/profile/bookings`)
+        } catch (error) {
+            setError(error)
+            setLoading(false);
+        }
     };
 
     return (
-        <>
+        <div>
             <p className="text-lg font-semibold py-3 tracking-wider">Booking Form</p>
             <p className="text-sm pb-6">Kindly fill the form below with your details and a preferred date for inspection of this property.
                 A member of our team will contact you to confirm your booking as well as the inspection date and fee.
@@ -120,7 +141,7 @@ const BookingForm = () => {
 
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 
