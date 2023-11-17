@@ -13,15 +13,14 @@ export const getAllProperties = async (req, res, next) => {
 export const getProperty = async (req, res, next) => {
     const { propertyId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(propertyId)) {
-        return res.status(400).json('Invalid ID format');
-    }
-
     try {
         const property = await Property.findById(propertyId);
         if (!property) { return res.status(404).json('Property does not exist') };
         res.status(200).json(property);
     } catch (error) {
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
         next(error);
     }
 };
@@ -38,10 +37,6 @@ export const createProperty = async (req, res, next) => {
 export const updateProperty = async (req, res, next) => {
     const { propertyId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(propertyId)) {
-        return res.status(400).json('Invalid ID format');
-    }
-
     const property = await Property.findById(propertyId);   //Check if property exists
     if (!property) { return res.json('Property does not exist') };
 
@@ -53,6 +48,9 @@ export const updateProperty = async (req, res, next) => {
         );
         res.status(200).json(updateProperty);
     } catch {
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
         next(error);
     }
 };
@@ -60,14 +58,14 @@ export const updateProperty = async (req, res, next) => {
 export const deleteProperty = async (req, res, next) => {
     const { propertyId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(propertyId)) {
-        return res.status(400).json('Invalid ID format');
-    }
     try {
         const property = await Property.findByIdAndDelete(propertyId);
         if (!property) { return res.json('Property does not exist') }
         res.status(200).json('Property deleted successfully');
     } catch (error) {
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
         next(error);
     }
 };

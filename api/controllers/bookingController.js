@@ -1,8 +1,15 @@
+import mongoose from 'mongoose';
 import Booking from "../models/bookingModel.js";
+import User from "../models/userModel.js";
+
 
 export const createBooking = async (req, res, next) => {
     try {
-        const newBooking = await Booking.create(req.body);
+        //Check if a user exists with the email provided
+        let user = await User.findOne({ email: req.body.email });
+
+        //If user exists, it links the booking to the user, else it just books for inspection as usual
+        const newBooking = await Booking.create({ ...req.body, userRef: user._id });
         res.status(201).json(newBooking);
     } catch (error) {
         next(error);
@@ -17,7 +24,10 @@ export const getUserBookings = async (req, res, next) => {
         const userBookings = await Booking.find({ userRef: userId });
         res.status(200).json(userBookings);
     } catch (error) {
-        next(error)
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
+        next(error);
     }
 };
 
@@ -33,7 +43,10 @@ export const getUserBookingsById = async (req, res, next) => {
         if (userBooking.length === 0) return res.status(404).json('Booking not found');
         res.status(200).json(userBooking);
     } catch (error) {
-        next(error)
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
+        next(error);
     }
 };
 
@@ -42,17 +55,21 @@ export const getAllBookings = async (req, res, next) => {
         const bookings = await Booking.find();
         res.status(200).json(bookings);
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 
 export const getBooking = async (req, res, next) => {
+    const { bookingId } = req.params
+
     try {
-        const { bookingId } = req.params
         const booking = await Booking.findById(bookingId);
         if (!booking) return res.status;
         res.status(200).json(booking);
     } catch (error) {
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
         next(error);
     }
 };
@@ -71,7 +88,10 @@ export const updateBooking = async (req, res, next) => {
         );
         res.status(200).json(updateBooking);
     } catch (error) {
-        next(error)
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
+        next(error);
     }
 };
 
@@ -83,6 +103,9 @@ export const deleteBooking = async (req, res, next) => {
         if (!booking) return res.status(404).json('Booking not found');
         res.status(200).json("Booking has been deleted");
     } catch (error) {
-        next(error)
+        if (error instanceof mongoose.Error.CastError) {
+            return res.status(404).json('Invalid ID format');
+        }
+        next(error);
     }
 };
