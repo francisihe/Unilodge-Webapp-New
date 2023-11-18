@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs';
 export const getUser = async (req, res, next) => {
     const { userId } = req.params;
     if (req.user.id !== userId) return res.status(403).json({ message: 'You can only view your own profile' });
-    
+
     try {
         const user = await User.findById(userId).select('-password');
         res.status(200).json(user);
