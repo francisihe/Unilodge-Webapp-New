@@ -42,17 +42,30 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-
-      if (data.success === false) {
+      console.log(data);
+      
+      // Issue here
+      if (data.statusCode === false) {
         setLoading(false);
         setError(data.message);
         dispatch(signInFailure(data.message));
         return;
       }
-      setLoading(false);
-      setError(null);
-      dispatch(signInSuccess(data));
-      navigate('/profile');
+
+      // Issue here
+      if (data.error === true) {
+        setLoading(false);
+        setError(null);
+        dispatch(signInSuccess(data));
+        navigate('/profile');
+        return;
+      }
+
+      // Issue here
+      // setLoading(false);
+      // setError(null);
+      // dispatch(signInSuccess(data));
+      // navigate('/profile');
 
     } catch (error) {
       setLoading(false);
