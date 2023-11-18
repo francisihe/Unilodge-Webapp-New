@@ -8,6 +8,7 @@ import authRouter from './routes/auth.js'
 import propertyRouter from './routes/property.js'
 import bookingRouter from './routes/booking.js'
 import userRouter from './routes/user.js'
+import caretakerRouter from './routes/caretaker.js'
 
 const app = express(); // Express App
 dotenv.config(); // Environment Variables
@@ -29,6 +30,7 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/properties', propertyRouter)
 app.use('/api/v1/bookings', bookingRouter)
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/caretakers', caretakerRouter)
 
 // Port and DB Connection
 const port = process.env.PORT || 3000;

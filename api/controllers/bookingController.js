@@ -7,9 +7,10 @@ export const createBooking = async (req, res, next) => {
     try {
         //Check if a user exists with the email provided
         let user = await User.findOne({ email: req.body.email });
-
+        let bookingData = {...req.body}
         //If user exists, it links the booking to the user, else it just books for inspection as usual
-        const newBooking = await Booking.create({ ...req.body, userRef: user._id });
+        if (user) {bookingData.userRef = user._id}
+        const newBooking = await Booking.create(bookingData);
         res.status(201).json(newBooking);
     } catch (error) {
         next(error);

@@ -44,7 +44,7 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 13. Update all controllers to use the custom error handler
 14. Enable limit and pagination for all the get routes
 15. Update Sign In with email process to be handled fully by firebase
-16. 
+16. Fixed error handling and navigation for when credentials are wrong on signin page
 
 // Fixed persistence and signout issue
 1. To see the logic, check SignOutFunction in utils folder
