@@ -8,16 +8,12 @@ const router = express.Router();
 router.route('/all')
     .get(verifyManagerOrAdmin, getAllCaretakers)
 
-router.route('/:caretakerId')
-    .get(verifyManagerOrAdmin, getCaretakerByIdentifier, getCaretaker)
-
 router.route('/create')
     .post(verifyManagerOrAdmin, createCaretaker)
 
 router.route('/:caretakerId')
+    .get(verifyManagerOrAdmin, getCaretakerByIdentifier, getCaretaker)
     .patch(verifyManagerOrAdmin, getCaretakerByIdentifier, updateCaretaker)
-
-router.route('/:caretakerId')
     .delete(verifyManagerOrAdmin, getCaretakerByIdentifier, deleteCaretaker)
 
 export default router;

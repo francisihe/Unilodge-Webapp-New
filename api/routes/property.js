@@ -8,6 +8,9 @@ const router = express.Router()
 router.route('/all')
     .get(getAllProperties)
 
+router.route('/search')
+    .get(searchProperties)
+
 router.route('/:propertyId')
     .get(getProperty)
 
@@ -20,7 +23,5 @@ router.route('/:propertyId')
 router.route('/:propertyId')
     .delete(verifyManagerOrAdmin, deleteProperty)
 
-router.route('/search')
-    .get(searchProperties)
 
 export default router;

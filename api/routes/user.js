@@ -5,12 +5,9 @@ import { deleteUser, getAllUsers, getUser, getUserById, updateUser, updateUserAs
 import { getUserByIdentifier } from '../middlewares/getUserByIdentifier.js';
 const router = express.Router();
 
-// Get User 
+// Get and Update User 
 router.route('/:userId')
     .get(verifyUser, getUser)
-
-// Update User
-router.route('/:userId')
     .patch(verifyUser, updateUser)
 
 // Admin Routes Below

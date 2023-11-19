@@ -5,8 +5,8 @@ export const getAllProperties = async (req, res, next) => {
     try {
 
         // Pagination parameters
-        const page = parseInt(req.query.page) || 1; 
-        const minLimit = parseInt(req.query.limit) || 15; 
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
         const maxLimit = 100;
         const limit = Math.min(minLimit, maxLimit);
 
@@ -87,9 +87,11 @@ export const deleteProperty = async (req, res, next) => {
 export const searchProperties = async (req, res, next) => {
     try {
         // Pagination parameters
-        const page = parseInt(req.query.page) || 1; // Current page (default to 1)
-        const limit = parseInt(req.query.limit) || 10; // Number of results per page (default to 10)
-
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+        
         // Calculate the skip value based on the page and limit
         const skip = (page - 1) * limit;
 
@@ -113,19 +115,32 @@ export const searchProperties = async (req, res, next) => {
         const sortField = req.query.sort || 'createdAt';
         const sortOrder = req.query.order || 'desc';
 
-        // Query properties with pagination, search conditions, and sorting
-        const properties = await Property.find({
+        // Construct the query dynamically based on provided parameters
+        const query = {
             $or: [
-                { name: { $regex: regexSearch } },
+                { title: { $regex: regexSearch } },
                 { description: { $regex: regexSearch } },
             ],
-            propertyType: { $regex: propertyType, $options: 'i' },
-            propertyModel: { $regex: propertyModel, $options: 'i' },
-            propertyStatus: { $regex: propertyStatus, $options: 'i' },
-            propertyCategory: { $regex: propertyCategory, $options: 'i' },
-            regularPrice: { $gte: minPrice, $lte: maxPrice },
-            discountPrice: { $gte: minPrice, $lte: maxPrice },
-        })
+        };
+
+        if (propertyType) {
+            query.propertyType = { $regex: propertyType, $options: 'i' };
+        }
+
+        if (propertyModel) {
+            query.propertyModel = { $regex: propertyModel, $options: 'i' };
+        }
+
+        if (propertyStatus) {
+            query.propertyStatus = { $regex: propertyStatus, $options: 'i' };
+        }
+
+        if (propertyCategory) {
+            query.propertyCategory = { $regex: propertyCategory, $options: 'i' };
+        }
+
+        // Query properties with pagination, search conditions, and sorting
+        const properties = await Property.find(query)
             .sort({ [sortField]: sortOrder })
             .skip(skip)
             .limit(limit);

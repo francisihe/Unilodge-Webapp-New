@@ -29,13 +29,7 @@ router.route('/all')
 //Get a booking by booking id as admin or manager
 router.route('/:bookingId')
     .get(verifyManagerOrAdmin, getBooking)
-
-//Update a booking by booking id as admin or manager
-router.route('/:bookingId')
     .patch(verifyManagerOrAdmin, updateBooking)
-
-//Delete a booking by booking id as admin or manager
-router.route('/:bookingId')
     .delete(verifyManagerOrAdmin, deleteBooking)
 
 export default router;
