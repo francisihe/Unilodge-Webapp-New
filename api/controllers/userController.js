@@ -35,7 +35,20 @@ export const updateUser = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
     try {
-        const users = await User.find({}).select('-password');
+
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+
+        // Calculate the skip value based on the page and limit
+        const skip = (page - 1) * limit;
+
+        const users = await User.find({})
+            .select('-password')
+            .skip(skip)
+            .limit(limit);
         res.status(200).json(users);
     } catch (error) {
         next(error)
