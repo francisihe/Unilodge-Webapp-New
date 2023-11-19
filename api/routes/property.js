@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllProperties, getProperty, createProperty, updateProperty, deleteProperty } from '../controllers/propertyController.js'
+import { getAllProperties, getProperty, createProperty, updateProperty, deleteProperty, searchProperties } from '../controllers/propertyController.js'
 import { verifyManagerOrAdmin } from '../middlewares/verifyManagerOrAdmin.js'
 
 const router = express.Router()
@@ -19,5 +19,8 @@ router.route('/:propertyId')
 
 router.route('/:propertyId')
     .delete(verifyManagerOrAdmin, deleteProperty)
+
+router.route('/search')
+    .get(searchProperties)
 
 export default router;

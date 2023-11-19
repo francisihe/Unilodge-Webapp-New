@@ -3,7 +3,20 @@ import User from '../models/userModel.js'
 
 export const getAllCaretakers = async (req, res, next) => {
     try {
-        const caretakers = await Caretaker.find();
+
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+
+        // Calculate the skip value based on the page and limit
+        const skip = (page - 1) * limit;
+
+        const caretakers = await Caretaker.find()
+            .skip(skip)
+            .limit(limit);
+
         res.status(200).json(caretakers);
     } catch (error) {
         next(error)
@@ -24,9 +37,9 @@ export const createCaretaker = async (req, res, next) => {
     try {
         //Check if a user exists with the email provided
         let user = await User.findOne({ email: req.body.email });
-        let caretakerData = {...req.body}
+        let caretakerData = { ...req.body }
         //If user exists, it links the caretaker to the user, else it just creates new one as usual
-        if (user) {caretakerData.userRef = user._id}
+        if (user) { caretakerData.userRef = user._id }
         const newCaretaker = await Caretaker.create(caretakerData);
         res.status(200).json(newCaretaker);
     } catch (error) {
@@ -37,7 +50,7 @@ export const createCaretaker = async (req, res, next) => {
 export const updateCaretaker = async (req, res, next) => {
     const caretaker = req.caretaker;
     try {
-        const updatedCaretaker = Caretaker.findByIdAndUpdate(
+        const updatedCaretaker = await Caretaker.findByIdAndUpdate(
             caretaker,
             req.body,
             { new: true }

@@ -7,9 +7,9 @@ export const createBooking = async (req, res, next) => {
     try {
         //Check if a user exists with the email provided
         let user = await User.findOne({ email: req.body.email });
-        let bookingData = {...req.body}
+        let bookingData = { ...req.body }
         //If user exists, it links the booking to the user, else it just books for inspection as usual
-        if (user) {bookingData.userRef = user._id}
+        if (user) { bookingData.userRef = user._id }
         const newBooking = await Booking.create(bookingData);
         res.status(201).json(newBooking);
     } catch (error) {
@@ -22,7 +22,17 @@ export const getUserBookings = async (req, res, next) => {
     if (userId !== req.user.id) return res.status(403).json('Forbidden. You can only view your own bookings');
 
     try {
-        const userBookings = await Booking.find({ userRef: userId });
+
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; 
+        const minLimit = parseInt(req.query.limit) || 15; 
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+
+        // Calculate the skip value based on the page and limit
+        const skip = (page - 1) * limit;
+
+        const userBookings = await Booking.find({ userRef: userId }).skip(skip).limit(limit);
         res.status(200).json(userBookings);
     } catch (error) {
         if (error instanceof mongoose.Error.CastError) {
@@ -53,7 +63,19 @@ export const getUserBookingsById = async (req, res, next) => {
 
 export const getAllBookings = async (req, res, next) => {
     try {
-        const bookings = await Booking.find();
+
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+
+        // Calculate the skip value based on the page and limit
+        const skip = (page - 1) * limit;
+
+        const bookings = await Booking.find()
+            .skip(skip)
+            .limit(limit);
         res.status(200).json(bookings);
     } catch (error) {
         next(error);

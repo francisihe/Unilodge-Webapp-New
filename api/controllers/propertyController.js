@@ -3,8 +3,22 @@ import Property from '../models/propertyModel.js';
 
 export const getAllProperties = async (req, res, next) => {
     try {
-        const properties = await Property.find();
+
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; 
+        const minLimit = parseInt(req.query.limit) || 15; 
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+
+        // Calculate the skip value based on the page and limit
+        const skip = (page - 1) * limit;
+
+        const properties = await Property.find()
+            .skip(skip)
+            .limit(limit);
+
         res.status(200).json(properties);
+
     } catch (error) {
         next(error);
     }
@@ -66,6 +80,58 @@ export const deleteProperty = async (req, res, next) => {
         if (error instanceof mongoose.Error.CastError) {
             return res.status(404).json('Invalid ID format');
         }
+        next(error);
+    }
+};
+
+export const searchProperties = async (req, res, next) => {
+    try {
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1; // Current page (default to 1)
+        const limit = parseInt(req.query.limit) || 10; // Number of results per page (default to 10)
+
+        // Calculate the skip value based on the page and limit
+        const skip = (page - 1) * limit;
+
+        // Search term
+        const searchTerm = req.query.searchTerm || '';
+
+        // Regex search for name and description fields
+        const regexSearch = new RegExp(searchTerm, 'i');
+
+        // Price range
+        const minPrice = parseFloat(req.query.minPrice) || 0;
+        const maxPrice = parseFloat(req.query.maxPrice) || Number.MAX_VALUE;
+
+        // Other terms
+        const propertyType = req.query.propertyType || '';
+        const propertyModel = req.query.propertyModel || '';
+        const propertyStatus = req.query.propertyStatus || '';
+        const propertyCategory = req.query.propertyCategory || '';
+
+        // Sort options
+        const sortField = req.query.sort || 'createdAt';
+        const sortOrder = req.query.order || 'desc';
+
+        // Query properties with pagination, search conditions, and sorting
+        const properties = await Property.find({
+            $or: [
+                { name: { $regex: regexSearch } },
+                { description: { $regex: regexSearch } },
+            ],
+            propertyType: { $regex: propertyType, $options: 'i' },
+            propertyModel: { $regex: propertyModel, $options: 'i' },
+            propertyStatus: { $regex: propertyStatus, $options: 'i' },
+            propertyCategory: { $regex: propertyCategory, $options: 'i' },
+            regularPrice: { $gte: minPrice, $lte: maxPrice },
+            discountPrice: { $gte: minPrice, $lte: maxPrice },
+        })
+            .sort({ [sortField]: sortOrder })
+            .skip(skip)
+            .limit(limit);
+
+        res.status(200).json(properties);
+    } catch (error) {
         next(error);
     }
 };
