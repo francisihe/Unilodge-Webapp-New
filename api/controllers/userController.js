@@ -128,6 +128,7 @@ export const searchUsers = async (req, res, next) => {
         const users = await User.find(query)
             .select('-password')
             .skip(skip).limit(limit);
+        if (users.length === 0) return res.status(404).json('No users found');
         res.status(200).json(users);
     } catch (error) {
         next(error);

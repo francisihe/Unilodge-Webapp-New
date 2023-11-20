@@ -45,6 +45,7 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 14. Enable limit and pagination for all the get routes
 15. Update Sign In with email process to be handled fully by firebase
 16. Fixed error handling and navigation for when credentials are wrong on signin page
+17. Add Caretaker Ref form to frontend, to allow assigning caretakers to properties using their refs, and ability to view all properties assigned to a caretaker
 
 // Fixed persistence and signout issue
 1. To see the logic, check SignOutFunction in utils folder

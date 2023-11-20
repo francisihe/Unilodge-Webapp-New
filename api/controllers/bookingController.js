@@ -132,3 +132,29 @@ export const deleteBooking = async (req, res, next) => {
         next(error);
     }
 };
+
+export const searchBookings = async (req, res, next) => {
+
+    const searchTerm = req.query.searchTerm || '';
+    let query;
+
+    try {
+        if (mongoose.Types.ObjectId.isValid(searchTerm)) {
+            query = { _id: searchTerm };
+        } else {
+            query = {
+                $or: [
+                    { email: { $regex: searchTerm, $options: 'i' } },
+                    { firstName: { $regex: searchTerm, $options: 'i' } },
+                    { lastName: { $regex: searchTerm, $options: 'i' } },
+                    { phone: { $regex: searchTerm, $options: 'i' } },
+                ]
+            }
+        }
+        const booking = await Booking.find(query);
+        if (booking.length === 0) { return res.status(404).json('Booking not found'); }
+        res.status(200).json(booking);
+    } catch (error) {
+        next(error)
+    }
+};

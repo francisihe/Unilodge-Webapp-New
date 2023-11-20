@@ -1,7 +1,7 @@
 import express from 'express';
 import {
     createBooking, getUserBookings, getUserBookingsById,
-    getAllBookings, getBooking, updateBooking, deleteBooking
+    getAllBookings, getBooking, updateBooking, deleteBooking, searchBookings
 } from '../controllers/bookingController.js';
 import { verifyManagerOrAdmin } from "../middlewares/verifyManagerOrAdmin.js"
 import { verifyUser } from '../middlewares/verifyUser.js';
@@ -25,6 +25,9 @@ router.route('/:bookingId/users/:userId')
 //Get all bookings as admin or manager
 router.route('/all')
     .get(verifyManagerOrAdmin, getAllBookings)
+
+router.route('/search')
+    .get(verifyManagerOrAdmin, searchBookings);
 
 //Get a booking by booking id as admin or manager
 router.route('/:bookingId')
