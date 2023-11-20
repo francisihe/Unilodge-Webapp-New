@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 import bcryptjs from 'bcryptjs';
 
@@ -94,5 +95,41 @@ export const deleteUser = async (req, res, next) => {
         res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
         next(error)
+    }
+};
+
+// Search users using firstname, lastname, username, email or id
+export const searchUsers = async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+        const skip = (page - 1) * limit;
+
+        // Search term
+        const searchTerm = req.query.searchTerm || '';
+
+        let query;
+        if (mongoose.Types.ObjectId.isValid(searchTerm)) {
+            query = { _id: searchTerm };
+        } else {
+            const regexSearch = new RegExp(searchTerm, 'i');
+            query = {
+                $or: [
+                    { email: { $regex: regexSearch } },
+                    { firstname: { $regex: regexSearch } },
+                    { lastname: { $regex: regexSearch } },
+                    { username: { $regex: regexSearch } },
+                ],
+            };
+        };
+
+        const users = await User.find(query)
+            .select('-password')
+            .skip(skip).limit(limit);
+        res.status(200).json(users);
+    } catch (error) {
+        next(error);
     }
 };

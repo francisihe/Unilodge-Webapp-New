@@ -1,12 +1,12 @@
 import express from 'express';
 import { verifyUser } from '../middlewares/verifyUser.js';
 import { verifyAdmin } from '../middlewares/verifyAdmin.js';
-import { deleteUser, getAllUsers, getUser, getUserById, updateUser, updateUserAsAdmin } from '../controllers/userController.js';
+import { deleteUser, getAllUsers, getUser, getUserById, searchUsers, updateUser, updateUserAsAdmin } from '../controllers/userController.js';
 import { getUserByIdentifier } from '../middlewares/getUserByIdentifier.js';
 const router = express.Router();
 
 // Get and Update User 
-router.route('/:userId')
+router.route('/:userId/profile')
     .get(verifyUser, getUser)
     .patch(verifyUser, updateUser)
 
@@ -21,16 +21,14 @@ This is done using the getUserByIdentifier middleware
 router.route('/get/all')
     .get(verifyAdmin, getAllUsers)
 
+// Search Users
+router.route('/search')
+    .get(verifyAdmin, searchUsers)
+
 // Get User By Id
-router.route('/get/:userId')
+router.route('/:userId')
     .get(verifyAdmin, getUserByIdentifier, getUserById)
-
-// Update User As Admin
-router.route('/update/:userId')
     .patch(verifyAdmin, getUserByIdentifier, updateUserAsAdmin)
-
-// Delete User 
-router.route('/delete/:userId')
     .delete(verifyAdmin, getUserByIdentifier, deleteUser)
 
 export default router;

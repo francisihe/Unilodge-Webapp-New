@@ -11,16 +11,12 @@ router.route('/all')
 router.route('/search')
     .get(searchProperties)
 
-router.route('/:propertyId')
-    .get(getProperty)
-
 router.route('/create')
     .post(verifyManagerOrAdmin, createProperty)
 
 router.route('/:propertyId')
+    .get(getProperty)
     .patch(verifyManagerOrAdmin, updateProperty)
-
-router.route('/:propertyId')
     .delete(verifyManagerOrAdmin, deleteProperty)
 
 
