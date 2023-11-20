@@ -1,8 +1,20 @@
 import { Link } from 'react-router-dom'
 import PropertyCard from '../UIelements/PropertyCard.jsx'
 import { Element } from 'react-scroll';
+import { useEffect, useState } from 'react';
 
 const FeaturedProperty = () => {
+    const [featuredProperties, setFeaturedProperties] = useState([])
+
+    useEffect(() => {
+        const getFeaturedProperties = async () => {
+            const res = await fetch('/api/v1/properties/featured')
+            const data = await res.json()
+            setFeaturedProperties(data)
+        };
+        getFeaturedProperties();
+    }, [featuredProperties]);
+
     return (
         <div className='mx-auto lg:w-screen lg:max-w-screen-xl'>
             <Element name='featured-properties'>
@@ -16,15 +28,17 @@ const FeaturedProperty = () => {
                 </div>
 
                 <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-                    <Link to={'/property/' + PropertyCard._id}>
-                        <PropertyCard />
-                    </Link>
 
-                    <PropertyCard />
-                    <PropertyCard />
-                    <PropertyCard />
-                    <PropertyCard />
-                    <PropertyCard />
+                    {featuredProperties &&
+                        featuredProperties
+                        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+                        .map(property => (
+                            <Link to={'/property/' + property._id} key={property._id}>
+                                <PropertyCard property={property} />
+                            </Link>
+                        ))
+                    }
+
                 </div>
 
                 <div className='text-center my-4 text-red-400 font-bold'>

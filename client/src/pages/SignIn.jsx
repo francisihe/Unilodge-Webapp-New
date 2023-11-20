@@ -43,29 +43,14 @@ const SignIn = () => {
       });
       const data = await res.json();
       console.log(data);
-      
-      // Issue here
-      if (data.statusCode === false) {
-        setLoading(false);
-        setError(data.message);
+
+      if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
 
-      // Issue here
-      if (data.error === true) {
-        setLoading(false);
-        setError(null);
-        dispatch(signInSuccess(data));
-        navigate('/profile');
-        return;
-      }
-
-      // Issue here
-      // setLoading(false);
-      // setError(null);
-      // dispatch(signInSuccess(data));
-      // navigate('/profile');
+      dispatch(signInSuccess(data));
+      navigate('/profile');
 
     } catch (error) {
       setLoading(false);
