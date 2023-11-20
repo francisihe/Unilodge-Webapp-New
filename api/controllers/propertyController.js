@@ -145,6 +145,7 @@ export const searchProperties = async (req, res, next) => {
             .skip(skip)
             .limit(limit);
 
+        if (properties.length === 0) return res.status(404).json('No properties found');
         res.status(200).json(properties);
     } catch (error) {
         next(error);
