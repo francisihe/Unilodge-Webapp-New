@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyManagerOrAdmin } from '../middlewares/verifyManagerOrAdmin.js';
-import { createCaretaker, deleteCaretaker, getAllCaretakers, getCaretaker, updateCaretaker } from '../controllers/caretakerController.js';
+import { createCaretaker, deleteCaretaker, getAllCaretakers, getCaretaker, searchCaretakers, updateCaretaker } from '../controllers/caretakerController.js';
 import { getCaretakerByIdentifier } from '../middlewares/getCaretakerByIdentifier.js';
 const router = express.Router();
 
@@ -10,6 +10,9 @@ router.route('/all')
 
 router.route('/create')
     .post(verifyManagerOrAdmin, createCaretaker)
+
+router.route('/search')
+    .get(verifyManagerOrAdmin, searchCaretakers);
 
 router.route('/:caretakerId')
     .get(verifyManagerOrAdmin, getCaretakerByIdentifier, getCaretaker)

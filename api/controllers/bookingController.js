@@ -139,19 +139,25 @@ export const searchBookings = async (req, res, next) => {
     let query;
 
     try {
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+        const skip = (page - 1) * limit;
+
         if (mongoose.Types.ObjectId.isValid(searchTerm)) {
             query = { _id: searchTerm };
         } else {
             query = {
                 $or: [
                     { email: { $regex: searchTerm, $options: 'i' } },
-                    { firstName: { $regex: searchTerm, $options: 'i' } },
-                    { lastName: { $regex: searchTerm, $options: 'i' } },
+                    { firstname: { $regex: searchTerm, $options: 'i' } },
+                    { lastname: { $regex: searchTerm, $options: 'i' } },
                     { phone: { $regex: searchTerm, $options: 'i' } },
                 ]
             }
         }
-        const booking = await Booking.find(query);
+        const booking = await Booking.find(query).skip(skip).limit(limit);
         if (booking.length === 0) { return res.status(404).json('Booking not found'); }
         res.status(200).json(booking);
     } catch (error) {

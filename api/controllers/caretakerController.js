@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Caretaker from '../models/caretakerModel.js'
 import User from '../models/userModel.js'
 
@@ -66,6 +67,36 @@ export const deleteCaretaker = async (req, res, next) => {
         const caretaker = req.caretaker;
         await Caretaker.findByIdAndDelete(caretaker);
         res.status(200).json('Caretaker has been deleted')
+    } catch (error) {
+        next(error)
+    }
+};
+
+export const searchCaretakers = async (req, res, next) => {
+    const searchTerm = req.query.searchTerm || '';
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+        const skip = (page - 1) * limit;
+
+        let query;
+        if (mongoose.Types.ObjectId.isValid(searchTerm)) {
+            query = { _id: searchTerm };
+        } else {
+            query = {
+                $or: [
+                    { email: { $regex: searchTerm, $options: 'i' } },
+                    { firstname: { $regex: searchTerm, $options: 'i' } },
+                    { lastname: { $regex: searchTerm, $options: 'i' } },
+                    { phone: { $regex: searchTerm, $options: 'i' } },
+                ]
+            }
+        }
+        const caretaker = await Caretaker.find(query).skip(skip).limit(limit);
+        if (caretaker.length === 0) { return res.status(404).json('Caretaker not found'); }
+        res.status(200).json(caretaker);
     } catch (error) {
         next(error)
     }

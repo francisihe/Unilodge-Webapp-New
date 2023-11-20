@@ -24,6 +24,24 @@ export const getAllProperties = async (req, res, next) => {
     }
 };
 
+export const getFeaturedProperties = async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+        const skip = (page - 1) * limit;
+
+        const featuredProperties = await Property.find({ isFeatured: true })
+            .skip(skip)
+            .limit(limit);
+        if (featuredProperties.length === 0) return res.status(404).json('No featured properties found');
+        res.status(200).json(featuredProperties);
+    } catch (error) {
+        next(error)
+    }
+};
+
 export const getProperty = async (req, res, next) => {
     const { propertyId } = req.params;
 
@@ -91,7 +109,7 @@ export const searchProperties = async (req, res, next) => {
         const minLimit = parseInt(req.query.limit) || 15;
         const maxLimit = 100;
         const limit = Math.min(minLimit, maxLimit);
-        
+
         // Calculate the skip value based on the page and limit
         const skip = (page - 1) * limit;
 
