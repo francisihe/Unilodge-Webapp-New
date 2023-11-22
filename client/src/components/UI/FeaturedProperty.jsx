@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import PropertyCard from '../UIelements/PropertyCard.jsx'
 import { Element } from 'react-scroll';
 import { useEffect, useState } from 'react';
+import Pagination from '../UIelements/Pagination.jsx';
 
 const FeaturedProperty = () => {
     const [featuredProperties, setFeaturedProperties] = useState([])
@@ -13,7 +14,7 @@ const FeaturedProperty = () => {
             setFeaturedProperties(data)
         };
         getFeaturedProperties();
-    }, [featuredProperties]);
+    }, []);
 
     return (
         <div className='mx-auto lg:w-screen lg:max-w-screen-xl'>
@@ -42,9 +43,11 @@ const FeaturedProperty = () => {
                 </div>
 
                 <div className='text-center my-4 text-red-400 font-bold'>
+                    
                     <p>Add Pagination Here & Fix Save Button</p>
                 </div>
             </Element>
+            <div className=''><Pagination /></div>
         </div>
     )
 }

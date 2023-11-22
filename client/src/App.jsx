@@ -10,6 +10,7 @@ import Footer from './components/UI/Footer'
 import AddProperty from './pages/AddProperty'
 import PropertyListing from './components/UIskeleton/PropertyListing'
 import UserBookings from './components/UIskeleton/UserBookings'
+import PropertiesList from './components/UIskeleton/PropertiesList'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
 
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
+          <Route path='/properties' element={<PropertiesList />} />
           <Route path='/add-property' element={<AddProperty />} />
           <Route path='/property/:propertyId' element={<PropertyListing />} />
         </Route>

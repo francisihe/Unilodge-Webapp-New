@@ -5,6 +5,7 @@ import PropertyHeader from "../UIelements/PropertyHeader";
 import PropertyFeatures from "../UIelements/PropertyFeatures";
 import PropertyPrice from "../UIelements/PropertyPrice";
 import BookingForm from "../forms/BookingForm";
+import { IoIosRadioButtonOn } from "react-icons/io";
 
 
 const PropertyListing = () => {
@@ -42,7 +43,15 @@ const PropertyListing = () => {
       </div>
 
       <div className="pt-10 md:pt-0"><PropertyGallery property={property} /></div>
-      <p className="text-sm">Property ID: {property._id}</p>
+      <div className="flex items-center justify-between">
+        <p className="text-sm">Property ID: {property._id}</p>
+        <div>{property.propertyStatus === 'taken'
+          ? (<span className='flex gap-1 items-center'><IoIosRadioButtonOn className='text-sm text-red-500' />
+            <div className='text-xs'>Taken</div></span>)
+          : (<span className='flex gap-1 items-center'><IoIosRadioButtonOn className='text-sm text-green-500' />
+            <div className='text-xs'>Available</div></span>)
+        }</div>
+      </div>
 
       {/* Header for Mobile screens, hidden on Large screens */}
       <div className="block md:hidden">
