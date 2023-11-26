@@ -20,9 +20,11 @@ const PropertySearchAndFilter = () => {
     <div className=" ">
       {/* h-24 md:h-32 border-2 rounded-xl*/}
       <p>Top Search Area</p>
-      <form onSubmit={handleSubmit} className="border-2 px-4 py-2 rounded-xl space-y-2">
+      <form onSubmit={handleSubmit} 
+      className="border-2 px-4 py-2 rounded-xl space-y-2 gap-3 
+      md:flex md:justify-between">
         
-        <div>
+        <div className="lg:w-2/5">
           <label className="text-xs text-orange-500 font-medium">Search Term</label>
           <div className="flex items-center gap-1">
             <input
@@ -41,8 +43,8 @@ const PropertySearchAndFilter = () => {
           </div>
         </div>
 
-        <div className="md:flex md:gap-2">
-          <div className="flex gap-1 justify-between md:pr-10 md:w-4/5">
+        <div className="md:flex md:gap- lg:w-3/5">
+          <div className="flex gap-2 justify-between md:pr-10 md:w-4/5">
 
             <div className="grid">
               <label className="text-xs text-orange-500 font-medium whitespace-nowrap">Property Type</label>
@@ -100,7 +102,7 @@ const PropertySearchAndFilter = () => {
 
           <button
             type="submit"
-            className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-full md:w-1/5">
+            className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-full md:mt-0 md:self-center md:w-1/5">
             Filter
           </button>
         </div>

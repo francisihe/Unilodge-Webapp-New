@@ -32,6 +32,12 @@ const PropertiesList = () => {
             setLoading(false);
         };
         getPropertiesfromAPI();
+
+        window.scroll({
+            top: 100,
+            behavior: 'smooth'
+        });
+
     }, [currentPage, totalPages]);
 
     const handleNextPage = () => {
@@ -49,17 +55,17 @@ const PropertiesList = () => {
     const handleFilter = ({ propertyType, propertyModel, propertyStatus, propertyCategory }) => {
         // Apply filters to the original properties and update the filteredProperties state
         const filtered = properties.filter((property) => {
-          return (
-            (!propertyType || property.propertyType === propertyType) &&
-            (!propertyModel || property.propertyModel === propertyModel) &&
-            (!propertyStatus || property.propertyStatus === propertyStatus) &&
-            (!propertyCategory || property.propertyCategory === propertyCategory)
-          );
+            return (
+                (!propertyType || property.propertyType === propertyType) &&
+                (!propertyModel || property.propertyModel === propertyModel) &&
+                (!propertyStatus || property.propertyStatus === propertyStatus) &&
+                (!propertyCategory || property.propertyCategory === propertyCategory)
+            );
         });
-    
+
         setFilteredProperties(filtered);
         setCurrentPage(1);
-      };
+    };
 
     const handleClearFilter = () => {
         setFilteredProperties(properties);
@@ -67,8 +73,8 @@ const PropertiesList = () => {
 
     return (
         <div className="space-y-2">
-            
-            <PropertyListFilterForm 
+
+            <PropertyListFilterForm
                 propertyType={propertyType}
                 setPropertyType={setPropertyType}
                 propertyModel={propertyModel}
