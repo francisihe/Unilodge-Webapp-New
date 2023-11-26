@@ -6,12 +6,13 @@ import Home from './pages/Home'
 import Profile from './pages/Profile'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
-import Footer from './components/UI/Footer'
 import AddProperty from './pages/AddProperty'
+import EditProperty from './pages/EditProperty'
+import Properties from './pages/Properties'
+import Footer from './components/UI/Footer'
 import PropertyListing from './components/UIskeleton/PropertyListing'
 import UserBookings from './components/UIskeleton/UserBookings'
-import PropertiesList from './components/UIskeleton/PropertiesList'
-import EditProperty from './pages/EditProperty'
+
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
 
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
-          <Route path='/properties' element={<PropertiesList />} />
+          <Route path='/properties' element={<Properties />} />
           <Route path='/add-property' element={<AddProperty />} /> {/* Protect Route */}
           <Route path='/edit-property/:propertyId' element={<EditProperty />} /> {/* Protect Route */}
           <Route path='/property/:propertyId' element={<PropertyListing />} />

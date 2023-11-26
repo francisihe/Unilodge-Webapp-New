@@ -1,26 +1,30 @@
+/* eslint-disable react/prop-types */
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 
-const Pagination = () => {
-
+const Pagination = ({ currentPage, totalPages, onClickNextPage, onClickPrevPage }) => {
 
     return (
         <div className="">
             <div className="items-center space-x-2">
-                {/* Right button */}
+                {/* Left button */}
                 <button
-                    //onClick={handleNextPage}
-                    //disabled={currentPage === totalPages}
-                    className="bg-orange-400 text-white px-4 py-2 rounded-full focus:outline-none"
+                    onClick={onClickPrevPage}
+                    disabled={currentPage === 1}
+                    className={`${
+                        currentPage === 1 ? "bg-gray-400" : "bg-orange-400 text-white"
+                      } px-4 py-2 rounded-full focus:outline-none`}
                 >
                     <FaArrowAltCircleLeft />
                 </button>
 
-                {/* Left button */}
+                {/* Right button */}
                 <button
-                    //onClick={handlePrevPage}
-                    //disabled={currentPage === 1}
-                    className="bg-orange-400 text-white px-4 py-2 rounded-full focus:outline-none"
+                    onClick={onClickNextPage}
+                    disabled={currentPage === totalPages}
+                    className={`${
+                        currentPage === totalPages ? "bg-gray-400" : "bg-orange-400 text-white"
+                      } px-4 py-2 rounded-full focus:outline-none`}
                 >
                     <FaArrowAltCircleRight />
                 </button>
