@@ -1,29 +1,37 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+// import { useState } from "react";
 
 
-const PropertySearchAndFilter = () => {
+const PropertySearchAndFilter = ({
+  searchTerm,
+  setSearchTerm,
+  propertyType,
+  setPropertyType,
+  propertyModel,
+  setPropertyModel,
+  propertyStatus,
+  setPropertyStatus,
+  propertyCategory,
+  setPropertyCategory,
+  onSearch,
+}) => {
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [propertyType, setPropertyType] = useState('');
-  const [propertyModel, setPropertyModel] = useState('');
-  const [propertyStatus, setPropertyStatus] = useState('');
-  const [propertyCategory, setPropertyCategory] = useState('');
-
-  console.log(searchTerm)
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submitted')
+    onSearch({
+      searchTerm, propertyType, propertyModel, propertyStatus, propertyCategory
+    });
   };
 
   return (
     <div className=" ">
       {/* h-24 md:h-32 border-2 rounded-xl*/}
       <p>Top Search Area</p>
-      <form onSubmit={handleSubmit} 
-      className="border-2 px-4 py-2 rounded-xl space-y-2 gap-3 
+      <form onSubmit={handleSubmit}
+        className="border-2 px-4 py-2 rounded-xl space-y-2 gap-3 
       md:flex md:justify-between">
-        
+
         <div className="lg:w-2/5">
           <label className="text-xs text-orange-500 font-medium">Search Term</label>
           <div className="flex items-center gap-1">
