@@ -10,12 +10,12 @@ const BookingForm = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
-        firstname: '' || currentUser.firstname,
-        lastname: '' || currentUser.lastname,
-        userRef: '' || currentUser._id,
+        firstname: currentUser && currentUser.firstname || '',
+        lastname: currentUser && currentUser.lastname || '',
+        userRef: currentUser && currentUser._id || '',
         propertyRef: params.propertyId,
         phone: '',
-        email: '' || currentUser.email,
+        email: currentUser && currentUser.email || '',
         inspectionDate: '',
     });
 
@@ -30,10 +30,10 @@ const BookingForm = () => {
     };
 
     const handleChange = (event) => {
-        setFormData({
-            ...formData,
+        setFormData((prevFormData) => ({
+            ...prevFormData,
             [event.target.id]: event.target.value
-        });
+        }));
         console.log(formData)
     };
 

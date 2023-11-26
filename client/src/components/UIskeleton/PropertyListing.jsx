@@ -95,7 +95,7 @@ const PropertyListing = () => {
 
         {/* Edit Property Button */}
         <div className="flex justify-center my-4">
-          {currentUser && currentUser.role === 'admin' || currentUser.role === 'manager'
+          {currentUser && currentUser?.role === 'admin' || currentUser?.role === 'manager'
             ? <button
               type='button'
               className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-3/6"
