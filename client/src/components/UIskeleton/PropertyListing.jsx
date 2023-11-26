@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PropertyGallery from "../UIelements/PropertyGallery";
 import PropertyHeader from "../UIelements/PropertyHeader";
 import PropertyFeatures from "../UIelements/PropertyFeatures";
 import PropertyPrice from "../UIelements/PropertyPrice";
 import BookingForm from "../forms/BookingForm";
 import { IoIosRadioButtonOn } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 
 const PropertyListing = () => {
   const params = useParams();
+  const navigate = useNavigate();
+  const { currentUser } = useSelector(state => state.user)
   const [property, setProperty] = useState({})
   const [error, setError] = useState(null)
 
@@ -33,6 +36,15 @@ const PropertyListing = () => {
     getProperty();
 
   }, [params.propertyId])
+
+  const handleEditProperty = () => {
+    if (params.propertyId) {
+      navigate(`/edit-property/${params.propertyId}`)
+    } else {
+      alert('No property ID')
+      console.log('No property ID')
+    }
+  };
 
   return (
     <div className="mx-auto lg:max-w-screen-xl lg:pt-8">
@@ -69,13 +81,27 @@ const PropertyListing = () => {
         <div className="md:w-3/5">
           <p className="text-lg font-semibold py-3 tracking-wider">Property Description</p>
           {property.description}
-
-          {/* Add Caretaker Details for Admins and Managers to view */}
         </div>
 
         {/* Property Booking Form */}
         <div id='booking-form' className="md:w-2/5">
           <BookingForm />
+        </div>
+
+      </div>
+
+      <div>
+        {/* Add Caretaker Details for Admins and Managers to view */}
+
+        {/* Edit Property Button */}
+        <div className="flex justify-center my-4">
+          {currentUser && currentUser.role === 'admin' || currentUser.role === 'manager'
+            ? <button
+              type='button'
+              className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-3/6"
+              onClick={handleEditProperty}
+            > Edit Property </button>
+            : ''}
         </div>
 
       </div>
