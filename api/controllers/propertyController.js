@@ -17,7 +17,10 @@ export const getAllProperties = async (req, res, next) => {
             .skip(skip)
             .limit(limit);
 
-        res.status(200).json(properties);
+        const totalProperties = await Property.countDocuments();
+        
+        if (properties.length === 0) return res.status(404).json('No properties found');
+        res.status(200).json({properties, totalProperties});
 
     } catch (error) {
         next(error);
@@ -35,8 +38,11 @@ export const getFeaturedProperties = async (req, res, next) => {
         const featuredProperties = await Property.find({ isFeatured: true })
             .skip(skip)
             .limit(limit);
+
+        const totalFeaturedProperties = await Property.countDocuments({ isFeatured: true });
+
         if (featuredProperties.length === 0) return res.status(404).json('No featured properties found');
-        res.status(200).json(featuredProperties);
+        res.status(200).json({featuredProperties, totalFeaturedProperties});
     } catch (error) {
         next(error)
     }
