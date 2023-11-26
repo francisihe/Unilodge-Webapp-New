@@ -14,6 +14,7 @@ const PropertySearchAndFilter = ({
   propertyCategory,
   setPropertyCategory,
   onSearch,
+  onClear
 }) => {
 
 
@@ -24,10 +25,17 @@ const PropertySearchAndFilter = ({
     });
   };
 
+  const handleClear = () => {
+    //setSearchTerm('');
+    setPropertyType('');
+    setPropertyModel('');
+    setPropertyStatus('');
+    setPropertyCategory('');
+    onClear();
+  };
+
   return (
-    <div className=" ">
-      {/* h-24 md:h-32 border-2 rounded-xl*/}
-      <p>Top Search Area</p>
+    <div>
       <form onSubmit={handleSubmit}
         className="border-2 px-4 py-2 rounded-xl space-y-2 gap-3 
       md:flex md:justify-between">
@@ -41,6 +49,7 @@ const PropertySearchAndFilter = ({
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Enter search term"
               className="w-3/4"
+              // required
             />
             <button
               type="submit"
@@ -51,7 +60,7 @@ const PropertySearchAndFilter = ({
           </div>
         </div>
 
-        <div className="md:flex md:gap- lg:w-3/5">
+        <div className="md:flex md:items-center lg:w-3/5">
           <div className="flex gap-2 justify-between md:pr-10 md:w-4/5">
 
             <div className="grid">
@@ -108,11 +117,22 @@ const PropertySearchAndFilter = ({
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-full md:mt-0 md:self-center md:w-1/5">
-            Filter
-          </button>
+          <div className="flex flex-col space-y-2 md:w-1/5">
+            <button
+              type="submit"
+              className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-full"
+            >
+              Filter
+            </button>
+
+            <button
+              type="submit"
+              onClick={handleClear}
+              className="text-sm"
+            >
+              Clear Filter
+            </button>
+          </div>
         </div>
       </form>
 
