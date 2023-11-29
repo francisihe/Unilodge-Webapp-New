@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/unilodge-logo.jpg"
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -6,9 +6,10 @@ import { signOutUser } from "../utils/signOutUser";
 import HeaderSearchBar from "./forms/HeaderSearchBar";
 
 export default function Header() {
+  const location = useLocation();
   const { currentUser } = useSelector(state => state.user)
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
-  
+
   const toggleMenuDropdown = () => {
     setMenuDropdownOpen(!menuDropdownOpen);
   };
@@ -24,16 +25,14 @@ export default function Header() {
         <span className="font-bold text-xl">Unilodge</span>
       </Link>
 
-      {/* <div className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300 invisible lg:visible md:visible">
-        Search Bar Goes Here
-      </div> */}
-      <HeaderSearchBar />
+      {/* If on Search Page, do not display this search bar */}
+      {location.pathname === '/search-properties' ? '' : <HeaderSearchBar />}
 
       <button type='button' onClick={toggleMenuDropdown}>
         <div className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4">
           <div className="flex gap-2 whitespace-nowrap">
             {/* // Profile Icon with Profile name */}
-            
+
             {currentUser ? <div className="">Hi, {currentUser.firstname}</div> : ''}
 
             {currentUser
@@ -62,9 +61,9 @@ export default function Header() {
               <div className="absolute border border-orange-400 right-8 md:right-10 lg:right-16 z-10 mt-8 w-40 md:w-48 origin-top-right rounded-md bg-gray-100 shadow-lg">
                 <div className=" flex flex-col text-left flex-wrap whitespace-nowrap p-4">
                   <Link to='/profile' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Profile Page</Link>
-                  {currentUser 
-                  ? <a href="" onClick={handleSignOut} className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign Out</a>
-                  : <Link to='/signin' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign In</Link>
+                  {currentUser
+                    ? <a href="" onClick={handleSignOut} className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign Out</a>
+                    : <Link to='/signin' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign In</Link>
                   }
                 </div>
               </div>}

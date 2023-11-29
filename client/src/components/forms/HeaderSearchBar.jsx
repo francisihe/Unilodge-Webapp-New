@@ -8,7 +8,6 @@ const HeaderSearchBar = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(searchTerm);
         navigate(`/search-properties?searchTerm=${searchTerm}`)
     };
 
