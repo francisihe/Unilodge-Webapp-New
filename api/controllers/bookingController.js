@@ -24,8 +24,8 @@ export const getUserBookings = async (req, res, next) => {
     try {
 
         // Pagination parameters
-        const page = parseInt(req.query.page) || 1; 
-        const minLimit = parseInt(req.query.limit) || 15; 
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
         const maxLimit = 100;
         const limit = Math.min(minLimit, maxLimit);
 
@@ -33,7 +33,8 @@ export const getUserBookings = async (req, res, next) => {
         const skip = (page - 1) * limit;
 
         const userBookings = await Booking.find({ userRef: userId }).skip(skip).limit(limit);
-        res.status(200).json(userBookings);
+        const totalUserBookings = await Booking.find({ userRef: userId }).countDocuments();
+        res.status(200).json({ userBookings, totalUserBookings });
     } catch (error) {
         if (error instanceof mongoose.Error.CastError) {
             return res.status(404).json('Invalid ID format');
@@ -76,7 +77,9 @@ export const getAllBookings = async (req, res, next) => {
         const bookings = await Booking.find()
             .skip(skip)
             .limit(limit);
-        res.status(200).json(bookings);
+        const totalBookings = await Booking.countDocuments();
+
+        res.status(200).json({ bookings, totalBookings });
     } catch (error) {
         next(error);
     }
@@ -158,8 +161,9 @@ export const searchBookings = async (req, res, next) => {
             }
         }
         const booking = await Booking.find(query).skip(skip).limit(limit);
+        const totalBookings = await Booking.countDocuments(query);
         if (booking.length === 0) { return res.status(404).json('Booking not found'); }
-        res.status(200).json(booking);
+        res.status(200).json({ booking, totalBookings });
     } catch (error) {
         next(error)
     }
