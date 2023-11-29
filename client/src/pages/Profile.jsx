@@ -1,10 +1,17 @@
-import { Route, Routes } from "react-router-dom"
+import { Link, Route, Routes } from "react-router-dom"
 import ProfileForm from "../components/forms/ProfileForm"
+import UserBookings from "../components/UIskeleton/UserBookings"
 
 
 const Profile = () => {
   return (
     <div className="flex flex-col my-4 space-y-3 lg:mx-auto lg:w-screen lg:max-w-screen-xl">
+      <div className="my-2 flex items-center gap-2 text-orange-700">
+        <Link to='/profile'><p>Profile</p></Link>
+        <p className="text-black">&#8594;</p>
+        <Link to='/profile/bookings'><p>Bookings</p></Link>
+      </div>
+
       <div className="my-3">
         <h1 className="text-3xl">Profile Page</h1>
         <br />
@@ -18,7 +25,7 @@ const Profile = () => {
           element={<ProfileForm />} />
 
         <Route path='/bookings'
-          element={<div>Bookings here</div>} />
+          element={<UserBookings />} />
 
       </Routes>
 
