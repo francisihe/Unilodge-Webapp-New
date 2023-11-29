@@ -1,14 +1,32 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/unilodge-logo.jpg"
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { signOutUser } from "../utils/signOutUser";
 import HeaderSearchBar from "./forms/HeaderSearchBar";
+import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
+
 
 export default function Header() {
   const location = useLocation();
   const { currentUser } = useSelector(state => state.user)
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    // This function will be called whenever the user clicks outside the dropdown menu
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMenuDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleMenuDropdown = () => {
     setMenuDropdownOpen(!menuDropdownOpen);
@@ -49,16 +67,17 @@ export default function Header() {
           </div>
 
           <div>
-            {/* Menu for user profile */}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
+            {/* Menu for user profile - Open and Close Dropdown */}
+
+            {!menuDropdownOpen && <RxHamburgerMenu className="w-5 h-5" />}
+            {menuDropdownOpen && <RxCross2 className="w-5 h-5" />}
+
           </div>
 
           <div>
             {/* Menu Dropdown */}
             {menuDropdownOpen &&
-              <div className="absolute border border-orange-400 right-8 md:right-10 lg:right-16 z-10 mt-8 w-40 md:w-48 origin-top-right rounded-md bg-gray-100 shadow-lg">
+              <div ref={dropdownRef} className="absolute border border-orange-400 right-8 md:right-10 lg:right-16 z-10 mt-8 w-40 md:w-48 origin-top-right rounded-md bg-gray-100 shadow-lg">
                 <div className=" flex flex-col text-left flex-wrap whitespace-nowrap p-4">
                   <Link to='/profile' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Profile Page</Link>
                   {currentUser
