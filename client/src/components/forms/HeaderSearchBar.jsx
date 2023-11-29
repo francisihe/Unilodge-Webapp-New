@@ -24,7 +24,7 @@ const HeaderSearchBar = () => {
                 />
                 <div className="bg-black p-1 rounded-full px-2 border-2 border-orange-400">
                     <button
-                        type='sumbit'
+                        type='submit'
                         onClick={handleSubmit}
                         >
                         <TbHomeSearch

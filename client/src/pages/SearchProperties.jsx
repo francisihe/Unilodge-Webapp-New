@@ -124,6 +124,11 @@ const SearchProperties = () => {
                 }
 
             </div>
+
+            <Link to='/properties'
+                className="bg-orange-500 text-white text-center font-bold rounded-full py-2 px-4 mt-3 mx-auto w-72 md:w-80"
+            >See All Properties
+            </Link>
         </div>
     )
 }
