@@ -1,5 +1,5 @@
-import Pagination from "../UIelements/Pagination";
-import BookingCardMini from "../UIelements/BookingCardMini";
+import Pagination from "../components/UIelements/Pagination";
+import BookingCardMini from "../components/UIelements/BookingCardMini";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -22,7 +22,10 @@ const UserBookings = () => {
       setTotalPages(Math.ceil(data.totalUserBookings / limit))
       setLoading(false);
     };
-    getUserBookingsFromAPI();
+
+    if (currentUser) {
+      getUserBookingsFromAPI();
+    }
 
     window.scroll({
       top: 100,

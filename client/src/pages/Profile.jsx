@@ -1,6 +1,6 @@
 import { Link, Route, Routes } from "react-router-dom"
 import ProfileForm from "../components/forms/ProfileForm"
-import UserBookings from "../components/UIskeleton/UserBookings"
+import UserBookings from "./UserBookings"
 
 
 const Profile = () => {

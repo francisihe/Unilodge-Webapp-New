@@ -11,7 +11,7 @@ import EditProperty from './pages/EditProperty'
 import Properties from './pages/Properties'
 import Footer from './components/UI/Footer'
 import PropertyListing from './components/UIskeleton/PropertyListing'
-import UserBookings from './components/UIskeleton/UserBookings'
+import UserBookings from './pages/UserBookings'
 import SearchProperties from './pages/SearchProperties'
 import DashboardAdmin from './pages/admin/DashboardAdmin'
 
