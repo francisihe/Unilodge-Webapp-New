@@ -47,8 +47,9 @@ const SearchProperties = () => {
             top: 0,
             behavior: 'smooth'
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, handleSearch]);
-    
+
 
     const handleClearFilter = () => {
         setPropertyType('');
@@ -98,6 +99,10 @@ const SearchProperties = () => {
                             property={property} />
                     </Link>
                 ))}
+
+                {!properties?.length && !loading &&
+                    <b><p>No properties found</p></b>
+                }
             </div>
 
             <div className="flex justify-end py-2">

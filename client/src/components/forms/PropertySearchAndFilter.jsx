@@ -49,7 +49,7 @@ const PropertySearchAndFilter = ({
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Enter search term"
               className="w-3/4"
-              // required
+              required
             />
             <button
               type="submit"
