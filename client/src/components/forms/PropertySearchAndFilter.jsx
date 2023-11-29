@@ -45,7 +45,7 @@ const PropertySearchAndFilter = ({
           <div className="flex items-center gap-1">
             <input
               type="text"
-              value={searchTerm}
+              value={ searchTerm }
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Enter search term"
               className="w-3/4"

@@ -1,13 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import PropertySearchAndFilter from "../components/forms/PropertySearchAndFilter"
 import PropertyCard from "../components/UIelements/PropertyCard";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Pagination from "../components/UIelements/Pagination";
+//import { useSelector } from "react-redux";
 
 
 const SearchProperties = () => {
     const [properties, setProperties] = useState([])
     const [loading, setLoading] = useState(false);
+
+    // Get Search Term from HeaderSearchBar form
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = queryParams.get("searchTerm") || '';
 
     //Pagination States
     const [currentPage, setCurrentPage] = useState(1);
@@ -15,7 +21,7 @@ const SearchProperties = () => {
     const limit = 15;
 
     // Search and Filter States
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(searchTermFromUrl || '');
     const [propertyType, setPropertyType] = useState('');
     const [propertyModel, setPropertyModel] = useState('');
     const [propertyStatus, setPropertyStatus] = useState('');
@@ -33,9 +39,10 @@ const SearchProperties = () => {
         setLoading(false);
     }, [currentPage, limit]);
 
+
     useEffect(() => {
         handleSearch({
-            searchTerm,
+            searchTerm: searchTermFromUrl || '',
             propertyType,
             propertyModel,
             propertyStatus,
@@ -48,7 +55,7 @@ const SearchProperties = () => {
             behavior: 'smooth'
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPage, handleSearch]);
+    }, [currentPage, handleSearch, searchTermFromUrl]);
 
 
     const handleClearFilter = () => {

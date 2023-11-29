@@ -3,6 +3,7 @@ import logo from "../assets/unilodge-logo.jpg"
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { signOutUser } from "../utils/signOutUser";
+import HeaderSearchBar from "./forms/HeaderSearchBar";
 
 export default function Header() {
   const { currentUser } = useSelector(state => state.user)
@@ -23,9 +24,10 @@ export default function Header() {
         <span className="font-bold text-xl">Unilodge</span>
       </Link>
 
-      <div className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300 invisible lg:visible md:visible">
+      {/* <div className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300 invisible lg:visible md:visible">
         Search Bar Goes Here
-      </div>
+      </div> */}
+      <HeaderSearchBar />
 
       <button type='button' onClick={toggleMenuDropdown}>
         <div className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4">
