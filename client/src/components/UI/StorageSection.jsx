@@ -13,8 +13,8 @@ const StorageSection = () => {
 
             <div className='space-y-4 py-10 md:mb-0 md:pr-4 lg:-mt-10 lg:max-w-xl'>
                 <div>
-                    <h2 className="text-3xl w-[85%] my-3 leading-tight">Are You a Student and Going On Holiday? Store Your Items In Our Storage</h2>
-                    <p className="text-md w-[90%]">Our warehouse is available for students to keep their items safely for a duration of time, when they need to go on holiday. It is safe, secure and bug free.</p>
+                    <h2 className="text-3xl w-[100%] my-3 leading-tight">Are You a Student and Going On Holiday? Store Your Items In Our Storage</h2>
+                    <p className="text-md w-[95%]">Our warehouse is available for students to keep their items safely for a duration of time, when they need to go on holiday. It is safe, secure and bug free.</p>
                 </div>
 
                 <div>

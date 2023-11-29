@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import heroImage from '../../assets/images/unilodge-hero-image.png'
 import { Link as ScrollLink } from 'react-scroll'
+import { FaUserCircle } from "react-icons/fa";
+
 
 const Hero = () => {
     return (
@@ -24,12 +26,13 @@ const Hero = () => {
                 </div>
 
                 <div>
-                    Get started by creating an account
-                    <div className='py-4 flex flex-wrap -mr-4'>
-                        <Link to='/signup'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 md:mb-2 shadow-lg hover:scale-110 transition-transform'>Create Account</button></Link>
+                    Get started by creating an account or exploring our properties
+                    <div className='py-4 flex flex-wrap -mr-6 items-center gap-2'>
+                        <Link to='/signup'><FaUserCircle className='text-gray-400 w-6 h-6' /></Link>
                         <ScrollLink to='featured-properties' smooth={true}>
-                            <button className='bg-orange-300 py-2 px-3 rounded-md font-medium mr-4 shadow-md hover:scale-110 transition-transform'>Featured Properties</button>
+                            <button className='bg-orange-300 py-2 px-3 rounded-md font-medium mr-0 shadow-md hover:scale-110 transition-transform'>Featured Properties</button>
                         </ScrollLink>
+                        <Link to='/properties'><button className='bg-orange-400 py-2 px-3 rounded-md font-medium mr-4 shadow-lg hover:scale-110 transition-transform'>All Properties</button></Link>
                     </div>
                 </div>
             </div>

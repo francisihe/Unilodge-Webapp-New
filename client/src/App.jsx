@@ -13,6 +13,8 @@ import Footer from './components/UI/Footer'
 import PropertyListing from './components/UIskeleton/PropertyListing'
 import UserBookings from './components/UIskeleton/UserBookings'
 import SearchProperties from './pages/SearchProperties'
+import DashboardAdmin from './pages/admin/DashboardAdmin'
+
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path='/profile/*' element={<Profile />}> {/* Protect Route */}
             <Route path='bookings' element={<UserBookings />} />
           </Route>
+
+          <Route path='/admin' element={<DashboardAdmin />} />
 
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />

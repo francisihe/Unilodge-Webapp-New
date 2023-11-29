@@ -13,8 +13,8 @@ const ShopSection = () => {
 
             <div className='space-y-4 py-10 md:mb-0 md:pr-4 lg:-mt-10 lg:max-w-xl'>
                 <div>
-                    <h2 className="text-3xl w-[85%] my-3 leading-tight">Buy New or Used Items for Your New Apartment From Our Online Store</h2>
-                    <p className="text-md w-[90%]">We have a range of products from mattresses to bedsheets, electronics, kitchen utensils and a range of other items. We deliver to your doorstep.</p>
+                    <h2 className="text-3xl w-[100%] my-3 leading-tight">Buy New or Used Items for Your New Apartment From Our Online Store</h2>
+                    <p className="text-md w-[95%]">We have a range of products from mattresses to bedsheets, electronics, kitchen utensils and a range of other items. We deliver to your doorstep.</p>
                 </div>
 
                 <div>
