@@ -144,6 +144,7 @@ export const searchProperties = async (req, res, next) => {
             $or: [
                 { title: { $regex: regexSearch } },
                 { description: { $regex: regexSearch } },
+                { address: { $regex: regexSearch } },
             ],
         };
 
