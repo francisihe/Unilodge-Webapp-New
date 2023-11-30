@@ -17,9 +17,9 @@ const PropertyCard = ({ property }) => {
 
             <div className='mt-4'>
                 <div className='flex py-2 justify-between'>
-                    <div className='truncate'>
-                        <h3 className='overflow-ellipsis'>{property.title}</h3>
-                        <p className='overflow-ellipsis'>{property.address}</p>
+                    <div className='truncate pr-2'>
+                        <h3 className='truncate overflow-ellipsis'>{property.title}</h3>
+                        <p className='truncate overflow-ellipsis'>{property.address}</p>
                     </div>
 
                     {property.propertyStatus === 'taken'
