@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";

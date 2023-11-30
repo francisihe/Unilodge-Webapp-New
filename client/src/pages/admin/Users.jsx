@@ -51,8 +51,22 @@ const Users = () => {
     };
 
     const handleDeleteUser = async () => {
+        const res = await fetch(`/api/v1/users/${selectedUser._id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await res.json();
+        handleUpdateUsers(); // To refresh the users list
+        closeDeleteModal(); // To close the modal
+
+        if (!res.ok) {
+            console.log(data.message)
+        }
+
+        alert(`User has been deleted`)
         console.log(`User ${selectedUser.firstname} with email ${selectedUser.email} has been deleted`)
-        alert(`User ${selectedUser.firstname} with email ${selectedUser.email} has been deleted`)
     };
 
     return (
