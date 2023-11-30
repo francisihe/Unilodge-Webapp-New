@@ -1,81 +1,115 @@
+
+import { useEffect, useState } from "react";
 import UserCard from "../../components/UIelements/UserCard";
+import Modal from "react-modal";
+import ProfileUpdateForm from "../../components/forms/ProfileUpdateForm";
 
-
-const people = [
-    {
-        name: 'Leslie',
-        lastname: 'Alexander',
-        username: 'Lesalex',
-        email: 'leslie.alexander@example.com',
-        role: 'admin',
-        avatar:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        lastSeen: '3h ago',
-        lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-        name: 'Michael',
-        lastname: 'Foster',
-        username: 'Micfost',
-        email: 'michael.foster@example.com',
-        role: 'manager',
-        avatar:
-            'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        lastSeen: '3h ago',
-        lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-        name: 'Dries',
-        lastname: 'Vincent',
-        username: 'Driesvin',
-        email: 'dries.vincent@example.com',
-        role: 'user',
-        avatar:
-            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        lastSeen: null,
-    },
-]
-
-// [
-//     {
-//         "avatar": "https://png.pngtree.com/png-clipart/20200701/original/pngtree-character-default-avatar-png-image_5407167.jpg",
-//         "_id": "654336be48f74e0c97524710",
-//         "username": "test",
-//         "email": "test@gmail.com",
-//         "role": "user",
-//         "bookmarks": [],
-//         "createdAt": "2023-11-02T05:42:22.177Z",
-//         "updatedAt": "2023-11-02T05:42:22.177Z",
-//         "__v": 0
-//     },
-//     {
-//         "_id": "654c4a3543d2138226c3124e",
-//         "username": "francisihejirikardb",
-//         "firstname": "Francis",
-//         "lastname": "Ihejirika",
-//         "email": "francisihejirikadev@gmail.com",
-//         "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJbC0iAeLWs5tzoEQf9PMNowS-KrPoC72s94NJ0GRqY=s96-c",
-//         "role": "user",
-//         "bookmarks": [],
-//         "createdAt": "2023-11-09T02:55:49.218Z",
-//         "updatedAt": "2023-11-09T02:55:49.218Z",
-//         "__v": 0
-//     },
-// ]
 
 const Users = () => {
+    const [users, setUsers] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    // Just to rerender the useEffect when Update Form is updated
+    const [updateCount, setUpdateCount] = useState(0);
+
+    useEffect(() => {
+        const getUsersFromAPI = async () => {
+            const res = await fetch(`/api/v1/users/get/all`);
+            const data = await res.json();
+            setUsers(data.users);
+        };
+        getUsersFromAPI();
+        console.log('Effect ran')
+    }, [updateCount]);
+
+    const openEditModal = (user) => {
+        setSelectedUser(user);
+        setIsEditModalOpen(true);
+    };
+
+    const closeEditModal = () => {
+        setSelectedUser(null);
+        setIsEditModalOpen(false);
+    };
+
+    const openDeleteModal = (user) => {
+        setSelectedUser(user);
+        setIsDeleteModalOpen(true);
+    };
+
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+    };
+
+    // Update the users list when the update form is submitted
+    const handleUpdateUsers = () => {
+        // Increment the ref value to trigger useEffect
+        setUpdateCount(updateCount + 1);
+    };
+
+    const handleDeleteUser = async () => {
+        console.log(`User ${selectedUser.firstname} with email ${selectedUser.email} has been deleted`)
+        alert(`User ${selectedUser.firstname} with email ${selectedUser.email} has been deleted`)
+    };
+
     return (
         <div>
             <h2 className="text-xl">All Users</h2>
 
             <ul role="list" className="divide-y divide-gray-100">
-                {people.map((person) => (
+                {users.map((user) => (
                     <UserCard
-                        key={person.email}
-                        person={person}
+                        key={user._id}
+                        user={user}
+                        openEditModal={() => openEditModal(user)}
+                        openDeleteModal={() => openDeleteModal(user)}
                     />
                 ))}
             </ul>
+
+            {/* Update User Modal */}
+            <Modal
+                isOpen={isEditModalOpen}
+                onRequestClose={closeEditModal}
+                contentLabel="Update User Modal"
+                ariaHideApp={false}
+                className="fixed top-1/2 left-1/2 overflow-y-scroll transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md md:max-w-md w-80 md:w-full"
+                overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-20 flex items-center justify-center"
+            >
+                <ProfileUpdateForm
+                    selectedUser={selectedUser}
+                    onClose={closeEditModal}
+                    closeModal={() => closeEditModal(selectedUser)}
+                    openDeleteModal={() => openDeleteModal(selectedUser)}
+                    updateUsers={handleUpdateUsers}
+                />
+            </Modal>
+
+            {/* Delete User Modal */}
+            <Modal
+                isOpen={isDeleteModalOpen}
+                onRequestClose={closeDeleteModal}
+                contentLabel="Delete User Modal"
+                ariaHideApp={false}
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md max-w-md w-full"
+                overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex items-center justify-center"
+            >
+
+                <div className="flex flex-col space-y-4">
+                    <p className="mx-auto text-center">
+                        Are you sure you want to delete this user? <br />
+                        {selectedUser?.firstname} with email {selectedUser?.email}
+                    </p>
+                    <div className="flex gap-2 mx-auto">
+                        <button onClick={handleDeleteUser} className="bg-red-500 rounded-lg px-2 py-1">Yes, proceed</button>
+                        <button onClick={closeDeleteModal} className="bg-green-500 rounded-lg px-2 py-1">No, return</button>
+                    </div>
+                </div>
+            </Modal>
+
         </div>
     )
 }
