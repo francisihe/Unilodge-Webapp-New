@@ -1,6 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom"
-import ProfileForm from "../components/forms/ProfileForm"
-import UserBookings from "./UserBookings"
+import { Link, Outlet } from "react-router-dom"
 
 
 const Profile = () => {
@@ -8,7 +6,7 @@ const Profile = () => {
     <div className="flex flex-col my-4 space-y-3 lg:mx-auto lg:w-screen lg:max-w-screen-xl">
       <div className="my-2 flex items-center gap-2 text-orange-700">
         <Link to='/profile'><p>Profile</p></Link>
-        <p className="text-black">&#8594;</p>
+        <p className="text-black">&#124;</p>
         <Link to='/profile/bookings'><p>Bookings</p></Link>
       </div>
 
@@ -19,15 +17,7 @@ const Profile = () => {
           You can create your username, update your personal details and see your past and future bookings here</p>
       </div>
 
-      {/* Views According To Path */}
-      <Routes>
-        <Route path='/'
-          element={<ProfileForm />} />
-
-        <Route path='/bookings'
-          element={<UserBookings />} />
-
-      </Routes>
+      {<Outlet />}
 
     </div>
   )

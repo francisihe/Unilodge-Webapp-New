@@ -14,6 +14,10 @@ import PropertyListing from './components/UIskeleton/PropertyListing'
 import UserBookings from './pages/UserBookings'
 import SearchProperties from './pages/SearchProperties'
 import DashboardAdmin from './pages/admin/DashboardAdmin'
+import BookingsAdmin from './pages/admin/BookingsAdmin'
+import PropertiesAdmin from './pages/admin/PropertiesAdmin'
+import Users from './pages/admin/Users'
+import ProfileForm from './components/forms/ProfileForm'
 
 
 
@@ -26,10 +30,15 @@ function App() {
           <Route index element={<Home />} />
 
           <Route path='/profile/*' element={<Profile />}> {/* Protect Route */}
+            <Route index element={<ProfileForm />} />
             <Route path='bookings' element={<UserBookings />} />
           </Route>
 
-          <Route path='/admin' element={<DashboardAdmin />} />
+          <Route path='/admin/*' element={<DashboardAdmin />} >
+            <Route path='bookings' element={<BookingsAdmin />} />
+            <Route path='properties' element={<PropertiesAdmin />} />
+            <Route path='users' element={<Users />} />
+          </Route>
 
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />

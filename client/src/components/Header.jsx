@@ -43,8 +43,9 @@ export default function Header() {
         <span className="font-bold text-xl">Unilodge</span>
       </Link>
 
-      {/* If on Search Page, do not display this search bar */}
-      {location.pathname === '/search-properties' ? '' : <HeaderSearchBar />}
+      {/* Only display this search bar on home and properties page */}
+      {location.pathname === '/' ? <HeaderSearchBar /> : ''}
+      {location.pathname === '/properties' ? <HeaderSearchBar /> : ''}
 
       <button type='button' onClick={toggleMenuDropdown}>
         <div className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4">
