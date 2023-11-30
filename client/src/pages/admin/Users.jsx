@@ -3,27 +3,42 @@ import { useEffect, useState } from "react";
 import UserCard from "../../components/UIelements/UserCard";
 import Modal from "react-modal";
 import ProfileUpdateForm from "../../components/forms/ProfileUpdateForm";
+import Pagination from "../../components/UIelements/Pagination";
 
 
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    // Pagination States
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const limit = 15;
 
     // Just to rerender the useEffect when Update Form is updated
     const [updateCount, setUpdateCount] = useState(0);
 
     useEffect(() => {
         const getUsersFromAPI = async () => {
-            const res = await fetch(`/api/v1/users/get/all`);
+            setLoading(true);
+            const res = await fetch(`/api/v1/users/get/all?page=${currentPage}&limit=${limit}`);
             const data = await res.json();
             setUsers(data.users);
+            setTotalPages(Math.ceil(data.totalUsers / limit));
+            setLoading(false);
         };
         getUsersFromAPI();
-        console.log('Effect ran')
-    }, [updateCount]);
+
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }, [updateCount, currentPage, totalPages]);
 
     const openEditModal = (user) => {
         setSelectedUser(user);
@@ -69,6 +84,18 @@ const Users = () => {
         console.log(`User ${selectedUser.firstname} with email ${selectedUser.email} has been deleted`)
     };
 
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
     return (
         <div>
             <h2 className="text-xl">All Users</h2>
@@ -90,7 +117,7 @@ const Users = () => {
                 onRequestClose={closeEditModal}
                 contentLabel="Update User Modal"
                 ariaHideApp={false}
-                className="fixed top-1/2 left-1/2 overflow-y-scroll transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md md:max-w-md w-80 md:w-full"
+                className="fixed top-1/2 left-1/2 overflow-y-scroll transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md md:max-w-md w-[85%] md:w-full"
                 overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-20 flex items-center justify-center"
             >
                 <ProfileUpdateForm
@@ -123,6 +150,19 @@ const Users = () => {
                     </div>
                 </div>
             </Modal>
+
+            <div className="flex justify-end py-2">
+                {loading
+                    ? ''
+                    : <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onClickNextPage={handleNextPage}
+                        onClickPrevPage={handlePrevPage}
+                    />
+                }
+
+            </div>
 
         </div>
     )
