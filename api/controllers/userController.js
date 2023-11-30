@@ -50,7 +50,9 @@ export const getAllUsers = async (req, res, next) => {
             .select('-password')
             .skip(skip)
             .limit(limit);
-        res.status(200).json(users);
+        
+        const totalUsers = await User.countDocuments();
+        res.status(200).json({users, totalUsers});
     } catch (error) {
         next(error)
     }
@@ -129,7 +131,9 @@ export const searchUsers = async (req, res, next) => {
             .select('-password')
             .skip(skip).limit(limit);
         if (users.length === 0) return res.status(404).json('No users found');
-        res.status(200).json(users);
+        const totalUsers = await User.countDocuments(query);
+
+        res.status(200).json({users, totalUsers});
     } catch (error) {
         next(error);
     }
