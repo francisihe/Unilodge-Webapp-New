@@ -54,7 +54,6 @@ const ProfileForm = () => {
             ...prevFormData,
             [event.target.id]: event.target.value
         }));
-        console.log(formData)
     };
 
     const handleSubmit = async (event) => {
@@ -81,6 +80,10 @@ const ProfileForm = () => {
 
     return (
         <div>
+            <p>
+                You can create your username, update your personal details and see your past and future bookings here
+            </p>
+
             <form onSubmit={handleSubmit} className="border-2 px-4 py-4 rounded-2xl flex flex-col my-4 space-y-3 md:mx-auto md:w-3/5 lg:mx-auto lg:w-full ">
                 <div>
                     <input

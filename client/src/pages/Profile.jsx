@@ -12,9 +12,7 @@ const Profile = () => {
 
       <div className="my-3">
         <h1 className="text-3xl">Profile Page</h1>
-        <br />
-        <p>Welcome to your profile page.<br />
-          You can create your username, update your personal details and see your past and future bookings here</p>
+        <p>Welcome to your profile page</p>
       </div>
 
       {<Outlet />}
