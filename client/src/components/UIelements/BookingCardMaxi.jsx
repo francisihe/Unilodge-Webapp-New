@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import unilodgePoster from '../../assets/images/unilodge-poster.jpg'
 import { useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
-import { LiaUserEditSolid } from "react-icons/lia";
+import { FiEdit } from "react-icons/fi";
 
-const BookingCardMaxi = ({ booking }) => {
+const BookingCardMaxi = ({ booking, openEditModal, openDeleteModal }) => {
     const [viewClient, setViewClient] = useState(false);
 
     const formatDate = (dateString) => {
@@ -63,14 +63,14 @@ const BookingCardMaxi = ({ booking }) => {
                     <div className="flex gap-2 justify-end">
                         <button
                             type='button'
-                        // onClick={openEditModal}
+                            onClick={openEditModal}
                         >
-                            <LiaUserEditSolid className="h-6 w-6" />
+                            <FiEdit className="h-6 w-6" />
                         </button>
 
                         <button
                             type='button'
-                        // onClick={openDeleteModal}
+                            onClick={openDeleteModal}
                         >
                             <AiFillDelete className="h-6 w-6 text-red-500" />
                         </button>
