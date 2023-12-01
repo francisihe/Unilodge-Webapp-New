@@ -1,50 +1,83 @@
-
-// const bookings = [
-//   {
-//     "_id": "6555a16953f2ad47953867fb",
-//     "firstname": "Francis",
-//     "lastname": "Manager",
-//     "phone": "08165148492",
-//     "email": "francismanager@gmail.com",
-//     "inspectionDate": "2023-11-16T00:00:00.000Z",
-//     "createdAt": "2023-11-16T04:58:17.403Z",
-//     "updatedAt": "2023-11-16T04:58:17.403Z",
-//     "__v": 0,
-//     "propertyRef": "6551651feabdfefba2540501",
-//     "userRef": "654ec79c9bf3e4371578a6ba",
-//     "thumbnail": 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//   },
-//   {
-//     "_id": "6555a1aa53f2ad47953867fd",
-//     "firstname": "Francis5bkup",
-//     "lastname": "Manager1",
-//     "phone": "33344555",
-//     "email": "francisupdatebooking@gmail.com",
-//     "inspectionDate": "2025-12-16T00:00:00.000Z",
-//     "createdAt": "2023-11-16T04:59:22.847Z",
-//     "updatedAt": "2023-11-16T23:26:07.748Z",
-//     "__v": 0,
-//     "propertyRef": "654ecdfcd2ab85df2a0ddc79",
-//     "thumbnail": 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//   },
-//   {
-//     "_id": "65568a674bd12042ea279c14",
-//     "firstname": "Francis",
-//     "lastname": "User",
-//     "phone": "2222222",
-//     "email": "francis2@gmail.com",
-//     "inspectionDate": "2024-12-16T00:00:00.000Z",
-//     "createdAt": "2023-11-16T21:32:23.541Z",
-//     "updatedAt": "2023-11-16T21:32:23.541Z",
-//     "__v": 0,
-//     "propertyRef": "6551664e94642d8704027979",
-//     "userRef": "654ec7a99bf3e4371578a6be",
-//     "thumbnail": 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//   },]
+import { useEffect, useState } from "react";
+import Pagination from "../../components/UIelements/Pagination";
+import BookingCardMaxi from "../../components/UIelements/BookingCardMaxi";
 
 const BookingsAdmin = () => {
+
+  const [bookings, setBookings] = useState([])
+  const [loading, setLoading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 15;
+
+  useEffect(() => {
+    const getUserBookingsFromAPI = async () => {
+      setLoading(true);
+      const res = await fetch(`/api/v1/bookings/all?page=${currentPage}&limit=${limit}`)
+      const data = await res.json()
+      setBookings(data.bookings)
+      setTotalPages(Math.ceil(data.totalBookings / limit))
+      setLoading(false);
+    };
+
+    getUserBookingsFromAPI();
+
+    window.scroll({
+      top: 100,
+      behavior: 'smooth'
+    });
+  }, [currentPage, totalPages]);
+
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
-    <div>Bookings Admin</div>
+    <div className="py-3">
+      <h1 className="text-xl">All Bookings:</h1>
+      <p>Here are the details of bookings sorted by inspection dates</p>
+
+      {!bookings || bookings?.length === 0 &&
+        <div className="text-xl font-medium mt-6">
+          <p>No Bookings Found</p>
+        </div>
+      }
+
+      <div className="grid grid-cols-1 py-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {bookings && bookings
+          .sort((a, b) => new Date(b.inspectionDate) - new Date(a.inspectionDate))
+          .map((booking) => (
+            <BookingCardMaxi
+              key={booking._id}
+              booking={booking}
+            />
+          ))
+        }
+      </div>
+
+      <div className="flex justify-end py-2">
+        {loading
+          ? ''
+          : <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onClickNextPage={handleNextPage}
+            onClickPrevPage={handlePrevPage}
+          />
+        }
+
+      </div>
+    </div>
   )
 }
 

@@ -54,7 +54,6 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
             ...prevFormData,
             [event.target.id]: event.target.value
         }));
-        console.log(formData)
     };
 
     const handleSubmit = async (event) => {

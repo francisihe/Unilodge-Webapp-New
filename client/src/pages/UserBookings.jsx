@@ -51,14 +51,14 @@ const UserBookings = () => {
       <h1 className="text-2xl">Your Bookings:</h1>
       <p>Here are the details of your bookings sorted by inspection dates</p>
 
-      {bookings.length === 0 &&
+      {!bookings || bookings?.length === 0 &&
         <div className="text-xl font-medium mt-6">
           <p>No Bookings Found</p>
         </div>
       }
 
       <div className="grid grid-cols-1 py-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {bookings
+        {bookings && bookings
           .sort((a, b) => new Date(b.inspectionDate) - new Date(a.inspectionDate))
           .map((booking) => (
             <BookingCardMini

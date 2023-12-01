@@ -18,6 +18,7 @@ import BookingsAdmin from './pages/admin/BookingsAdmin'
 import PropertiesAdmin from './pages/admin/PropertiesAdmin'
 import Users from './pages/admin/Users'
 import ProfileForm from './components/forms/ProfileForm'
+import DashboardSummary from './pages/admin/DashboardSummary'
 
 
 
@@ -35,6 +36,7 @@ function App() {
           </Route>
 
           <Route path='/admin/*' element={<DashboardAdmin />} >
+            <Route index element={<DashboardSummary />} />
             <Route path='bookings' element={<BookingsAdmin />} />
             <Route path='properties' element={<PropertiesAdmin />} />
             <Route path='users' element={<Users />} />
