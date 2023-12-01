@@ -111,30 +111,3 @@ const PropertyListing = () => {
 }
 
 export default PropertyListing
-
-// http://localhost:5173/property/6551664e94642d8704027979
-
-
-// {
-//   "_id": "6551664e94642d8704027979",
-//   "title": "Form Hostel 2",
-//   "description": "Hostel 2 desc",
-//   "address": "BDPA",
-//   "propertyType": "land",
-//   "propertyModel": "hostel",
-//   "propertyStatus": "taken",
-//   "propertyCategory": "rent",
-//   "regularPrice": 50000,
-//   "discountedPrice": 40000,
-//   "images": [
-//       "https://firebasestorage.googleapis.com/v0/b/unilodge-webapp.appspot.com/o/1699833414462Screenshot%20from%202023-10-12%2017-12-09.png?alt=media&token=baef3049-2a64-4da3-8ab7-574d4c7e598f"
-//   ],
-//   "video": "",
-//   "bedrooms": 1,
-//   "bathrooms": 1,
-//   "size": "",
-//   "isFeatured": false,
-//   "createdAt": "2023-11-12T23:57:02.109Z",
-//   "updatedAt": "2023-11-12T23:57:02.109Z",
-//   "__v": 0
-// }

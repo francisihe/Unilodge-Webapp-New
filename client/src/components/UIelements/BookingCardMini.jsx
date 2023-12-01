@@ -27,7 +27,7 @@ const BookingCardMini = ({ booking }) => {
                     </div>
 
                     {/* View Property Button */}
-                    <Link to={`/property/${booking.propertyRef}`}>
+                    <Link to={`/property/${booking.propertyRef}`} target="_blank" rel="noopener noreferrer">
                         <button
                             type='button'
                             className="bg-orange-500 text-white text-sm rounded-full py-1 px-3 hover:bg-orange-600 transition duration-300"
