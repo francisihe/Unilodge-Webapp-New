@@ -24,3 +24,12 @@ const DashboardAdmin = () => {
 }
 
 export default DashboardAdmin
+
+// useEffect(() => {
+//   const fetchTodaysBookings = async () => {
+//     const res = await fetch('/api/v1/bookings/today');
+//     const data = await res.json();
+//     setTodaysBookings(data.bookings);
+//   };
+//   fetchTodaysBookings();
+// });
