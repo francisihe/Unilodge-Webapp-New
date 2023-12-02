@@ -85,6 +85,50 @@ export const getAllBookings = async (req, res, next) => {
     }
 };
 
+export const getTodaysBookings = async (req, res, next) => {
+    try {
+
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1;
+        const minLimit = parseInt(req.query.limit) || 15;
+        const maxLimit = 100;
+        const limit = Math.min(minLimit, maxLimit);
+
+        // Calculate the skip value based on the page and limit
+        const skip = (page - 1) * limit;
+
+        const currentDate = new Date();
+
+        // Set the time to the beginning of the day (00:00:00)
+        const startOfDay = new Date(currentDate);
+        startOfDay.setHours(0, 0, 0, 0);
+
+        // Set the time to the end of the day (23:59:59)
+        const endOfDay = new Date(currentDate);
+        endOfDay.setHours(23, 59, 59, 999);
+
+        //Bookings within this range
+        const bookings = await Booking.find({
+            inspectionDate: {
+                $gte: startOfDay,
+                $lt: endOfDay
+            }
+        }).skip(skip).limit(limit);
+
+        const totalBookings = await Booking.countDocuments({
+            inspectionDate: {
+                $gte: startOfDay,
+                $lt: endOfDay
+            }
+        });
+
+        if (bookings.length === 0) return res.status(404).json('No booking found for today');
+        res.status(200).json({bookings, totalBookings});
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getBooking = async (req, res, next) => {
     const { bookingId } = req.params
 
