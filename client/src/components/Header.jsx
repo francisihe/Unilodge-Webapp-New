@@ -86,6 +86,10 @@ export default function Header() {
                     ? <a href="" onClick={handleSignOut} className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign Out</a>
                     : <Link to='/signin' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Sign In</Link>
                   }
+
+
+                  <Link to='/admin' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Admin dashboard</Link>
+
                 </div>
               </div>}
           </div>
