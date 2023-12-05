@@ -130,7 +130,7 @@ const EditPropertyForm = ({ property }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         try {
             //Check regular and discount prices
             if (formData.regularPrice < formData.discountedPrice) {
@@ -148,8 +148,19 @@ const EditPropertyForm = ({ property }) => {
                 body: JSON.stringify(formData),
             });
             const data = await res.json();
-            setLoading(false);
-            navigate(`/property/${data._id}`);
+
+            if (!res.ok) {
+                setError(data);
+                setLoading(false);
+                console.log('Error Updating Property')
+            }
+
+            if (res.ok) {
+                setLoading(false);
+                alert('Property Updated Successfully')
+                navigate(`/property/${data._id}`);
+            }
+
         } catch (error) {
             setError(error.message);
             setLoading(false);

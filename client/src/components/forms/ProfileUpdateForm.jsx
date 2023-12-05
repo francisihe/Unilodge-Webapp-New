@@ -68,16 +68,21 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
         })
         const data = await res.json();
 
-        // On update, refresh the user data on the users page
-        await updateUsers();
-
-        // // Check Error Handler
-        if (data.success === false) {
-            setError(data.message);
+        if (!res.ok) {
+            setError(data.message)
+            setLoading(false);
         }
-        dispatch(updateUserSuccess(data));
-        setLoading(false);
-        console.log(formData)
+
+        if (res.ok) {
+            // On update, refresh the user data on the users page
+            await updateUsers();
+
+            dispatch(updateUserSuccess(data));
+            setLoading(false);
+            alert('User Updated Successfully')
+            console.log('User Updated Successfully')
+        }
+
     };
 
     return (
