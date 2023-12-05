@@ -1,13 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/unilodge-logo.jpg"
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOutUser } from "../utils/signOutUser";
 import HeaderSearchBar from "./forms/HeaderSearchBar";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
+import { signOutUserSuccess } from "../redux/user/userSlice.js";
 
 
 export default function Header() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const { currentUser } = useSelector(state => state.user)
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
@@ -33,7 +35,9 @@ export default function Header() {
   };
 
   const handleSignOut = async () => {
-    await signOutUser();
+    await signOutUser(); // Clears the token from localStorage
+    // Dispatch logout action to clear Redux state
+    dispatch(signOutUserSuccess());
   };
 
   return (

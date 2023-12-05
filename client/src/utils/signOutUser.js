@@ -6,12 +6,9 @@ export const signOutUser = async () => {
         const data = await res.json();
         console.log('data', data);
 
-        // Remove token and persisted state from localStorage afterwards
-
+        // Remove token from localStorage
         localStorage.removeItem('token');
-        //console.log('Token removed');
-        localStorage.removeItem('persist:root');
-        //console.log('Persisted state removed');
+        console.log('Token removed');
 
         // Refresh page to clear state and navigate to home
         window.location.reload();
