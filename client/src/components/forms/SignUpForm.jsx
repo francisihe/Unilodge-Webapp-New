@@ -33,7 +33,15 @@ const SignUpForm = ({ handleChange, handleSubmit, loading }) => {
             <input
                 type="password"
                 id="password"
-                placeholder="password"
+                placeholder="Password"
+                onChange={handleChange}
+                required
+            />
+
+            <input
+                type="password"
+                id="password-confirm"
+                placeholder="Confirm Password"
                 onChange={handleChange}
                 required
             />
@@ -41,7 +49,7 @@ const SignUpForm = ({ handleChange, handleSubmit, loading }) => {
             <button
                 disabled={loading}
                 className="bg-orange-600 p-2 w-full text-white rounded-2xl">
-                {loading ? 'Loading...' : 'Sign Up'}
+                {loading ? 'Signing Up...' : 'Sign Up'}
             </button>
 
             <div className="text-center py-2 text-gray-500">

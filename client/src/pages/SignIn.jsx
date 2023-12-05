@@ -45,17 +45,21 @@ const SignIn = () => {
       const data = await res.json();
       console.log(data);
 
-      if (error) {
-        dispatch(signInFailure(error.message));
+      if (!res.ok) {
+        dispatch(signInFailure(data));
+        setError(data);
+        setLoading(false);
         return;
       }
 
-      dispatch(signInSuccess(data));
-      navigate('/profile');
+      if (res.ok) {
+        dispatch(signInSuccess(data));
+        navigate('/profile');
+      }
 
     } catch (error) {
       setLoading(false);
-      setError(error.message);
+      console.log(error);
     }
 
   };
@@ -65,6 +69,19 @@ const SignIn = () => {
       <div className="mb-64 text-center">
         <h1 className="text-4xl text-center mb-4">Sign In</h1>
 
+        {error && (
+          <p className="text-red-400 text-sm pb-3">
+            {error}
+            {setTimeout(() => {
+              setError(null)
+            }, 10000)}
+            {console.log(error)}</p>
+        )}
+
+        <GoogleAuthButton
+          setError={setError}
+        />
+
         <button
           onClick={revealSignInForm}
           className='w-full border-2 border-black my-1 py-2 px-3 rounded-2xl 
@@ -72,18 +89,9 @@ const SignIn = () => {
         >
           <div className='flex items-center justify-center gap-3'>
             <span className='text-xl'><FiMail /></span>
-            <span>Sign In With Email and Password</span>
+            <span>Use Email and Password</span>
           </div>
         </button>
-
-        {error && (
-          <p className="text-red-400 text-sm">
-            An error occured. Please try again later.
-            {setTimeout(() => {
-              setError(null)
-            }, 10000)}
-            {console.log(error)}</p>
-        )}
 
         {showSignInForm && (
           <SignInForm
@@ -92,10 +100,6 @@ const SignIn = () => {
             loading={loading}
           />
         )}
-
-        <span className="mx-auto font-bold">OR</span>
-
-        <GoogleAuthButton />
 
         {!showSignInForm && (
           <div className="text-center py-2 text-gray-500">

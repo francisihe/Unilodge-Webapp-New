@@ -1,11 +1,12 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect } from 'firebase/auth'
+/* eslint-disable react/prop-types */
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 import { app } from '../utils/firebase.js'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signInSuccess } from '../redux/user/userSlice.js';
 import { FcGoogle } from 'react-icons/fc';
 
-const GoogleAuthButton = () => {
+const GoogleAuthButton = ({ setError }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -37,11 +38,21 @@ const GoogleAuthButton = () => {
             });
 
             const data = await res.json();
-            dispatch(signInSuccess(data));
-            navigate('/');
+
+            if (res.ok) {
+                dispatch(signInSuccess(data));
+                console.log('Sign In with Google Successful')
+                navigate('/');
+            }
+
+            if (!res.ok) {
+                console.log('Sign In with Google Failed')
+                setError(data);
+            }
 
         } catch (error) {
             console.log('Could not sign in with google', error);
+            setError(error.message);
         }
     };
 
