@@ -10,6 +10,7 @@ import bookingRouter from './routes/booking.js'
 import userRouter from './routes/user.js'
 import caretakerRouter from './routes/caretaker.js'
 import summaryRouter from './routes/summary.js'
+import { connectToDatabase } from './db/connectdb.js';
 
 const app = express(); // Express App
 dotenv.config(); // Environment Variables
@@ -39,15 +40,14 @@ const port = process.env.PORT || 3000;
 app.listen(port, async () => {
     try {
         try {
-            await mongoose.connect(process.env.MONGO_URL)
-            console.log('Connected to Mongo Database');
+            await connectToDatabase();
+            console.log(`Server running on port ${port}`);
         } catch (error) {
             if (error) {
                 console.log('Error connecting to Mongo Database');
                 throw error;
             }
         }
-        console.log(`Server running on port ${port}`);
     } catch (error) {
         if (error) throw error;
     }
