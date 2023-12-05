@@ -64,7 +64,7 @@ const DashboardSummary = () => {
       setTotalFeaturedProperties(data.totalFeaturedProperties);
     };
     fetchSummaryNumbers();
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, updateCount]);
 
   function getTodayDateWithWeekday() {
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

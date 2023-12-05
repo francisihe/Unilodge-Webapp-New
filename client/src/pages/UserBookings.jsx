@@ -34,21 +34,6 @@ const UserBookings = () => {
       setLoading(false);
     };
 
-    // const getUserBookingsFromAPI = async () => {
-    //   setLoading(true);
-    //   const res = await fetch(`/api/v1/bookings/all/users/${currentUser._id}?page=${currentPage}&limit=${limit}`, {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     credentials: 'include',
-    //   });
-    //   const data = await res.json()
-    //   setBookings(data.userBookings)
-    //   setTotalPages(Math.ceil(data.totalUserBookings / limit))
-    //   setLoading(false);
-    // };
-
     if (currentUser) {
       getUserBookingsFromAPI();
     }
