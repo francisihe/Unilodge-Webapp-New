@@ -133,9 +133,14 @@ const AddPropertyForm = () => {
 
     try {
       //Check regular and discount prices
-      if (formData.regularPrice < formData.discountedPrice) {
+      if (formData.discountedPrice > formData.regularPrice) {
         window.alert('Discounted price cannot be greater than regular price');
         return setError('Discounted price cannot be greater than regular price');
+      }
+
+      if (formData.discountedPrice === formData.regularPrice) {
+        window.alert('Regular Price and Discounted Price cannot be the same');
+        return setError('Regular Price and Discounted Price cannot be the same');
       }
 
       setLoading(true);
