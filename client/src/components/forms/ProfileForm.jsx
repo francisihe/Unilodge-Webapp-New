@@ -68,13 +68,16 @@ const ProfileForm = () => {
         })
         const data = await res.json();
 
-        // Check Error Handler
-        if (data.success === false) {
-            setError(data.message);
+        if (!res.ok) {
+            setError(data);
+            console.log('Error Updating Profile')
         }
-        dispatch(updateUserSuccess(data));
-        setLoading(false);
-        console.log(formData)
+
+        if (res.ok) {
+            dispatch(updateUserSuccess(data));
+            setLoading(false);
+            setError(null);
+        }
     };
 
 
