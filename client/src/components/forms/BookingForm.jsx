@@ -39,7 +39,7 @@ const BookingForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         try {
             setLoading(true);
 
@@ -53,11 +53,20 @@ const BookingForm = () => {
             const data = await res.json();
             setLoading(false);
 
-            if (data.success === false) {
-                setError(data.message);
+            if (!res.ok) {
+                setError(data);
+                console.log('Error Creating Booking')
             }
-            (console.log('Booking successful', data))
-            navigate(`/profile/bookings`)
+
+            if (res.ok) {
+                console.log('Booking successful')
+                alert('Booking successful')
+
+                if (currentUser) {
+                    navigate(`/profile/bookings`)
+                }
+            }
+
         } catch (error) {
             setError(error)
             setLoading(false);

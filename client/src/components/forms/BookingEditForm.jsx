@@ -37,10 +37,18 @@ const BookingEditForm = ({ selectedBooking, closeModal, openDeleteModal, updateB
         await updateBookings();
 
         // // Check Error Handler
-        if (data.success === false) {
-            setError(data.message);
+        if (!res.ok) {
+            setError(data);
+            setLoading(false);
+            alert('Error Updating Booking')
+            console.log('Error Updating Booking')
         }
-        setLoading(false);
+
+        if (res.ok) {
+            setLoading(false);
+            alert('Booking Updated Successfully')
+            console.log('Booking Updated Successfully')
+        }  
     };
 
     return (
