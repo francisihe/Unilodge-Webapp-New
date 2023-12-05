@@ -17,10 +17,20 @@ const PropertiesAdmin = () => {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 15;
 
+  // Get Token from Client Cookie for API Call's Authorization Header
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
   useEffect(() => {
     const getPropertiesfromAPI = async () => {
       setLoading(true);
-      const res = await fetch(`/api/v1/properties/all?page=${currentPage}&limit=${limit}`)
+      const res = await fetch(`/api/v1/properties/all?page=${currentPage}&limit=${limit}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      })
       const data = await res.json()
       setProperties(data.properties)
       setTotalPages(Math.ceil(data.totalProperties / limit))

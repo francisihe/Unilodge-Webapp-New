@@ -2,6 +2,7 @@ import Pagination from "../components/UIelements/Pagination";
 import BookingCardMini from "../components/UIelements/BookingCardMini";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+//import axios from "axios";
 
 
 const UserBookings = () => {
@@ -13,15 +14,40 @@ const UserBookings = () => {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 15;
 
+  // Get Token from Client Cookie for API Call's Authorization Header
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
   useEffect(() => {
     const getUserBookingsFromAPI = async () => {
       setLoading(true);
-      const res = await fetch(`/api/v1/bookings/all/users/${currentUser._id}?page=${currentPage}&limit=${limit}`)
+      const res = await fetch(`/api/v1/bookings/all/users/${currentUser._id}?page=${currentPage}&limit=${limit}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      });
       const data = await res.json()
       setBookings(data.userBookings)
       setTotalPages(Math.ceil(data.totalUserBookings / limit))
       setLoading(false);
     };
+
+    // const getUserBookingsFromAPI = async () => {
+    //   setLoading(true);
+    //   const res = await fetch(`/api/v1/bookings/all/users/${currentUser._id}?page=${currentPage}&limit=${limit}`, {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     credentials: 'include',
+    //   });
+    //   const data = await res.json()
+    //   setBookings(data.userBookings)
+    //   setTotalPages(Math.ceil(data.totalUserBookings / limit))
+    //   setLoading(false);
+    // };
 
     if (currentUser) {
       getUserBookingsFromAPI();

@@ -27,11 +27,20 @@ const DashboardSummary = () => {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 15;
 
+  // Get Token from Client Cookie for API Call's Authorization Header
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
   useEffect(() => {
     const fetchTodaysBookings = async () => {
       setLoading(true);
-      const res = await fetch('/api/v1/bookings/today');
+      const res = await fetch('/api/v1/bookings/today', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      });
       const data = await res.json();
       setTodaysBookings(data.bookings);
       setTodaysTotalBookings(data.totalBookings);
