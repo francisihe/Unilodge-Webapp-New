@@ -50,7 +50,14 @@ const DashboardSummary = () => {
     fetchTodaysBookings();
 
     const fetchSummaryNumbers = async () => {
-      const res = await fetch('/api/v1/summary/all');
+      const res = await fetch('/api/v1/summary/all', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      });
       const data = await res.json();
       setTotalUsers(data.totalUsers);
       setTotalProperties(data.totalProperties);
