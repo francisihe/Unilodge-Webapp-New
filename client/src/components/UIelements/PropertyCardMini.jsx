@@ -24,47 +24,48 @@ const PropertyCardMini = ({ property, openDeleteModal }) => {
                 </div>
 
                 <div className="flex flex-col space-y-4 w-full">
-                    <div className='flex py-2 justify-between'>
+                    <div className=' flex flex-col md:flex-row py-2 justify-between'>
                         <div className='truncate pr-2 w-56 md:w-48 wrap'>
                             <h3 className='truncate overflow-ellipsis'>{property.title}</h3>
                             <p className='truncate overflow-ellipsis'>{property.address}</p>
                         </div>
 
-                        {property.propertyStatus === 'taken'
-                            ? (<span className='flex gap-1'><IoIosRadioButtonOn className='text-sm text-red-500' />
-                                <div className='text-xs'>Taken</div></span>)
-                            : (<span className='flex gap-1'><IoIosRadioButtonOn className='text-sm text-green-500' />
-                                <div className='text-xs'>Available</div></span>)
-                        }
-
-                    </div>
-
-                    <div className='border-t-2 pb-2'>
-                        <div className='flex items-center justify-around pt-2'>
-                            {property.propertyType === 'house' ?
-                                <>
-                                    <div className='flex items-center gap-2'><span className='text-orange-600'><FaBed /></span><span>{`${property.bedrooms} ${property.bedrooms === 1 ? 'Bed' : 'Beds'}`}</span></div>
-                                    <div className='flex items-center gap-2'><span className='text-orange-600'><FaBath /></span><span>{`${property.bathrooms} ${property.bathrooms === 1 ? 'Bath' : 'Baths'}`}</span></div>
-                                </>
-                                : ''}
-
-                            {property.propertyType === 'land'
-                                && <div className='flex items-center gap-2'><span className='text-orange-600'><RiLandscapeFill /></span><span>Land</span></div>
+                        <div className='py-1'>
+                            {property.propertyStatus === 'taken'
+                                ? (<span className='flex gap-1'><IoIosRadioButtonOn className='text-sm text-red-500' />
+                                    <div className='text-xs'>Taken</div></span>)
+                                : (<span className='flex gap-1'><IoIosRadioButtonOn className='text-sm text-green-500' />
+                                    <div className='text-xs'>Available</div></span>)
                             }
-
-                            {property.propertyType === 'land'
-                                && <div className='flex items-center gap-2'><span className='text-orange-600'><FaCompress /></span><span>{property.size}</span></div>
-                            }
-
-                            {property.propertyCategory === 'rent'
-                                && <div className='flex items-center gap-2'><span className='text-orange-600'><MdCategory /></span><span>Rent</span></div>
-                                ||
-                                property.propertyCategory === 'sale'
-                                && <div className='flex items-center gap-2'><span className='text-orange-600'><MdCategory /></span><span>Sale</span></div>
-                            }
-
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div className='border-t-2 pb-2'>
+                <div className='flex items-center justify-around pt-2'>
+                    {property.propertyType === 'house' ?
+                        <>
+                            <div className='flex items-center gap-2'><span className='text-orange-600'><FaBed /></span><span>{`${property.bedrooms} ${property.bedrooms === 1 ? 'Bed' : 'Beds'}`}</span></div>
+                            <div className='flex items-center gap-2'><span className='text-orange-600'><FaBath /></span><span>{`${property.bathrooms} ${property.bathrooms === 1 ? 'Bath' : 'Baths'}`}</span></div>
+                        </>
+                        : ''}
+
+                    {property.propertyType === 'land'
+                        && <div className='flex items-center gap-2'><span className='text-orange-600'><RiLandscapeFill /></span><span>Land</span></div>
+                    }
+
+                    {property.propertyType === 'land'
+                        && <div className='flex items-center gap-2'><span className='text-orange-600'><FaCompress /></span><span>{property.size}</span></div>
+                    }
+
+                    {property.propertyCategory === 'rent'
+                        && <div className='flex items-center gap-2'><span className='text-orange-600'><MdCategory /></span><span>Rent</span></div>
+                        ||
+                        property.propertyCategory === 'sale'
+                        && <div className='flex items-center gap-2'><span className='text-orange-600'><MdCategory /></span><span>Sale</span></div>
+                    }
+
                 </div>
             </div>
 
