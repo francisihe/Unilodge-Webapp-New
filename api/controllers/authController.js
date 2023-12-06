@@ -33,15 +33,15 @@ export const signInUser = async (req, res, next) => {
     const { email, password } = req.body;
     try {
         const validUser = await User.findOne({ email });
-        if (!validUser) { return res.status(401).json('Invalid credentials. Please check your email and password') }
+        if (!validUser) { return res.status(404).json('Invalid credentials. Please check your email and password') }
         const validPassword = bcryptjs.compareSync(password, validUser.password);
-        if (!validPassword) { return res.status(401).json('Invalid credentials. Please check your email and password') }
+        if (!validPassword) { return res.status(404).json('Invalid credentials. Please check your email and password') }
 
         const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET);
         const { password: pass, ...userDoc } = validUser._doc;
 
         res.status(200)
-            .cookie('token', token, { httpOnly: true })
+            .cookie('token', token)
             .json(userDoc);
 
     } catch (error) {
