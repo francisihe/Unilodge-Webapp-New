@@ -19,6 +19,10 @@ import PropertiesAdmin from './pages/admin/PropertiesAdmin'
 import Users from './pages/admin/Users'
 import ProfileForm from './components/forms/ProfileForm'
 import DashboardSummary from './pages/admin/DashboardSummary'
+import Page404 from './pages/Page404'
+import VerifyUser from './routes/VerifyUser'
+import VerifyAdmin from './routes/VerifyAdmin'
+import VerifyAdminOrManager from './routes/VerifyAdminorManager'
 
 
 
@@ -30,25 +34,29 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
 
-          <Route path='/profile/*' element={<Profile />}> {/* Protect Route */}
+          <Route path='/profile/*' element={<VerifyUser> <Profile /> </VerifyUser>}> {/* User Protected Route */}
             <Route index element={<ProfileForm />} />
             <Route path='bookings' element={<UserBookings />} />
           </Route>
 
-          <Route path='/admin/*' element={<DashboardAdmin />} >
+          <Route path='/admin/*' element={<VerifyAdminOrManager> <DashboardAdmin /> </VerifyAdminOrManager>} > {/* Manager Protected Route */}
             <Route index element={<DashboardSummary />} />
             <Route path='bookings' element={<BookingsAdmin />} />
             <Route path='properties' element={<PropertiesAdmin />} />
-            <Route path='users' element={<Users />} />
+            <Route path='users' element={<VerifyAdmin> <Users /> </VerifyAdmin>} /> {/* Admin Protected Route */}
           </Route>
 
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
+
           <Route path='/properties' element={<Properties />} />
           <Route path='/search-properties' element={<SearchProperties />} />
-          <Route path='/add-property' element={<AddProperty />} /> {/* Protect Route */}
-          <Route path='/edit-property/:propertyId' element={<EditProperty />} /> {/* Protect Route */}
+          <Route path='/add-property' element={<VerifyAdminOrManager> <AddProperty /> </VerifyAdminOrManager>} /> {/* Manager Protected Route */}
+          <Route path='/edit-property/:propertyId' element={<VerifyAdminOrManager> <EditProperty /> </VerifyAdminOrManager>} /> {/* Manager Protected Route */}
           <Route path='/property/:propertyId' element={<PropertyListing />} />
+
+          <Route path='*' element={<Page404 />} />
+
         </Route>
       </Routes>
       <Footer />
