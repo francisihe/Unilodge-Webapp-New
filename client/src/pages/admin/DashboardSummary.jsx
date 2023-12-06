@@ -31,23 +31,6 @@ const DashboardSummary = () => {
   const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
   useEffect(() => {
-    const fetchTodaysBookings = async () => {
-      setLoading(true);
-      const res = await fetch('/api/v1/bookings/today', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-      });
-      const data = await res.json();
-      setTodaysBookings(data.bookings);
-      setTodaysTotalBookings(data.totalBookings);
-      setTotalPages(Math.ceil(data.totalBookings / limit));
-      setLoading(false);
-    };
-    fetchTodaysBookings();
 
     const fetchSummaryNumbers = async () => {
       const res = await fetch('/api/v1/summary/all', {
@@ -59,11 +42,48 @@ const DashboardSummary = () => {
         credentials: 'include',
       });
       const data = await res.json();
-      setTotalUsers(data.totalUsers);
-      setTotalProperties(data.totalProperties);
-      setTotalFeaturedProperties(data.totalFeaturedProperties);
+
+      if (!res.ok) {
+        console.log('Could not load summary numbers')
+      }
+
+      if (res.ok) {
+        setTotalUsers(data.totalUsers);
+        setTotalProperties(data.totalProperties);
+        setTotalFeaturedProperties(data.totalFeaturedProperties);
+        console.log('Summary numbers loaded')
+      }
+
     };
     fetchSummaryNumbers();
+
+    const fetchTodaysBookings = async () => {
+      setLoading(true);
+      const res = await fetch('/api/v1/bookings/today', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.log('Could not load todays bookings')
+      }
+
+      if (res.ok) {
+        setTodaysBookings(data.bookings);
+        setTodaysTotalBookings(data.totalBookings);
+        setTotalPages(Math.ceil(data.totalBookings / limit));
+        setLoading(false);
+        console.log('Todays Bookings loaded')
+      }
+
+    };
+    fetchTodaysBookings();
+
   }, [currentPage, totalPages, updateCount]);
 
   function getTodayDateWithWeekday() {

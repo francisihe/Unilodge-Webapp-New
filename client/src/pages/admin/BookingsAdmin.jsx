@@ -18,10 +18,12 @@ const BookingsAdmin = () => {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 15;
 
+
   // Get Token from Client Cookie for API Call's Authorization Header
   const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
   useEffect(() => {
+
     const getUserBookingsFromAPI = async () => {
       setLoading(true);
       const res = await fetch(`/api/v1/bookings/all?page=${currentPage}&limit=${limit}`, {

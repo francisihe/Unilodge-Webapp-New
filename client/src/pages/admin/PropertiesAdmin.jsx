@@ -21,6 +21,7 @@ const PropertiesAdmin = () => {
   const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
   useEffect(() => {
+
     const getPropertiesfromAPI = async () => {
       setLoading(true);
       const res = await fetch(`/api/v1/properties/all?page=${currentPage}&limit=${limit}`, {
@@ -102,18 +103,18 @@ const PropertiesAdmin = () => {
         </div>
       }
 
-      <div className="grid grid-cols-1 py-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {properties && properties
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          .map((property) => (
-            <PropertyCardMini
-              key={property._id}
-              property={property}
-              openDeleteModal={() => openDeleteModal(property)}
-            />
-          ))
-        }
-      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {properties &&
+          properties
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .map((property) => (
+              <PropertyCardMini
+                key={property._id}
+                property={property}
+                openDeleteModal={() => openDeleteModal(property)}
+              />
+            ))}
+      </div>;
 
       {/* Delete Property Modal */}
       <Modal

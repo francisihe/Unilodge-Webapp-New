@@ -20,6 +20,7 @@ const UserBookings = () => {
   const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
   useEffect(() => {
+
     const getUserBookingsFromAPI = async () => {
       setLoading(true);
       const res = await fetch(`/api/v1/bookings/all/users/${currentUser._id}?page=${currentPage}&limit=${limit}`, {

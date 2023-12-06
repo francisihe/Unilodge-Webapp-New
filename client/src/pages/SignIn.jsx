@@ -3,7 +3,7 @@ import GoogleAuthButton from "../components/GoogleAuthButton";
 import { useState } from "react";
 import SignInForm from "../components/forms/SignInForm";
 import { FiMail } from "react-icons/fi";
-import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
+import { signInSuccess } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
 const SignIn = () => {
@@ -33,7 +33,6 @@ const SignIn = () => {
 
     try {
       setLoading(true);
-      dispatch(signInStart());
       const res = await fetch('/api/v1/auth/signin', {
         method: 'POST',
         headers: {
@@ -43,13 +42,16 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
 
       if (!res.ok) {
-        dispatch(signInFailure(data));
-        setError(data);
-        setLoading(false);
-        return;
+        if (error) {
+          setError(error);
+          setLoading(false);
+        } else {
+          setError(data);
+          setLoading(false);
+          return;
+        }
       }
 
       if (res.ok) {
