@@ -1,7 +1,6 @@
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
-import errorHandler from '../middlewares/errorHandler.js';
 
 // Register New User Controller
 export const createUser = async (req, res, next) => {

@@ -16,11 +16,17 @@ export const getUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
     const { userId } = req.params;
-    if (req.user.id !== userId) return res.status(403).json({ message: 'You can only update your own profile' });
+    if (req.user.id !== userId) return res.status(403).json('You can only update your own profile');
 
     if (req.body.password) {
         const updatedPassword = bcryptjs.hashSync(req.body.password, 10);
         req.body.password = updatedPassword;
+    }
+
+    //Check username availability
+    if (req.body.username) {
+        const alreadyExistingUsername = await User.findOne({ username: req.body.username });
+        if (alreadyExistingUsername) { return res.status(400).json('Username has been taken. Please try another') };
     }
 
     try {
@@ -50,9 +56,9 @@ export const getAllUsers = async (req, res, next) => {
             .select('-password')
             .skip(skip)
             .limit(limit);
-        
+
         const totalUsers = await User.countDocuments();
-        res.status(200).json({users, totalUsers});
+        res.status(200).json({ users, totalUsers });
     } catch (error) {
         next(error)
     }
@@ -133,7 +139,7 @@ export const searchUsers = async (req, res, next) => {
         if (users.length === 0) return res.status(404).json('No users found');
         const totalUsers = await User.countDocuments(query);
 
-        res.status(200).json({users, totalUsers});
+        res.status(200).json({ users, totalUsers });
     } catch (error) {
         next(error);
     }

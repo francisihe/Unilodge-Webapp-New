@@ -11,8 +11,8 @@ export const signOutUser = async () => {
         console.log('Token removed');
 
         // Refresh page to clear state and navigate to home
-        window.location.reload();
         window.location.href = '/';
+        window.location.reload();
 
         return;
 
