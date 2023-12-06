@@ -35,9 +35,9 @@ export default function Header() {
   };
 
   const handleSignOut = async () => {
-    await signOutUser(); // Clears the token from localStorage
     // Dispatch logout action to clear Redux state
     dispatch(signOutUserSuccess());
+    await signOutUser(); // Clears the token from localStorage
   };
 
   return (
