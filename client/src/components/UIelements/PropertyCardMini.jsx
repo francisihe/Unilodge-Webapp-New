@@ -13,7 +13,7 @@ const PropertyCardMini = ({ property, openDeleteModal }) => {
 
     return (
 
-        <div className="bg-white rounded-lg shadow-md p-4">
+        <div className="bg-gray-100 rounded-lg shadow-md p-4 border-y-2 border-orange-400">
             <div className="flex gap-4 items-center ">
                 <div className='w-28 flex-shrink-0'>
                     <img
@@ -25,8 +25,8 @@ const PropertyCardMini = ({ property, openDeleteModal }) => {
 
                 <div className="flex flex-col space-y-4 w-full">
                     <div className=' flex flex-col md:flex-row py-2 justify-between'>
-                        <div className='truncate pr-2 w-56 md:w-48 wrap'>
-                            <h3 className='truncate overflow-ellipsis'>{property.title}</h3>
+                        <div className='truncate pr-2 w-46 md:w-48 wrap'>
+                            <h3 className='whitespace-break-spaces overflow-ellipsis'>{property.title}</h3>
                             <p className='truncate overflow-ellipsis'>{property.address}</p>
                         </div>
 

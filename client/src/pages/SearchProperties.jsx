@@ -5,11 +5,6 @@ import { Link, useLocation } from "react-router-dom";
 import Pagination from "../components/UIelements/Pagination";
 //import { useSelector } from "react-redux";
 
-//Scroll to Top;
-window.scroll({
-    top: 0,
-    behavior: 'smooth'
-});
 
 const SearchProperties = () => {
     const [properties, setProperties] = useState([])
@@ -44,7 +39,6 @@ const SearchProperties = () => {
         setLoading(false);
     }, [currentPage, limit]);
 
-
     useEffect(() => {
         handleSearch({
             searchTerm: searchTermFromUrl || '',
@@ -56,6 +50,14 @@ const SearchProperties = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, handleSearch, searchTermFromUrl]);
+
+    useEffect(() => {
+        //Scroll to Top;
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [searchTerm]);
 
 
     const handleClearFilter = () => {

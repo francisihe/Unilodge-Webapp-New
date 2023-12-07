@@ -95,7 +95,7 @@ const PropertiesAdmin = () => {
   return (
     <div className="py-3">
       <h1 className="text-xl">All Properties:</h1>
-      <p>Here are all existing properties sorted by date created:</p>
+      <p className="pb-3">Here are all existing properties sorted by date created:</p>
 
       {!properties || properties?.length === 0 &&
         <div className="text-xl font-medium mt-6">
@@ -114,7 +114,7 @@ const PropertiesAdmin = () => {
                 openDeleteModal={() => openDeleteModal(property)}
               />
             ))}
-      </div>;
+      </div>
 
       {/* Delete Property Modal */}
       <Modal
@@ -122,7 +122,7 @@ const PropertiesAdmin = () => {
         onRequestClose={closeDeleteModal}
         contentLabel="Delete User Modal"
         ariaHideApp={false}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md max-w-md w-full"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white py-5 rounded-md max-w-md w-full"
         overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
 

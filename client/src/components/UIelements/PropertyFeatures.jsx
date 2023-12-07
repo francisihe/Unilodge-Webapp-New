@@ -6,7 +6,7 @@ import { SlSizeActual } from "react-icons/sl";
 
 const PropertyFeatures = ({ property }) => {
     return (
-        <div className="flex justify-between text-gray-800 border-2 p-3 px-4 rounded-lg items-center">
+        <div className="flex justify-between gap-2 text-gray-800 border-2 p-3 px-4 rounded-lg items-center">
 
             <div className="text-sm">
                 <div>Category</div>
@@ -25,7 +25,7 @@ const PropertyFeatures = ({ property }) => {
             </div>
 
             <div className="text-sm">
-                <div>Bathrooms</div>
+                <div>Baths</div>
                 <div className="flex gap-2 items-center">
                     <FaShower className="text-orange-600" />
                     <div>{property.bathrooms}</div>

@@ -3,7 +3,7 @@ import { FaBath, FaBed, FaCompress } from 'react-icons/fa'
 import { IoIosRadioButtonOn } from "react-icons/io";
 import { MdCategory } from "react-icons/md";
 import { RiLandscapeFill } from "react-icons/ri";
-import propertyDefaultImage from '../../assets/images/property-image-test.png'
+import propertyDefaultImage from '../../assets/images/unilodge-poster.jpg'
 
 const PropertyCard = ({ property }) => {
     return (

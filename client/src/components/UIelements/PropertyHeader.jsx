@@ -34,10 +34,10 @@ const handleShare = async () => {
 const PropertyHeader = ({ property, error }) => {
     return (
         <div className="py-4 md:py-0 md:pb-4 lg:pb-8">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl">Property Title: {property.title}</h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl">Title: {property.title}</h1>
 
-            <div className="flex justify-between items-end">
-                <div>
+            <div className="flex-col md:flex justify-between items-end md:items-start">
+                <div className='flex gap-3 md:block'>
                     <span className="flex items-center gap-2">
                         <FaLocationDot className="text-red-500" title="See Location on Map" cursor="pointer" />
                         <p className="text-md md:text-xl">{property.address}</p></span>
@@ -47,10 +47,10 @@ const PropertyHeader = ({ property, error }) => {
                     </span>
                 </div>
 
-                <div className='flex gap-2'>
+                <div className='flex gap-2 pt-2 md:pt-0 md:self-end'>
                     <ScrollLink to='booking-form' smooth={true}>
                         <button
-                            className="bg-white text-orange-500 border-2 border-orange-400 px-2 py-1 rounded-lg flex items-center gap-2 text-bold">
+                            className="bg-orange-400 text-black border-2 border-orange-400 hover:bg-white hover:text-orange-400 px-2 py-1 rounded-lg flex items-center gap-2 text-bold">
                             <FcInspection />                 
                             Book Inspection
                         </button>
