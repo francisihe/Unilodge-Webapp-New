@@ -1,16 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { app } from "../../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserSuccess } from "../../redux/user/userSlice";
+import { signOutUserSuccess } from "../../redux/user/userSlice.js";
+import { signOutUser } from "../../utils/signOutUser.js";
 
 const ProfileForm = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [message, setMessage] = useState(null);
     const { currentUser } = useSelector((state) => state.user);
 
     const fileRef = useRef(null);
@@ -71,15 +75,23 @@ const ProfileForm = () => {
         if (!res.ok) {
             setError(data);
             console.log('Error Updating Profile')
+            setLoading(false);
         }
 
         if (res.ok) {
             dispatch(updateUserSuccess(data));
             setLoading(false);
             setError(null);
+            setMessage('Profile Updated Successfully')
         }
     };
 
+    const handleSignOut = async () => {
+        // Dispatch logout action to clear Redux state
+        dispatch(signOutUserSuccess());
+        await signOutUser(); // Clears the token from localStorage
+        navigate('/')
+    };
 
     return (
         <div>
@@ -164,24 +176,35 @@ const ProfileForm = () => {
                         required
                     />
 
-                    <button
-                        type='submit'
-                        className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-full"
-                    >
-                        {loading ? 'Updating...' : 'Update Profile'}
-                    </button>
+                    <div className="text-center">
+                        <button
+                            type='submit'
+                            className="bg-orange-500 text-white rounded-xl py-2 px-4 mt-3 w-full"
+                        >
+                            {loading ? 'Updating...' : 'Update Profile'}
+                        </button>
 
-                    <Link to='/profile/bookings'>
+                        <Link to='/profile/bookings'>
+                            <button
+                                type='button'
+                                className="bg-green-800 text-white rounded-xl py-2 px-4 mt-3 w-full"
+                            >
+                                See Bookings
+                            </button>
+                        </Link>
+
                         <button
                             type='button'
-                            className="bg-green-800 text-white rounded-xl py-2 px-4 mt-3 w-full"
+                            onClick={handleSignOut}
+                            className="bg-red-500 text-white rounded-xl py-2 px-4 mt-3 w-1/2"
                         >
-                            See Bookings
+                            Sign Out
                         </button>
-                    </Link>
+                    </div>
 
-                    {/* Error Message On Submission */}
+                    {/* Error or Success Message On Submission */}
                     {error && <p className="text-red-500 text-sm">{error}</p>}
+                    {message && <p className="text-green-500 text-sm">{message}</p>}
                 </div>
             </form>
         </div>

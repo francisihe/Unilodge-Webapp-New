@@ -172,6 +172,7 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
                         placeholder='francisdev@gmail.com'
                         defaultValue={selectedUser?.email}
                         onChange={handleChange}
+                        disabled
                     />
 
                     <label className="text-xs text-orange-500 font-medium">Password</label>
