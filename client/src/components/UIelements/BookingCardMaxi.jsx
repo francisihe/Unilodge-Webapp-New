@@ -14,7 +14,7 @@ const BookingCardMaxi = ({ booking, openEditModal, openDeleteModal }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg overflow-hidden shadow-md p-4">
+        <div className="bg-gray-100 border-y-2 border-orange-400 rounded-lg overflow-hidden shadow-md p-4">
             <div className="flex gap-4 items-center">
                 <div>
                     <img

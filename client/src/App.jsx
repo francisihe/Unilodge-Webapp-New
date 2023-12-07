@@ -21,8 +21,8 @@ import ProfileForm from './components/forms/ProfileForm'
 import DashboardSummary from './pages/admin/DashboardSummary'
 import Page404 from './pages/Page404'
 import VerifyUser from './routes/VerifyUser'
-import VerifyAdmin from './routes/VerifyAdmin'
 import VerifyAdminOrManager from './routes/VerifyAdminorManager'
+import About from './pages/About'
 
 
 
@@ -43,11 +43,12 @@ function App() {
             <Route index element={<DashboardSummary />} />
             <Route path='bookings' element={<BookingsAdmin />} />
             <Route path='properties' element={<PropertiesAdmin />} />
-            <Route path='users' element={<VerifyAdmin> <Users /> </VerifyAdmin>} /> {/* Admin Protected Route */}
+            <Route path='users' element={<Users />} /> {/* Admin Protected Route */}
           </Route>
 
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
+          <Route path='/about' element={<About />} />
 
           <Route path='/properties' element={<Properties />} />
           <Route path='/search-properties' element={<SearchProperties />} />

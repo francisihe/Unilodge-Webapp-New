@@ -21,7 +21,7 @@ const AddPropertyForm = () => {
     propertyStatus: '',
     propertyCategory: '',
     regularPrice: 50_000,
-    discountedPrice: 40_000,
+    discountedPrice: '',
     images: [],
     video: '',
     bedrooms: 1,

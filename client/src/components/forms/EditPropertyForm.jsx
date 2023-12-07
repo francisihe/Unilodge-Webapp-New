@@ -21,8 +21,8 @@ const EditPropertyForm = ({ property }) => {
         propertyModel: property.propertyModel || '',
         propertyStatus: property.propertyStatus || '',
         propertyCategory: property.propertyCategory || '',
-        regularPrice: property.regularPrice || 50_000,
-        discountedPrice: property.discountedPrice || 40_000,
+        regularPrice: property.regularPrice || '',
+        discountedPrice: property.discountedPrice || '',
         images: property.images || [],
         video: property.video || '',
         bedrooms: property.bedrooms || 1,
@@ -136,6 +136,11 @@ const EditPropertyForm = ({ property }) => {
             if (formData.regularPrice < formData.discountedPrice) {
                 window.alert('Discounted price cannot be greater than regular price');
                 return setError('Discounted price cannot be greater than regular price');
+            }
+
+            if (formData.discountedPrice === formData.regularPrice) {
+                window.alert('Regular Price and Discounted Price cannot be the same');
+                return setError('Regular Price and Discounted Price cannot be the same');
             }
 
             setLoading(true);
