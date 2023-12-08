@@ -59,7 +59,7 @@ export const google = async (req, res, next) => {
             const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET);
             const { password: pass, ...userDoc } = validUser._doc;
             res.status(200)
-                .cookie('token', token, { httpOnly: true })
+                .cookie('token', token)
                 .json(userDoc);
         } else {
             // Generate random password and hash it
@@ -83,7 +83,7 @@ export const google = async (req, res, next) => {
             const { password: pass, ...userDoc } = newUser._doc;
 
             res.status(200)
-                .cookie('token', token, { httpOnly: true })
+                .cookie('token', token)
                 .json(userDoc);
         }
     } catch (error) {

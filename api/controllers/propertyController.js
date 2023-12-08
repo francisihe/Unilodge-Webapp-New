@@ -173,7 +173,7 @@ export const searchProperties = async (req, res, next) => {
         const totalProperties = await Property.countDocuments(query);
 
         if (properties.length === 0) return res.status(404).json('No properties found');
-        res.status(200).json({properties, totalProperties});
+        res.status(200).json({ properties, totalProperties });
     } catch (error) {
         next(error);
     }
