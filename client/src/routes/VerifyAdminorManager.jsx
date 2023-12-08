@@ -9,7 +9,7 @@ const VerifyAdminOrManager = ({ children }) => {
 
     useEffect(() => {
         if (!currentUser || !(currentUser.role === "admin" || currentUser.role === "manager")) {
-            navigate(-1); // Redirect to home or another page if not an admin or manager
+            navigate("/signin"); // Redirect to home or another page if not an admin or manager
             alert("You need to be an admin or manager to view this page");
         }
     }, [currentUser, navigate]);
