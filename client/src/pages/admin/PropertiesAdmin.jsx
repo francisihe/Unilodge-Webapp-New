@@ -50,15 +50,17 @@ const PropertiesAdmin = () => {
     const res = await fetch(`/api/v1/properties/${selectedProperty._id}`, {
       method: 'DELETE',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include',
     });
     const data = await res.json();
     handleUpdateProperties(); // To refresh the properties list
     closeDeleteModal(); // To close the modal
 
     if (!res.ok) {
-      console.log(data.message)
+      console.log(data)
     }
 
     alert(`Property has been deleted`)

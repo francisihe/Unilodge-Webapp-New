@@ -19,6 +19,8 @@ const BookingForm = () => {
         inspectionDate: '',
     });
 
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
     // Get the current date in the format YYYY-MM-DD
     // This is to prevent selection of a date before current date in the date input field
     const getCurrentDate = () => {
@@ -46,8 +48,10 @@ const BookingForm = () => {
             const res = await fetch('/api/v1/bookings/create', {
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify(formData)
             });
             const data = await res.json();

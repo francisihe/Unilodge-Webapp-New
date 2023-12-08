@@ -137,15 +137,17 @@ const DashboardSummary = () => {
     const res = await fetch(`/api/v1/bookings/${selectedBooking._id}`, {
       method: 'DELETE',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include',
     });
     const data = await res.json();
     handleUpdateBookings(); // To refresh the bookings list
     closeDeleteModal(); // To close the modal
 
     if (!res.ok) {
-      console.log(data.message)
+      console.log(data)
     }
 
     alert(`Booking has been deleted`)

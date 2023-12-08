@@ -128,6 +128,8 @@ const EditPropertyForm = ({ property }) => {
         });
     };
 
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -148,8 +150,10 @@ const EditPropertyForm = ({ property }) => {
             const res = await fetch(`/api/v1/properties/${property._id}`, {
                 method: 'PATCH',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(formData),
             });
             const data = await res.json();

@@ -30,6 +30,8 @@ const AddPropertyForm = () => {
     isFeatured: false
   });
 
+  const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
   const handleChange = (event) => {
 
     if (
@@ -148,8 +150,10 @@ const AddPropertyForm = () => {
       const res = await fetch('/api/v1/properties/create', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(formData),
       });
       const data = await res.json();

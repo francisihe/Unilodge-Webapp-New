@@ -9,6 +9,8 @@ const BookingEditForm = ({ selectedBooking, closeModal, openDeleteModal, updateB
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
     const formatDate = (dateString) => {
         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
@@ -27,8 +29,10 @@ const BookingEditForm = ({ selectedBooking, closeModal, openDeleteModal, updateB
         const res = await fetch(`/api/v1/bookings/${selectedBooking._id}`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(formData)
         })
         const data = await res.json();

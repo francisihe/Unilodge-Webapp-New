@@ -22,6 +22,8 @@ const ProfileForm = () => {
     const [filePerc, setFilePerc] = useState(0);
     const [fileUploadError, setFileUploadError] = useState(false);
 
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
     useEffect(() => {
         if (file) {
             handleFileUpload(file);
@@ -66,8 +68,10 @@ const ProfileForm = () => {
         const res = await fetch(`/api/v1/users/${currentUser._id}/profile`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(formData)
         })
         const data = await res.json();

@@ -3,12 +3,9 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { app } from "../../utils/firebase";
-import { useDispatch } from "react-redux";
 import { RxCross2 } from "react-icons/rx";
-import { updateUserSuccess } from "../../redux/user/userSlice";
 
 const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUsers }) => {
-    const dispatch = useDispatch();
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -18,6 +15,8 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
     const [filePerc, setFilePerc] = useState(0);
     const [fileUploadError, setFileUploadError] = useState(false);
 
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+    
     useEffect(() => {
         if (file) {
             handleFileUpload(file);
@@ -52,7 +51,7 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
     const handleChange = (event) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            [event.target.id]: event.target.value
+            [event.target.id]: event.target.value.replace(/\s/g, '')
         }));
     };
 
@@ -62,14 +61,16 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
         const res = await fetch(`/api/v1/users/${selectedUser._id}`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(formData)
         })
         const data = await res.json();
 
         if (!res.ok) {
-            setError(data.message)
+            setError(data)
             setLoading(false);
         }
 
@@ -77,7 +78,6 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
             // On update, refresh the user data on the users page
             await updateUsers();
 
-            dispatch(updateUserSuccess(data));
             setLoading(false);
             alert('User Updated Successfully')
             console.log('User Updated Successfully')
@@ -172,7 +172,6 @@ const ProfileUpdateForm = ({ selectedUser, closeModal, openDeleteModal, updateUs
                         placeholder='francisdev@gmail.com'
                         defaultValue={selectedUser?.email}
                         onChange={handleChange}
-                        disabled
                     />
 
                     <label className="text-xs text-orange-500 font-medium">Password</label>
