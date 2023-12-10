@@ -19,6 +19,7 @@ const SignUpForm = ({ handleChange, handleSubmit, loading }) => {
                     id="lastname"
                     placeholder="Lastname"
                     onChange={handleChange}
+                    required
                 />
             </div>
 

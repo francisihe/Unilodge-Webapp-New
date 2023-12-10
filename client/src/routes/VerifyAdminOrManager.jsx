@@ -5,18 +5,19 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signOutUser } from "../utils/signOutUser.js";
 
-const VerifyAdmin = ({ children }) => {
+const VerifyAdminOrManager = ({ children }) => {
     const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state.user);
 
     // Get Token from Client Cookie for API Call's Authorization Header
     const token = document.cookie?.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
+
     useEffect(() => {
         const authenticateUser = async () => {
-            if (!currentUser || !currentUser?.role === "admin") {
-                alert("You need to be an admin to view this page");
-                navigate("/signin"); // Redirect to home or another page if not an admin
+            if (!currentUser || !(currentUser.role === "admin" || currentUser.role === "manager")) {
+                alert("You need to be an admin or manager to view this page");
+                navigate("/signin"); // Redirect to home or another page if not an admin or manager
                 return;
             }
 
@@ -37,12 +38,17 @@ const VerifyAdmin = ({ children }) => {
                 }
                 navigate("/signin");
             }
-        };
+        }
         authenticateUser();
 
     }, [currentUser, navigate, token]);
 
-    return currentUser && currentUser?.role === "admin" ? <>{children}</> : null;
+    return (
+        (currentUser && (currentUser.role === "admin" || currentUser.role === "manager")) ?
+            <>{children}</>
+            :
+            null
+    );
 };
 
-export default VerifyAdmin;
+export default VerifyAdminOrManager;
