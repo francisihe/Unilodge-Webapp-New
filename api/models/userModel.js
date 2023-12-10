@@ -30,7 +30,17 @@ const UserSchema = new mongoose.Schema({
         default: "user",
         enum: ["user", "manager", "admin"],
     },
-    bookmarks: [{type: mongoose.Schema.Types.ObjectId, ref: "Property"}],
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    verificationCode: {
+        type: Number,
+    },
+    verificationExpiration: {
+        type: Date,
+    },
+    bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Property" }],
 }, { timestamps: true });
 
 const UserModel = mongoose.model("User", UserSchema);
