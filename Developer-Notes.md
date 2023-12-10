@@ -52,3 +52,14 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 
 //Highlight
 1. Auto linking booking to existing user without signing in
+
+
+Testing Notes:
+
+1. After updating a user, it logged into that users account - FIXED
+2. WhatsApp has a weird link on load - FIXED
+3. Autorefresh user after updating permission to show admin panel - FIXED
+4. Separate the profile update form for admin form the user's profile form, and call their separate endpoints - FIXED
+5. Booking not showing on user's profile immediately after booking - FIXED
+6. Dashboard summary not showing - FIXED
+7. 

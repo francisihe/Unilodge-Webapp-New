@@ -27,7 +27,10 @@ export const verifyManagerOrAdmin = (req, res, next) => {
                 req.user = user;
                 next();
             });
-        } catch (error) {
+        } catch (error) { 
+            if (error.name === 'TokenExpiredError') {
+                return next(errorHandler(401, 'Unauthorized. Token has expired.'));
+              }
             if (error) throw error;
         }
     } else {

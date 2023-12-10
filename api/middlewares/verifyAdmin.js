@@ -28,6 +28,9 @@ export const verifyAdmin = (req, res, next) => {
                 next();
             });
         } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return next(errorHandler(401, 'Unauthorized. Token has expired.'));
+            }
             if (error) throw error;
         }
     } else {
