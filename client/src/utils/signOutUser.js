@@ -9,10 +9,12 @@ export const signOutUser = async () => {
         // Remove token from localStorage
         localStorage.removeItem('token');
         console.log('Token removed');
+        localStorage.removeItem('persist:root');
+        console.log('persist:root removed');
 
         // Refresh page to clear state and navigate to home
         window.location.href = '/';
-        window.location.reload();
+        // window.location.reload();
 
         return;
 

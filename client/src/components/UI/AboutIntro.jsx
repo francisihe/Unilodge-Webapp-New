@@ -58,14 +58,14 @@ const AboutIntro = () => {
                     <div className="lg:pr-4">
                         <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
                             <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl pb-2">Our Vision</h2>
-                            <p className="mt-6 text-lg leading-8 text-gray-600">
+                            <p className="mt-6 text-md leading-8 text-gray-600">
                                 At Unilodge Realty, we are more than just a real estate company; we are creators of unique, functional, and sustainable living environments.
                                 Our passion for quality fuels our relentless pursuit to exceed expectations, providing our clients with homes that go beyond mere structures.
                                 We take pride in contributing to communities and enhancing the overall living experience.
                             </p>
 
                             <h2 className="mt-8 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl pb-2">Our Ongoing Projects</h2>
-                            <p className="mt-6 text-lg leading-8 text-gray-600">
+                            <p className="mt-6 text-md leading-8 text-gray-600">
                                 As part of our commitment to growth and innovation, Unilodge Realty is currently spearheading the development of a series of world-class estates in Benin City.
                                 These include:
                                 <ul className='py-4 space-y-2'>

@@ -48,10 +48,10 @@ Second ref: https://firebase.google.com/docs/auth/web/password-auth
 17. Add Caretaker Ref form to frontend, to allow assigning caretakers to properties using their refs, and ability to view all properties assigned to a caretaker
 
 // Fixed persistence and signout issue
-1. To see the logic, check SignOutFunction in utils folder
+1. To see the logic, check SignOutFunction in utils folder - FIXED
 
 //Highlight
-1. Auto linking booking to existing user without signing in
+1. Auto linking booking to existing user without signing in - FIXED
 
 
 Testing Notes:
@@ -63,3 +63,8 @@ Testing Notes:
 5. Booking not showing on user's profile immediately after booking - FIXED
 6. Dashboard summary not showing - FIXED
 7. 
+
+TO DO:
+1. Implement Verify User on Sign Up
+2. Implement auto-logout after cookie expiry, add cookie timeout
+3. Add logged in message on sign in

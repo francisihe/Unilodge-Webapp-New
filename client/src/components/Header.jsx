@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/unilodge-logo.jpg"
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,6 @@ import { signOutUserSuccess } from "../redux/user/userSlice.js";
 
 
 export default function Header() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const { currentUser } = useSelector(state => state.user)
@@ -39,7 +38,6 @@ export default function Header() {
     // Dispatch logout action to clear Redux state
     dispatch(signOutUserSuccess());
     await signOutUser(); // Clears the token from localStorage
-    navigate('/')
   };
 
   return (

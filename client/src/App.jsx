@@ -21,7 +21,7 @@ import ProfileForm from './components/forms/ProfileForm'
 import DashboardSummary from './pages/admin/DashboardSummary'
 import Page404 from './pages/Page404'
 import VerifyUser from './routes/VerifyUser'
-import VerifyAdminOrManager from './routes/VerifyAdminorManager'
+import VerifyAdminOrManager from './routes/VerifyAdminOrManager'
 import About from './pages/About'
 
 
@@ -46,8 +46,8 @@ function App() {
             <Route path='users' element={<Users />} /> {/* Admin Protected Route */}
           </Route>
 
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/signin' element={<SignIn />} />
+          <Route path='/signup/*' element={<SignUp />} /> {/* Has the verify sub page within */}
+          <Route path='/signin/*' element={<SignIn />} />
           <Route path='/about' element={<About />} />
 
           <Route path='/properties' element={<Properties />} />
