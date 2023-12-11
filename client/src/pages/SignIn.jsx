@@ -23,7 +23,7 @@ const SignIn = () => {
   const [emailToVerify, setEmailToVerify] = useState(formData.email);
   const [emailToReverify, setEmailToReverify] = useState(formData.email);
 
-  {/* Set's the email to be verified when sign in email changes */}
+  {/* Set's the email to be verified when sign in email changes */ }
   useEffect(() => {
     setEmailToVerify(formData.email);
     setEmailToReverify(formData.email);
@@ -92,7 +92,7 @@ const SignIn = () => {
 
   const handleVerify = async (event) => {
     event.preventDefault();
-    
+
     try {
       setLoading(true);
       const res = await fetch('/api/v1/auth/verify', {
@@ -200,6 +200,10 @@ const SignIn = () => {
                 Do not have an account? <Link className="underline text-black" to={'/signup'}>Sign Up</Link>
               </div>
             )}
+
+            <div className="text-center py-1">
+              <Link className="text-red-400 text-sm" to={'/forgot-password'}>Forgot Password?</Link>
+            </div>
 
           </div>
         </div>

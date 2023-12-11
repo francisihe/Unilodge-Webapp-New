@@ -68,3 +68,6 @@ TO DO:
 1. Implement Verify User on Sign Up
 2. Implement auto-logout after cookie expiry, add cookie timeout
 3. Add logged in message on sign in
+4. Remove testing url link in forgot Password email in mailer
+5. Add currently logged in notification on sign in and sign up pages
+6. 

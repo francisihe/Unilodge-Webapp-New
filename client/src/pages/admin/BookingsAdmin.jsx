@@ -88,6 +88,7 @@ const BookingsAdmin = () => {
   const handleUpdateBookings = () => {
     // Increment the ref value to trigger useEffect
     setUpdateCount(updateCount + 1);
+    closeDeleteModal(); // To close the modal
   };
 
   const handleDeleteBooking = async () => {

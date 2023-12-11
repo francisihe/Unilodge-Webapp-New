@@ -162,13 +162,14 @@ const ProfileForm = () => {
                         disabled
                     />
 
-                    <label className="text-xs text-orange-500 font-medium">Password</label>
+                    {/* Removed ability to update passform from profile page. Use password reset link instead with email verification */}
+                    {/* <label className="text-xs text-orange-500 font-medium">Password</label>
                     <input
                         type='password'
                         id='password'
                         placeholder='********'
                         onChange={handleChange}
-                    />
+                    /> */}
 
                     <label className="text-xs text-orange-500 font-medium">Username</label>
                     <input

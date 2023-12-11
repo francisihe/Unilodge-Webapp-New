@@ -45,7 +45,7 @@ const SignUp = () => {
     event.preventDefault();
 
     // Check if passwords match
-    if (formData.password !== formData['password-confirm']) {
+    if (formData.password !== formData['passwordConfirm']) {
       setError('Passwords do not match');
       return;
     }
@@ -204,6 +204,10 @@ const SignUp = () => {
                   Already have an account? <Link className="underline text-black" to={'/signin'}>Sign In</Link>
                 </div>
               )}
+
+              <div className="text-center py-1">
+                <Link className="text-red-400 text-sm" to={'/forgot-password'}>Forgot Password?</Link>
+              </div>
 
               {showSignUpForm && (
                 <SignUpForm

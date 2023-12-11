@@ -41,7 +41,7 @@ const SignUpForm = ({ handleChange, handleSubmit, loading }) => {
 
             <input
                 type="password"
-                id="password-confirm"
+                id="passwordConfirm"
                 placeholder="Confirm Password"
                 onChange={handleChange}
                 required

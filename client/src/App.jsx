@@ -23,6 +23,8 @@ import Page404 from './pages/Page404'
 import VerifyUser from './routes/VerifyUser'
 import VerifyAdminOrManager from './routes/VerifyAdminOrManager'
 import About from './pages/About'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 
 
@@ -47,7 +49,9 @@ function App() {
           </Route>
 
           <Route path='/signup/*' element={<SignUp />} /> {/* Has the verify sub page within */}
-          <Route path='/signin/*' element={<SignIn />} />
+          <Route path='/signin/*' element={<SignIn />} /> {/* Has the verify sub page within */}
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/about' element={<About />} />
 
           <Route path='/properties' element={<Properties />} />

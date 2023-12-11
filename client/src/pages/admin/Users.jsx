@@ -86,6 +86,7 @@ const Users = () => {
     const handleUpdateUsers = () => {
         // Increment the ref value to trigger useEffect
         setUpdateCount(updateCount + 1);
+        closeDeleteModal(); // To close the modal
     };
 
     const handleDeleteUser = async () => {
