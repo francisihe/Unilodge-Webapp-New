@@ -6,8 +6,17 @@ import { RiLandscapeFill } from "react-icons/ri";
 import propertyDefaultImage from '../../assets/images/unilodge-poster.jpg'
 
 const PropertyCard = ({ property }) => {
+    const hasDiscount = property?.discountedPrice && property?.discountedPrice < property.regularPrice;
+    const discountPercentage = Math.round(((property.regularPrice - property?.discountedPrice) / property.regularPrice) * 100);
+
     return (
         <div className='border-2 p-3 my-1 rounded-lg bg-amber-50 flex flex-col justify-around transform transition-transform hover:scale-105 '>
+            {hasDiscount && (
+                <div className='absolute top-7 right-0 bg-red-600 text-white px-2 py-1 rounded-tl-lg rounded-bl-lg text-sm font-bold'>
+                    {`${discountPercentage}% OFF`}
+                </div>
+            )}
+            
             <div className=''>
                 <img
                     src={property.images ? property.images[0] : propertyDefaultImage}

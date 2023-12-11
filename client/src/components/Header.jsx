@@ -42,7 +42,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="flex justify-between items-center md:mb-6">
+      <header className="flex justify-between items-center md:mb-6 overflow-clip">
         <div>
           <Link to={'/'} className="flex items-center gap-1">
             <img src={logo} alt="UnilodgeNG-logo" className="h-10 w-10" />

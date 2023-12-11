@@ -3,7 +3,7 @@ import onlineShoppingImage from '../../assets/images/online-shopping-image.png'
 
 const ShopSection = () => {
     return (
-        <div className="flex flex-col-reverse lg:my-12 items-center md:grid md:grid-cols-2 lg:max-w-screen-xl lg:mx-auto lg:max-h-screen">
+        <div className="flex flex-col-reverse lg:my-12 items-center md:grid md:grid-cols-2 lg:max-w-screen-xl lg:mx-auto lg:max-h-screen overflow-clip">
 
             <div className='rounded-lg max-h-screen md:pr-4 lg:pr-10'>
                 <img src={onlineShoppingImage}

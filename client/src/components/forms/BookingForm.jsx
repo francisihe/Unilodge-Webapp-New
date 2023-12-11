@@ -92,7 +92,7 @@ const BookingForm = () => {
                             <input
                                 type='text'
                                 id='firstname'
-                                placeholder='Francis'
+                                placeholder='Firstname'
                                 value={formData.firstname}
                                 onChange={handleChange}
                                 required={true}
@@ -103,7 +103,7 @@ const BookingForm = () => {
                             <input
                                 type='text'
                                 id='lastname'
-                                placeholder='Ihejirika'
+                                placeholder='Surname'
                                 value={formData.lastname}
                                 onChange={handleChange}
                                 required={true}
@@ -114,7 +114,7 @@ const BookingForm = () => {
                     <input
                         type='text'
                         id='phone'
-                        placeholder='0803 123 4567'
+                        placeholder='08012345678'
                         value={formData.phone}
                         onChange={handleChange}
                         required

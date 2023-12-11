@@ -205,9 +205,9 @@ const SignUp = () => {
                 </div>
               )}
 
-              <div className="text-center py-1">
+              {/* <div className="text-center py-1">
                 <Link className="text-red-400 text-sm" to={'/forgot-password'}>Forgot Password?</Link>
-              </div>
+              </div> */}
 
               {showSignUpForm && (
                 <SignUpForm
