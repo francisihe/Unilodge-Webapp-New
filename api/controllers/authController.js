@@ -2,6 +2,11 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import { generateVerificationCode } from '../utils/verification.js';
+import { sendVerificationEmail } from '../utils/mailer/sendVerificationEmail.js';
+import { newUserVerificationEmail } from '../utils/mailer/newUserVerificationEmail.js';
+import { newUserGoogleSignUpEmail } from '../utils/mailer/newUserGoogleSignUpEmail.js';
+import { forgotPasswordEmail } from '../utils/mailer/forgotPasswordEmail.js';
+import { resetPasswordEmail } from '../utils/mailer/resetPasswordEmail.js';
 
 // Register New User Controller
 export const createUser = async (req, res, next) => {
@@ -26,7 +31,9 @@ export const createUser = async (req, res, next) => {
         const { verificationCode, expirationTime } = verificationResponse;
 
         const newUser = new User({ firstname, lastname, username, email, password: hashedPassword, isVerified: false, verificationCode: verificationCode, verificationExpiration: expirationTime });
-        console.log(newUser);
+
+        // Send verification email
+        await newUserVerificationEmail(newUser.email, newUser.verificationCode, newUser.firstname);
 
         await newUser.save();
         res.status(201).json('User created successfully');
@@ -40,9 +47,9 @@ export const signInUser = async (req, res, next) => {
     const { email, password } = req.body;
     try {
         const validUser = await User.findOne({ email });
-        if (!validUser) { return res.status(404).json('Invalid credentials. Please check your email and password') }
+        if (!validUser) { return res.status(404).json('Invalid credentials. Please check your email and password or use Google signin') }
         const validPassword = bcryptjs.compareSync(password, validUser.password);
-        if (!validPassword) { return res.status(404).json('Invalid credentials. Please check your email and password') }
+        if (!validPassword) { return res.status(404).json('Invalid credentials. Please check your email and password or use Google signin') }
 
         if (!validUser.isVerified) {
             // Generate new verification code and send it to the user's email
@@ -50,6 +57,9 @@ export const signInUser = async (req, res, next) => {
             validUser.verificationCode = verificationResponse.verificationCode;
             validUser.verificationExpiration = verificationResponse.expirationTime;
             await validUser.save();
+
+            // Send verification email
+            await sendVerificationEmail(validUser.email, validUser.verificationCode, validUser.firstname)
 
             // Return a response indicating that verification is required
             return res.status(401).json('Please verify your email to continue');
@@ -86,6 +96,11 @@ export const verifyUser = async (req, res, next) => {
         validUser.verificationExpiration = null; // Remove verification expiration from database
         await validUser.save();
 
+        // Send verification email if user is not verified
+        if (!validUser.isVerified) {
+            await sendVerificationEmail(validUser.email, validUser.verificationCode, validUser.firstname)
+        }
+
         res.status(200).json('User verified successfully');
     } catch (error) {
         next(error);
@@ -109,6 +124,9 @@ export const resendVerificationCode = async (req, res, next) => {
         validUser.verificationCode = verificationResponse.verificationCode;
         validUser.verificationExpiration = verificationResponse.expirationTime;
         await validUser.save();
+
+        // Send verification email
+        await sendVerificationEmail(validUser.email, validUser.verificationCode, validUser.firstname)
 
         res.status(200).json('Verification code resent successfully');
     } catch (error) {
@@ -158,6 +176,9 @@ export const google = async (req, res, next) => {
             const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: '6h' });
             const { password: pass, ...userDoc } = newUser._doc;
 
+            // Send welcome email
+            await newUserGoogleSignUpEmail(newUser.email, newUser.firstname);
+
             res.status(200)
                 .cookie('token', token)
                 .json(userDoc);
@@ -173,7 +194,7 @@ export const forgotPassword = async (req, res, next) => {
 
     try {
         const validUser = await User.findOne({ email });
-        if (!validUser) { return res.status(404).json('If your account exists, a password reset mail will be sent') }
+        if (!validUser) { return res.status(404).json('If your account exists, a password reset mail will be sent. Please check your email for password reset instructions') }
 
         // Generate new verification code and expiration time
         const verificationResponse = await generateVerificationCode();
@@ -181,9 +202,10 @@ export const forgotPassword = async (req, res, next) => {
         validUser.verificationExpiration = verificationResponse.expirationTime;
         await validUser.save();
 
-        console.log(validUser)
+        // Send forgot password email and verification code
+        await forgotPasswordEmail(validUser.email, validUser.verificationCode, validUser.firstname);
 
-        res.status(200).json('Please check your email for password reset instructions');
+        res.status(200).json('If your account exists, a password reset mail will be sent. Please check your email for password reset instructions');
 
     } catch (error) {
         next(error);
@@ -208,6 +230,9 @@ export const resetPassword = async (req, res, next) => {
         validUser.verificationCode = null;
         validUser.verificationExpiration = null;
         await validUser.save();
+
+        // Send password reset confirmation email
+        await resetPasswordEmail(validUser.email, validUser.firstname);
 
         res.status(200).json('Password reset successfully');
 

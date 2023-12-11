@@ -18,10 +18,11 @@ export const updateUser = async (req, res, next) => {
     const { userId } = req.params;
     if (req.user.id !== userId) return res.status(403).json('You can only update your own profile');
 
-    if (req.body.password) {
-        const updatedPassword = bcryptjs.hashSync(req.body.password, 10);
-        req.body.password = updatedPassword;
-    }
+    // Implemented pasword reset route already with email verification so this is not needed for extra security
+    // if (req.body.password) {
+    //     const updatedPassword = bcryptjs.hashSync(req.body.password, 10);
+    //     req.body.password = updatedPassword;
+    // }
 
     //Check username availability
     if (req.body.username) {
