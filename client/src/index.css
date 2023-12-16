@@ -27,3 +27,11 @@ input[type="number"], input[type="tel"],
 textarea{
     @apply w-full border my-1 py-2 px-3 rounded-2xl;
 }
+
+.blog-content {
+  @apply text-justify 
+}
+
+.blog-content h2 {
+  @apply text-3xl font-bold text-gray-800 mt-3 mb-3;
+}

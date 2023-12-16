@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import unilodgeLogoFooter from '../../assets/unilodge-logo-2.png'
 
 
-import { FaFacebook, FaInstagram, FaTwitter, FaEnvelope, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaEnvelope, FaWhatsapp, FaYoutube, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
     return (
@@ -38,6 +38,9 @@ const Footer = () => {
                     </a>
                     <a href={`https://wa.me/2348159457077?text=Hello I'm from your website. I want to make some inquiries.`} target="_blank" rel="noopener noreferrer">
                         <FaWhatsapp className="text-gray-300 w-5 h-5 hover:text-green-500" />
+                    </a>
+                    <a href={`https://www.linkedin.com/in/unilodge-realty`} target="_blank" rel="noopener noreferrer">
+                        <FaLinkedin className="text-gray-300 w-5 h-5 hover:text-blue-500" />
                     </a>
                     <a href="https://www.youtube.com/channel/UCyjn2DteAfigLKcvRytFtRw" target="_blank" rel="noopener noreferrer">
                         <FaYoutube className="text-gray-300 w-5 h-5 hover:text-red-500" />
@@ -80,7 +83,7 @@ const Footer = () => {
                             <ul className="list-disc">
                                 <Link to='https://www.instagram.com/unilodge_realty' target="_blank" rel="noopener noreferrer" className='hover:text-orange-600'><p>Instagram</p></Link>
                                 <Link to='https://www.facebook.com/p/unilodge-realty-100068289562862' target="_blank" rel="noopener noreferrer" className='hover:text-orange-600'><p>Facebook</p></Link>
-                                <Link to='/' target="_blank" rel="noopener noreferrer" className='hover:text-orange-600'><p>Linkedin</p></Link>
+                                <Link to='https://www.linkedin.com/in/unilodge-realty' target="_blank" rel="noopener noreferrer" className='hover:text-orange-600'><p>Linkedin</p></Link>
                             </ul>
                         </div>
                     </div>
@@ -90,7 +93,7 @@ const Footer = () => {
                 {/* Footer Credits */}
                 <div className="mt-8">
                     <div className="flex justify-center flex-col md:flex-row md:justify-between">
-                        <p className="text-center md:text-left mb-2 md:mb-0">© Unilodge Realty Inc.</p>
+                        <p className="text-center md:text-left mb-2 md:mb-0">© Unilodge Realty</p>
                         <p className="text-center md:text-right">
                             Developed by <span className='hover:text-orange-600'>
                                 <a href='https://twitter.com/francisihej' target='blank' rel='noreferrer'>Francis Ihejirika</a>

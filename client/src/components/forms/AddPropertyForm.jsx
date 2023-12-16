@@ -359,11 +359,12 @@ const AddPropertyForm = () => {
           <input
             type='file'
             id='images'
-            accept='image/*'
+            // accept='image/*'
+            accept='image/png, image/jpg, image/jpeg'
             multiple
             onChange={(event) => setFiles(event.target.files)}
             className="border border-gray-300 rounded-lg py-1 px-4 w-full"
-          //required
+            required
           />
           <button
             type='button'

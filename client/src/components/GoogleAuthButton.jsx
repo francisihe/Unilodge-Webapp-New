@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { signInSuccess } from '../redux/user/userSlice.js';
 import { FcGoogle } from 'react-icons/fc';
 
-const GoogleAuthButton = ({ setError }) => {
+const GoogleAuthButton = ({ setError, setMessage }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleGoogleClick = async () => {
         try {
+            setMessage('Signing in with Google...')
             const provider = new GoogleAuthProvider();
             provider.setCustomParameters({ prompt: 'select_account' });
             const auth = getAuth(app);
@@ -41,6 +42,7 @@ const GoogleAuthButton = ({ setError }) => {
 
             if (res.ok) {
                 dispatch(signInSuccess(data));
+                setMessage('Sign In with Google Successful')
                 console.log('Sign In with Google Successful')
                 navigate('/');
             }

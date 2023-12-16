@@ -52,6 +52,7 @@ const SignUp = () => {
 
     try {
       setEmailToVerify(formData.email);
+      setMessage('Creating account...');
       setLoading(true);
       const res = await fetch('/api/v1/auth/signup', {
         method: 'POST',
@@ -71,6 +72,7 @@ const SignUp = () => {
 
       if (res.ok) {
         setLoading(false);
+        setMessage('Account created successfully');
         setError(null);
         navigate('/signup/verify');
       }
@@ -186,6 +188,7 @@ const SignUp = () => {
 
               <GoogleAuthButton
                 setError={setError}
+                setMessage={setMessage}
               />
 
               <button

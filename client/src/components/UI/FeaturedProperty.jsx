@@ -36,7 +36,7 @@ const FeaturedProperty = () => {
     };
 
     return (
-        <div className='mx-auto lg:w-screen lg:max-w-screen-xl'>
+        <div className='mx-auto lg:w-screen lg:max-w-screen-xl overflow-clip'>
             <Element name='featured-properties'>
                 <div className='flex justify-between items-baseline pb-6'>
                     <div className='pr-4'>

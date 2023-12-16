@@ -1,6 +1,16 @@
-import unilodgePoster from '../../assets/images/unilodge-poster.jpg'
+import { useEffect } from 'react';
+import unilodgePoster from '../../assets/images/unilodge-poster.png'
 
 const AboutIntro = () => {
+
+    useEffect(() => {
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }, []);
+
     return (
         <div className="relative isolate overflow-hidden bg-white px-6 pt-24 sm:pt-32 lg:overflow-visible lg:px-0">
 

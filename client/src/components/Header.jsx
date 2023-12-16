@@ -42,7 +42,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="flex justify-between items-center md:mb-6 overflow-clip">
+      <header className="flex justify-between items-center md:mb-6">
         <div>
           <Link to={'/'} className="flex items-center gap-1">
             <img src={logo} alt="UnilodgeNG-logo" className="h-10 w-10" />
@@ -113,6 +113,9 @@ export default function Header() {
                       <div className="space-y-3 grid grid-cols-1 md:grid md:grid-cols-1 border-t-2 text-left flex-wrap whitespace-nowrap p-4">
                         {currentUser && (currentUser.role === 'admin' || currentUser?.role === 'manager') && (
                           <Link to='/admin' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Admin Panel</Link>
+                        )}
+                        {currentUser && (currentUser.role === 'admin' || currentUser?.role === 'manager') && (
+                          <Link to='/add-property' className='hover:bg-orange-400 rounded-lg text-sm indent-3 py-1'>Add Property</Link>
                         )}
                       </div>
                     </div>

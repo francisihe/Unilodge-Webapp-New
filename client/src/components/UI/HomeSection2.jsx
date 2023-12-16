@@ -13,7 +13,7 @@ const HomeSection2 = () => {
 
             <div className='space-y-4 py-10 md:mb-0 md:pr-4 lg:-mt-10 lg:max-w-xl'>
                 <div>
-                    <h2 className="text-3xl w-[85%] my-3 leading-tight">Built for Students, Landlords, Tenants and Developers</h2>
+                    <h2 className="text-3xl w-[85%] my-3 leading-tight">Built for Students, Landlords, Tenants and Property Developers</h2>
                     <p className="text-md w-[90%]">Whether you are in search of a property to rent, looking to lease your apartment or manage your property? Our services can cater to your needs easily.</p>
                 </div>
 

@@ -25,6 +25,10 @@ import VerifyAdminOrManager from './routes/VerifyAdminOrManager'
 import About from './pages/About'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import Contact from './pages/Contact'
+import Blog from './pages/Blog'
+import BlogPost from './components/UIskeleton/BlogPost'
+import Shop from './pages/Shop'
 
 
 
@@ -53,6 +57,11 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/blog/*' element={<Blog />} />
+          <Route path='/blog/:slug' element={<BlogPost />} />
+          <Route path='/shop' element={<Shop />} />
+          <Route path='/404' element={<Page404 />} />
 
           <Route path='/properties' element={<Properties />} />
           <Route path='/search-properties' element={<SearchProperties />} />

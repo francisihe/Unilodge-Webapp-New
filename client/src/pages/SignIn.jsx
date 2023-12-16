@@ -15,6 +15,7 @@ const SignIn = () => {
   const [showSignInForm, setShowSignInForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -172,8 +173,18 @@ const SignIn = () => {
                 {console.log(error)}</p>
             )}
 
+            {message && (
+              <p className="text-green-500 text-sm pb-3">
+                {message}
+                {setTimeout(() => {
+                  setError(null)
+                }, 10000)}
+                {console.log(error)}</p>
+            )}
+
             <GoogleAuthButton
               setError={setError}
+              setMessage={setMessage}
             />
 
             <button
@@ -202,7 +213,7 @@ const SignIn = () => {
             )}
 
             <div className="text-center py-1">
-              <Link className="text-red-400 text-sm" to={'/forgot-password'}>Forgot Password?</Link>
+              <Link className="text-orange-600 text-sm" to={'/forgot-password'}>Forgot Password?</Link>
             </div>
 
           </div>

@@ -3,10 +3,16 @@ import HowItWorks from "../components/UI/HowItWorks"
 
 
 const About = () => {
+
+  window.scroll({
+    top: 0,
+    behavior: 'smooth'
+  });
+
   return (
     <div>
-        <AboutIntro />
-        <HowItWorks />
+      <AboutIntro />
+      <HowItWorks />
     </div>
   )
 }
