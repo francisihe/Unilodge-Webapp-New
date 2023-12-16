@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import DOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
+import { BLOG_URL } from '../utils/variables.js';
 dotenv.config();
 
 // const credentials = btoa(`${process.env.BLOG_USERNAME}:${process.env.BLOG_PASSWORD}`);
@@ -52,7 +53,7 @@ export const getAllBlogs = async (req, res, next) => {
         const skip = (page - 1) * limit;
 
         // Fetch only published blogs from Wordpress with pagination parameters
-        const data = await fetch(`${process.env.BLOG_URL}/wp-json/wp/v2/posts?per_page=${limit}&page=${page}&status=publish`);
+        const data = await fetch(`${BLOG_URL}/wp-json/wp/v2/posts?per_page=${limit}&page=${page}&status=publish`);
         const blogs = await data.json();
 
         const publishedBlogs = await Promise.all(blogs.map(async (blog) => {
@@ -81,7 +82,7 @@ export const getAllBlogs = async (req, res, next) => {
 export const getLatestBlogs = async (req, res, next) => {
     try {
         // Fetch the 6 most recent published blogs from WordPress
-        const data = await fetch(`${process.env.BLOG_URL}/wp-json/wp/v2/posts?per_page=6&status=publish&orderby=date&order=desc`);
+        const data = await fetch(`${BLOG_URL}/wp-json/wp/v2/posts?per_page=6&status=publish&orderby=date&order=desc`);
         const blogs = await data.json();
 
         const recentBlogs = await Promise.all(
@@ -119,7 +120,7 @@ export const getBlogById = async (req, res, next) => {
         const blogSlug = req.params.slug; // Assuming your route has a parameter for the blog slug
 
         // Fetch a single blog post by slug from WordPress
-        const data = await fetch(`${process.env.BLOG_URL}/wp-json/wp/v2/posts?slug=${blogSlug}&status=publish`);
+        const data = await fetch(`${BLOG_URL}/wp-json/wp/v2/posts?slug=${blogSlug}&status=publish`);
         const blogs = await data.json();
 
         if (!blogs || blogs.length === 0) {

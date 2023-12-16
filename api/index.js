@@ -36,8 +36,8 @@ app.use('/api/v1/caretakers', caretakerRouter)
 app.use('/api/v1/summary', summaryRouter)
 app.use('/api/v1/blogs', blogRouter)
 
-// Port and DB Connection
-const port = process.env.PORT || 3000;
+// Port and DB Connection for localhost development
+const port = process.env.PORT || 3000; 
 app.listen(port, async () => {
     try {
         try {
@@ -51,5 +51,17 @@ app.listen(port, async () => {
         }
     } catch (error) {
         if (error) throw error;
+    }
+});
+
+
+// Port and DB Connection for production on Firebase Functions
+app.listen(async () => {
+    try {
+        await connectToDatabase();
+    } catch (error) {
+        if (error) {
+            console.log(error)
+        };
     }
 });

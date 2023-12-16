@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import errorHandler from './errorHandler.js'
+import { JWT_SECRET } from '../utils/variables.js';
 
 export const verifyUser = (req, res, next) => {
   let token = req.cookies.token;
@@ -19,7 +20,7 @@ export const verifyUser = (req, res, next) => {
     return next(errorHandler(401, 'Unauthorized. Please login to continue'));
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+  jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
       if (err.name === 'TokenExpiredError') {
         return next(errorHandler(401, 'Unauthorized. Token has expired.'));

@@ -1,4 +1,5 @@
 import { transporter } from './transporter.js';
+import { EMAIL } from '../variables.js';
 
 const formatDate = (dateString) => {
     const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -7,7 +8,7 @@ const formatDate = (dateString) => {
 
 export const newBookingCreatedEmail = async (newBooking) => {
     const mailOptions = {
-        from: `Unilodge Realty <${process.env.EMAIL}>`,
+        from: `Unilodge Realty <${EMAIL}>`,
         to: 'unilodgeng103@gmail.com',
         subject: 'New Booking Created',
         html: `

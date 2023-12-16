@@ -7,6 +7,7 @@ import { newUserVerificationEmail } from '../utils/mailer/newUserVerificationEma
 import { newUserGoogleSignUpEmail } from '../utils/mailer/newUserGoogleSignUpEmail.js';
 import { forgotPasswordEmail } from '../utils/mailer/forgotPasswordEmail.js';
 import { resetPasswordEmail } from '../utils/mailer/resetPasswordEmail.js';
+import { JWT_SECRET } from '../utils/variables.js';
 
 // Register New User Controller
 export const createUser = async (req, res, next) => {
@@ -65,7 +66,7 @@ export const signInUser = async (req, res, next) => {
             return res.status(401).json('Please verify your email to continue');
         }
 
-        const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET, { expiresIn: '6h' });
+        const token = jwt.sign({ id: validUser._id, role: validUser.role }, JWT_SECRET, { expiresIn: '6h' });
         const { password: pass, ...userDoc } = validUser._doc;
 
         res.status(200)
@@ -149,7 +150,7 @@ export const google = async (req, res, next) => {
                 await validUser.save();
             }
 
-            const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET, { expiresIn: '6h' });
+            const token = jwt.sign({ id: validUser._id, role: validUser.role }, JWT_SECRET, { expiresIn: '6h' });
             const { password: pass, ...userDoc } = validUser._doc;
             res.status(200)
                 .cookie('token', token)
@@ -173,7 +174,7 @@ export const google = async (req, res, next) => {
             });
 
             await newUser.save();
-            const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: '6h' });
+            const token = jwt.sign({ id: newUser._id, role: newUser.role }, JWT_SECRET, { expiresIn: '6h' });
             const { password: pass, ...userDoc } = newUser._doc;
 
             // Send welcome email

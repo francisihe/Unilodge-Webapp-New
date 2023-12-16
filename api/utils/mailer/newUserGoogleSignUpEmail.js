@@ -1,8 +1,9 @@
 import { transporter } from './transporter.js';
+import { EMAIL } from '../variables.js';
 
 export const newUserGoogleSignUpEmail = async (email, firstname) => {
     const mailOptions = {
-        from: `Unilodge Realty <${process.env.EMAIL}>`,
+        from: `Unilodge Realty <${EMAIL}>`,
         to: email,
         subject: 'Welcome to Unilodge Realty - Account Created!',
         html: `

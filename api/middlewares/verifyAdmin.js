@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import errorHandler from './errorHandler.js'
+import { JWT_SECRET } from '../utils/variables.js';
 
 export const verifyAdmin = (req, res, next) => {
     let token = req.cookies.token;
@@ -15,7 +16,7 @@ export const verifyAdmin = (req, res, next) => {
 
             token = authorizationHeader.split(' ')[1];
 
-            jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+            jwt.verify(token, JWT_SECRET, (err, user) => {
                 if (err) {
                     return next(errorHandler(403, 'Forbidden, admins only. You do not have permission to proceed'));
                 }
@@ -35,7 +36,7 @@ export const verifyAdmin = (req, res, next) => {
         }
     } else {
         // Token found in cookies
-        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        jwt.verify(token, JWT_SECRET, (err, user) => {
             if (err) {
                 return next(errorHandler(403, 'Forbidden, admins only. You do not have permission to proceed'));
             }

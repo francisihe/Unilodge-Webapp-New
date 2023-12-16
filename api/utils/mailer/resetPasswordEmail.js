@@ -1,8 +1,9 @@
 import { transporter } from './transporter.js';
+import { EMAIL } from '../variables.js';
 
 export const resetPasswordEmail = async (email, firstname) => {
     const mailOptions = {
-        from: `Unilodge Realty <${process.env.EMAIL}>`,
+        from: `Unilodge Realty <${EMAIL}>`,
         to: email,
         subject: 'Unilodge Realty - Password Reset Successful',
         html: `

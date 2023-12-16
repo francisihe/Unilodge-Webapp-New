@@ -1,8 +1,9 @@
 import { transporter } from './transporter.js';
+import { EMAIL } from '../variables.js';
 
 export const newUserVerificationEmail = async (email, verificationCode, firstname) => {
     const mailOptions = {
-        from: `Unilodge Realty <${process.env.EMAIL}>`,
+        from: `Unilodge Realty <${EMAIL}>`,
         to: email,
         bcc: 'unilodgeng103@gmail.com',
         subject: 'Welcome to Unilodge Realty - Verify Your Email',
