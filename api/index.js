@@ -9,6 +9,7 @@ import bookingRouter from './routes/booking.js'
 import userRouter from './routes/user.js'
 import caretakerRouter from './routes/caretaker.js'
 import summaryRouter from './routes/summary.js'
+import blogRouter from './routes/blog.js'
 import { connectToDatabase } from './db/connectdb.js';
 
 const app = express(); // Express App
@@ -33,6 +34,7 @@ app.use('/api/v1/bookings', bookingRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/caretakers', caretakerRouter)
 app.use('/api/v1/summary', summaryRouter)
+app.use('/api/v1/blogs', blogRouter)
 
 // Port and DB Connection
 const port = process.env.PORT || 3000;

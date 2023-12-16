@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Booking from "../models/bookingModel.js";
 import User from "../models/userModel.js";
-
+import { newBookingCreatedEmail } from '../utils/mailer/newBookingCreatedEmail.js';
 
 export const createBooking = async (req, res, next) => {
     try {
@@ -9,8 +9,16 @@ export const createBooking = async (req, res, next) => {
         let user = await User.findOne({ email: req.body.email });
         let bookingData = { ...req.body }
         //If user exists, it links the booking to the user, else it just books for inspection as usual
-        if (user) { bookingData.userRef = user._id }
+        // if (user) { bookingData.userRef = user._id }
+        if (user) {
+            bookingData.userRef = user._id
+        } else {
+            bookingData.userRef = null
+        }
         const newBooking = await Booking.create(bookingData);
+
+        // Send email to admin
+        await newBookingCreatedEmail(newBooking);
         res.status(201).json(newBooking);
     } catch (error) {
         next(error);
