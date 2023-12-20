@@ -69,7 +69,7 @@ const AddPropertyForm = () => {
           setImageUploadError('Image upload failed (2 MB max per image)');
           continue; // Skip this file and move to the next
         }
-        promises.push(storeImage(files[i]));
+         promises.push(storeImage(files[i]));
       }
 
       Promise.all(promises)
@@ -360,7 +360,7 @@ const AddPropertyForm = () => {
             type='file'
             id='images'
             // accept='image/*'
-            accept='image/png, image/jpg, image/jpeg'
+            accept='image/png, image/jpg, image/jpeg, .webp'
             multiple
             onChange={(event) => setFiles(event.target.files)}
             className="border border-gray-300 rounded-lg py-1 px-4 w-full"
