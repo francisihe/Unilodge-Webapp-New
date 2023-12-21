@@ -47,7 +47,7 @@ const PropertyListing = () => {
   };
 
   return (
-    <div className="mx-auto lg:max-w-screen-xl lg:pt-8">
+    <div className="flex flex-col my-4 space-y-3 lg:mx-auto lg:w-screen lg:max-w-screen-xl">
 
       {/* Header for Tablet and Large screens, Hidden on Mobile */}
       <div className="hidden md:block">
